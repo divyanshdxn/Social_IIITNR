@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "npm run build && node dist/app.js",
-    "dev": "nodemon src/app.ts",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "dev": "nodemon src/app.ts"
   },
   "keywords": [
     "backend",

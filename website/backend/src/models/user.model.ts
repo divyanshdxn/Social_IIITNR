@@ -1,6 +1,6 @@
 export class CreateUserDto {
     constructor(
-        public uuid: string,
+        public userId: string,
         public passwordHash: string,
         public email:string,
         public firstName: string,
@@ -11,7 +11,7 @@ export class CreateUserDto {
 
 export class User {
     constructor(
-        public uuid:string,
+        public userId:string,
         public email:string,
         public firstName: string,
         public lastname?: string,

@@ -1,8 +1,9 @@
-CREATE TABLE `user_post` (
-    `id` varchar NOT NULL,
-    `photoUrl` varchar NOT NULL,
-    `caption` varchar,
-    `user_id` varchar
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`),
-)
+CREATE TABLE IF NOT EXISTS user_post (
+    post_id varchar NOT NULL PRIMARY KEY,
+    photo_url varchar NOT NULL,
+    caption varchar,
+    user_id varchar NOT NULL,
+    CONSTRAINT fk_customer FOREIGN KEY(user_id) REFERENCES user_profile(user_id)
+);
+
+
