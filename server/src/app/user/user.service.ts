@@ -7,11 +7,12 @@ import { User } from './entities/user.entity';
 import { v4 } from 'uuid'
 import { GetUserDto } from './dto/get-user.dto';
 import { usetToGetUserDto } from './util';
+import { urlencoded } from 'express';
 
 @Injectable()
 export class UserService {
 
-  constructor(@InjectRepository(User) private userRepository: Repository<User>) { }
+  constructor(@InjectRepository(User) public userRepository: Repository<User>) { }
 
   async create(createUserDto: CreateUserDto) {
     try {
@@ -21,11 +22,12 @@ export class UserService {
         lastName: createUserDto.lastName,
         passwordHash: createUserDto.password,
         photoUrl: createUserDto.photoUrl,
-        email: createUserDto.email
+        email: createUserDto.email,
+        createdAt: (new Date()),
+        updatedAt: (new Date())
       })
-      const {passwordHash,...dbUser} = await this.userRepository.save(user)
-      
-      return dbUser;
+      user.passwordHash = undefined;
+      return user;
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error.detail)
@@ -33,33 +35,36 @@ export class UserService {
   }
 
   async validateUser(email: string, password: string) {
-    
+
     const dbUser = await this.findByEmail(email)
     return dbUser.passwordHash == password
   }
 
   async findAll() {
-    return (await this.userRepository.find()).map(user => new GetUserDto(user.email,user.firstName,user.lastName,user.photoUrl));
+    return (await this.userRepository.find()).map(user => new GetUserDto(user.email, user.firstName, user.lastName, user.photoUrl));
   }
 
-  async findById(userId: string) : Promise<GetUserDto> {
+  async findById(userId: string): Promise<User> {
     try {
       const user = await this.userRepository.findOne(userId)
-      return usetToGetUserDto(user)
+      user.passwordHash = undefined;
+      return user
     } catch (error) {
       console.log(error);
       throw new BadRequestException("User not found!")
     }
-    
+
   }
 
-  findByEmail(email: string) {
+  async findByEmail(email: string) {
     try {
-      return this.userRepository.findOne({ email: email })
+      const user = await this.userRepository.findOne({ email: email })
+      user.passwordHash = undefined;
+      return user;
     } catch (error) {
       throw new BadRequestException(error.detail)
     }
-    
+
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

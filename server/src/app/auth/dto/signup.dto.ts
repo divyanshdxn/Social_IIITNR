@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger'
 
 export class SignupDto {
 
-    @ApiProperty()
+    @ApiProperty({ format: "email" })
     @IsEmail()
     email: string
 

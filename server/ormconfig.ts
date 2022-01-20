@@ -1,8 +1,11 @@
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 
+// postgres://zjlzxeur:uZQua72rbKJZMBxk_y_T3hzZivUCVxYh@john.db.elephantsql.com/zjlzxeur
+
 const ORMConfig: PostgresConnectionOptions = {
+
     type: 'postgres',
-    host: 'localhost',
+    host: 'zjlzxeur',
     port: 5432,
     username: 'postgres',
     password: '231223',
