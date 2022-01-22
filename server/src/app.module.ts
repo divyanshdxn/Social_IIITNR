@@ -10,7 +10,8 @@ import ORMConfig from 'ormconfig';
   imports: [AuthModule, UserModule, PostModule, TypeOrmModule.forRoot(ORMConfig),
     ConfigModule.forRoot({
       envFilePath: ".env",
-      isGlobal: true
+      isGlobal: true,
+      load:[]
     })
   ],
   controllers: [],

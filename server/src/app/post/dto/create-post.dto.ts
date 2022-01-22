@@ -6,8 +6,6 @@ export class CreatePostDto {
     @ApiProperty()
     caption: string
 
-   
-
     @ApiProperty()
     userId: string
 }

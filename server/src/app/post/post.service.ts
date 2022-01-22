@@ -12,27 +12,39 @@ import { Post } from './entities/post.entity';
 export class PostService {
   constructor(
     private userService: UserService,
-    @InjectRepository(Post) public postRepository: Repository<Post>) { }
+    @InjectRepository(Post) public postRepository: Repository<Post>,
+  ) {}
 
-  async create(createPostDto: CreatePostDto,media:Express.Multer.File) {
+  async create(createPostDto: CreatePostDto, media: Express.Multer.File) {
     try {
-      const user = await this.userService.findById(createPostDto.userId)
+      const user = await this.userService.findById(createPostDto.userId);
       const post = this.postRepository.create({
         postId: v4(),
         caption: createPostDto.caption,
         media: media.buffer,
-        mimeType:media.mimetype,
-        createdAt: (new Date()),
-        updatedAt: (new Date()),
-        user: user
-      })
+        mimeType: media.mimetype,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        user: user,
+        likes:[]
+      });
+      await post.save()
       return post;
     } catch (error) {
-       throw new InternalServerErrorException(error)
+      console.log(error);
+      throw new InternalServerErrorException(error);
     }
   }
 
-  findAll() {
+  async findAll() {
+    try {
+      const posts = await this.postRepository.find({});
+      return posts;
+    } catch (error) {
+      console.error(error);
+      
+      return [];
+    }
     return `This action returns all post`;
   }
 

@@ -1,8 +1,8 @@
 import { User } from "src/app/user/entities/user.entity";
-import { Column, Entity, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Post {
+export class Post extends BaseEntity {
 
     @PrimaryGeneratedColumn("uuid")
     postId: string

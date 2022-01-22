@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guard/jwt.guard';
 import { UserService } from './user.service';
 
@@ -8,13 +9,15 @@ export class UserController {
 
   // @UseGuards(JwtAuthGuard)
   @Get()
-  findAll() {
+  @ApiTags("User")
+  getAllUsers() {
     return this.userService.findAll();
   }
 
   @Get(':id')
+  @ApiTags("User")
   // @UseGuards(JwtAuthGuard)
-  findOne(@Param('id') id: string) {
+  getUserById(@Param('id') id: string) {
     return this.userService.findById (id);
   }
 
