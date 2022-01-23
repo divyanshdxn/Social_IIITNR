@@ -8,4 +8,5 @@ export class CreateUserDto {
     firstName:string
     lastName!:string
     photoUrl:string
+  bio: string
 }

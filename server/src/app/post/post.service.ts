@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { use } from 'passport';
 import { Repository } from 'typeorm';
 import { v4 } from 'uuid';
+import { ProfileService } from '../profile/profile.service';
 import { UserService } from '../user/user.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -11,13 +12,13 @@ import { Post } from './entities/post.entity';
 @Injectable()
 export class PostService {
   constructor(
-    private userService: UserService,
+    private profileService: ProfileService,
     @InjectRepository(Post) public postRepository: Repository<Post>,
   ) {}
 
   async create(createPostDto: CreatePostDto, media: Express.Multer.File) {
     try {
-      const user = await this.userService.findById(createPostDto.userId);
+      const profile = await this.profileService.findById(createPostDto.userId);
       const post = this.postRepository.create({
         postId: v4(),
         caption: createPostDto.caption,
@@ -25,10 +26,9 @@ export class PostService {
         mimeType: media.mimetype,
         createdAt: new Date(),
         updatedAt: new Date(),
-        user: user,
-        likes:[]
+        profile: profile,
       });
-      await post.save()
+      await post.save();
       return post;
     } catch (error) {
       console.log(error);
@@ -42,7 +42,7 @@ export class PostService {
       return posts;
     } catch (error) {
       console.error(error);
-      
+
       return [];
     }
     return `This action returns all post`;

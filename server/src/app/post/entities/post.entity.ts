@@ -1,31 +1,34 @@
-import { User } from "src/app/user/entities/user.entity";
-import { BaseEntity, Column, Entity, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Profile } from 'src/app/profile/entities/profile.entity';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
-@Entity()
+@Entity('post')
 export class Post extends BaseEntity {
+  @PrimaryGeneratedColumn('uuid')
+  postId: string;
 
-    @PrimaryGeneratedColumn("uuid")
-    postId: string
+  @Column()
+  caption: string;
 
-    @Column()
-    caption: string
+  @Column({ type: 'bytea', nullable: true })
+  media: Buffer;
 
-    @Column({ type: "bytea", nullable: true })
-    media: Buffer
+  @Column({ nullable: true })
+  mimeType: string;
 
-    @Column({nullable:true})
-    mimeType: string
+  @Column({ type: 'timestamp', nullable: false })
+  createdAt: Date;
 
-    @Column({ type: "timestamp", nullable: false })
-    createdAt: Date
+  @Column({ type: 'timestamp', nullable: false })
+  updatedAt: Date;
 
-    @Column({ type: "timestamp", nullable: false })
-    updatedAt: Date
-
-    @OneToOne(type => User)
-    user: User
-
-    @ManyToMany(type => User)
-    likes: User[]
-
+  @ManyToOne(() => Profile, (profile) => profile.posts, { onDelete: 'CASCADE' })
+  @JoinColumn()
+  profile: Profile;
 }

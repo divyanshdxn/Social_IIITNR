@@ -4,6 +4,7 @@ import { UserModule } from './app/user/user.module';
 import { PostModule } from './app/post/post.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { ProfileModule } from './app/profile/profile.module';
 import ORMConfig from 'ormconfig';
 
 @Module({
@@ -12,7 +13,8 @@ import ORMConfig from 'ormconfig';
       envFilePath: ".env",
       isGlobal: true,
       load:[]
-    })
+    }),
+    ProfileModule
   ],
   controllers: [],
   providers: [],

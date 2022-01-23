@@ -19,4 +19,8 @@ export class SignupDto {
 
     @ApiProperty()
     photoUrl: string
+
+    @ApiProperty()
+    bio: string;
+
 }
