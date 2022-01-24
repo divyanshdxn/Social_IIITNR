@@ -1,3 +1,4 @@
+import { Page } from 'src/app/pages/entities/pages.entity';
 import { Post } from 'src/app/post/entities/post.entity';
 import {
   Entity,
@@ -34,4 +35,8 @@ export class Profile extends BaseEntity {
   @OneToMany((type) => Post, (post) => post.profile)
   @JoinColumn()
   posts: Post[];
+
+  @OneToMany(() => Page, (page) => page.createdBy)
+  @JoinColumn()
+  ownerOfPages: Page[];
 }
