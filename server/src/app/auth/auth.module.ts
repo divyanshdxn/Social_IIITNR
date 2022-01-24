@@ -17,7 +17,7 @@ import { env } from 'process';
     UserModule,
     PassportModule,
     ProfileModule,
-    JwtModule.register({ secret: envConfig.jwtSecret }),
+    JwtModule.register({ secret: envConfig.jwtSecret, signOptions:{expiresIn:'24h'} }),
   ],
 })
 export class AuthModule {}

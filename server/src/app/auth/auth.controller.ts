@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SigninDto } from './dto/signin.dto';
@@ -14,6 +15,7 @@ import { SignupDto } from './dto/signup.dto';
 import { JwtAuthGuard } from './guard/jwt.guard';
 import { LocalAuthGuard } from './guard/local.guard';
 import { ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -28,8 +30,14 @@ export class AuthController {
   @ApiTags('Auth')
   @UseGuards(LocalAuthGuard)
   @Post('signin')
-  signin(@Body() signinDto: SigninDto) {
-    return this.authService.signin(signinDto.email, signinDto.password);
+  async signin(@Body() signinDto: SigninDto, @Res() response: Response) {
+    const token = await this.authService.signin(signinDto.email, signinDto.password);
+    return response
+      .cookie('access_token', token, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      })
+      .send({ success: true });
   }
 
   @ApiTags('Auth')
