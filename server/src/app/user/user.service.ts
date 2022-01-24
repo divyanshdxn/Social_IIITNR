@@ -1,12 +1,10 @@
-import {
-  BadRequestException,
-  Injectable,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { ProfileService } from '../profile/profile.service';
+import { Profile } from '../profile/entities/profile.entity';
 
 @Injectable()
 export class UserService {
@@ -26,9 +24,8 @@ export class UserService {
       });
       const user = this.userRepository.create({
         profile: profile,
-        email:profile.email,
+        email: profile.email,
         passwordHash: createUserDto.password,
-        userId: profile.userId,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
@@ -40,12 +37,16 @@ export class UserService {
     }
   }
 
-  async validateUser(email: string, password: string) {
-    const user = await this.userRepository.findOne({ email });
-    if (password == user.passwordHash) {
-      return await this.profileService.findByEmail(email);
+  async validateUser(email: string, password: string) : Promise<Profile> {
+    try {
+      const user = await this.userRepository.findOneOrFail({ email });
+      if (password == user.passwordHash) {
+        return await this.profileService.findByEmail(email);
+      }
+      return null;
+    } catch (error) {
+      throw new BadRequestException(error);
     }
-    return null;
   }
 
   changePassword(email: string, password: string) {

@@ -1,10 +1,10 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { use } from 'passport';
 import { Repository } from 'typeorm';
 import { v4 } from 'uuid';
+import { MediaService } from '../media/media.service';
+import { Profile } from '../profile/entities/profile.entity';
 import { ProfileService } from '../profile/profile.service';
-import { UserService } from '../user/user.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
@@ -12,23 +12,25 @@ import { Post } from './entities/post.entity';
 @Injectable()
 export class PostService {
   constructor(
-    private profileService: ProfileService,
     @InjectRepository(Post) public postRepository: Repository<Post>,
+    private mediaService: MediaService,
   ) {}
 
-  async create(createPostDto: CreatePostDto, media: Express.Multer.File) {
+  async create(
+    createPostDto: CreatePostDto,
+    profile: Profile,
+    file: Express.Multer.File,
+  ) {
     try {
-      const profile = await this.profileService.findById(createPostDto.userId);
-      const post = this.postRepository.create({
-        postId: v4(),
-        caption: createPostDto.caption,
-        media: media.buffer,
-        mimeType: media.mimetype,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        profile: profile,
-      });
-      await post.save();
+      const mediaId = await this.mediaService.create(file);
+      const post = await this.postRepository
+        .create({
+          postId: v4(),
+          caption: createPostDto.caption,
+          profile: profile,
+          media: [mediaId],
+        })
+        .save();
       return post;
     } catch (error) {
       console.log(error);
@@ -42,17 +44,15 @@ export class PostService {
       return posts;
     } catch (error) {
       console.error(error);
-
       return [];
     }
-    return `This action returns all post`;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} post`;
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
+  update(id: string, updatePostDto: UpdatePostDto) {
     return `This action updates a #${id} post`;
   }
 

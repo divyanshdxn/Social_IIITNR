@@ -11,7 +11,7 @@ import { Profile } from './entities/profile.entity';
 export class ProfileService {
   constructor(
     @InjectRepository(Profile)
-    private readonly profileRepository: Repository<Profile>
+    private readonly profileRepository: Repository<Profile>,
   ) {}
 
   async findById(userId: string): Promise<Profile> {
@@ -48,8 +48,15 @@ export class ProfileService {
     }
   }
 
-  remove(userId: string) {}
-  update(userId: string, updateProfileDto: UpdateProfileDto) {}
+  async remove(userId: string): Promise<Profile[]> {
+    const profile = await this.findById(userId);
+    return this.profileRepository.remove([profile]);
+  }
+
+  update(userId: string, updateProfileDto: UpdateProfileDto) {
+    return this.profileRepository.update(userId, updateProfileDto);
+  }
+
   findAll() {
     return this.profileRepository.find({});
   }

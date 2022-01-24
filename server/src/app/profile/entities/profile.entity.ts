@@ -1,17 +1,16 @@
 import { Post } from 'src/app/post/entities/post.entity';
 import {
   Entity,
-  PrimaryColumn,
-  CreateDateColumn,
   Column,
   OneToMany,
   JoinColumn,
   BaseEntity,
+  PrimaryColumn,
 } from 'typeorm';
 
 @Entity('profile')
 export class Profile extends BaseEntity {
-  @PrimaryColumn({ type: 'uuid' })
+  @PrimaryColumn('uuid')
   userId: string;
 
   @Column({ type: 'timestamp', nullable: false })

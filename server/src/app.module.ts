@@ -5,6 +5,7 @@ import { PostModule } from './app/post/post.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { ProfileModule } from './app/profile/profile.module';
+import { MediaModule } from './app/media/media.module';
 import ORMConfig from 'ormconfig';
 
 @Module({
@@ -14,7 +15,8 @@ import ORMConfig from 'ormconfig';
       isGlobal: true,
       load:[]
     }),
-    ProfileModule
+    ProfileModule,
+    MediaModule
   ],
   controllers: [],
   providers: [],

@@ -1,13 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { JwtAuthGuard } from '../auth/guard/jwt.guard';
 import { ApiTags } from '@nestjs/swagger';
+import { Profile } from './entities/profile.entity';
 
 @Controller('profile')
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
+  // get all users-profiles on server
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiTags('Profile')
@@ -15,6 +26,7 @@ export class ProfileController {
     return this.profileService.findAll();
   }
 
+  // get one user-profile by its userId
   @Get(':id')
   @ApiTags('Profile')
   @UseGuards(JwtAuthGuard)
@@ -22,17 +34,21 @@ export class ProfileController {
     return this.profileService.findById(id);
   }
 
-  @Patch(':id')
+  // update the profile of signed in user
+  @Patch()
   @UseGuards(JwtAuthGuard)
   @ApiTags('Profile')
-  update(@Param('id') id: string, @Body() updateProfileDto: UpdateProfileDto) {
-    return this.profileService.update(id, updateProfileDto);
+  update(@Request() req: any, @Body() updateProfileDto: UpdateProfileDto) {
+    const profile: Profile = req.user;
+    return this.profileService.update(profile.userId, updateProfileDto);
   }
 
-  @Delete(':id')
+  // delete the profile of signed in user
+  @Delete()
   @ApiTags('Profile')
   @UseGuards(JwtAuthGuard)
-  remove(@Param('id') id: string) {
-    return this.profileService.remove(id);
+  remove(@Request() req: any) {
+    const profile: Profile = req.user;
+    return this.profileService.remove(profile.userId);
   }
 }

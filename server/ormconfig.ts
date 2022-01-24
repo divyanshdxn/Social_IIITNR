@@ -8,13 +8,13 @@ const ORMConfig: PostgresConnectionOptions = {
     entities: [
         'dist/src/**/*.entity.js',
     ],
-    synchronize: true,
-    // migrations : [
-    //     'dist/src/database/migrations/*.js'
-    // ],
-    // cli:{
-    //      migrationsDir:'src/database/migrations'
-    // }
+    synchronize: false,
+    migrations : [
+        'dist/src/database/migrations/*.js'
+    ],
+    cli:{
+         migrationsDir:'src/database/migrations'
+    }
 }
 
 export default ORMConfig

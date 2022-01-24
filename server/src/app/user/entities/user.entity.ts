@@ -1,4 +1,3 @@
-import { Post } from 'src/app/post/entities/post.entity';
 import { Profile } from 'src/app/profile/entities/profile.entity';
 import {
   BaseEntity,
@@ -6,23 +5,16 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  ManyToMany,
-  OneToMany,
   OneToOne,
   PrimaryColumn,
-  PrimaryGeneratedColumn,
-  Timestamp,
 } from 'typeorm';
 
-@Entity('user')
+@Entity('users')
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  userId: string;
-
   @Column({ nullable: false })
   passwordHash: string;
 
-  @Column({ unique: true })
+  @PrimaryColumn()
   email: string;
 
   @CreateDateColumn()

@@ -2,33 +2,34 @@ import { Profile } from 'src/app/profile/entities/profile.entity';
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity('post')
 export class Post extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn({type:"uuid"})
   postId: string;
 
   @Column()
   caption: string;
 
-  @Column({ type: 'bytea', nullable: true })
-  media: Buffer;
-
-  @Column({ nullable: true })
-  mimeType: string;
-
-  @Column({ type: 'timestamp', nullable: false })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @Column({ type: 'timestamp', nullable: false })
+  @UpdateDateColumn()
   updatedAt: Date;
 
   @ManyToOne(() => Profile, (profile) => profile.posts, { onDelete: 'CASCADE' })
   @JoinColumn()
   profile: Profile;
+
+  @Column({ type: 'simple-array' })
+  media: string[];
 }

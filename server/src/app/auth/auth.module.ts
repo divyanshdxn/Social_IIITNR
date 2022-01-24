@@ -6,8 +6,9 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStratagy } from './stratagy/jwt.stratagy';
 import { LocalStrategy } from './stratagy/local.stratagy';
-import { config } from 'src/config/configurations';
+import { envConfig } from 'src/config/env.config';
 import { ProfileModule } from '../profile/profile.module';
+import { env } from 'process';
 
 @Module({
   controllers: [AuthController],
@@ -16,7 +17,7 @@ import { ProfileModule } from '../profile/profile.module';
     UserModule,
     PassportModule,
     ProfileModule,
-    JwtModule.register({ secret: config.jwtSecret }),
+    JwtModule.register({ secret: envConfig.jwtSecret }),
   ],
 })
 export class AuthModule {}

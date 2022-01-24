@@ -1,4 +1,4 @@
-export const config = {
+export const envConfig = {
   port: parseInt(process.env.PORT, 10) || 3000,
   jwtSecret: process.env.JWT_SECRET || 'mykickasssecret',
   environment: process.env.NODE_ENVIRONMENT || 'development',
