@@ -9,6 +9,6 @@ import { MediaModule } from '../media/media.module';
 @Module({
   controllers: [PostController],
   providers: [PostService],
-  imports:[ProfileModule,TypeOrmModule.forFeature([Post]),MediaModule]
+  imports: [ProfileModule, TypeOrmModule.forFeature([Post]), MediaModule],
 })
 export class PostModule {}

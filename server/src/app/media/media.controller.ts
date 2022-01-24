@@ -17,12 +17,12 @@ export class MediaController {
 
   @Get(':mediaId')
   async findOne(@Param('mediaId') mediaId: string, @Res() res: Response) {
-    const media = await this.mediaService.findOne(mediaId);    
+    const media = await this.mediaService.findOne(mediaId);
     res.set({
       'Content-type': media.mimeType,
     });
     const file = createReadStream(join(process.cwd(), media.path));
-    return file.pipe(res)
+    return file.pipe(res);
   }
 
   @Delete(':mediaId')

@@ -63,7 +63,7 @@ export class PostController {
   update a post
   a user can update only those post, which belongs to him
   if not then throw unAuthorized exception - "this post belongs to another user" 
-  */ 
+  */
   @Patch(':id')
   @ApiTags('Post')
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
@@ -74,7 +74,7 @@ export class PostController {
   delete a post
   a user can delete only those post, which belongs to him
   if not then throw unAuthorized exception - "this post belongs to another user" 
-  */ 
+  */
   @Delete(':id')
   @ApiTags('Post')
   remove(@Param('id') id: string) {

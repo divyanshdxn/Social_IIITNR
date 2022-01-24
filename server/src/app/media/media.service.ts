@@ -31,7 +31,7 @@ export class MediaService {
 
   async getMediaFile(mediaId: string) {
     const media = await this.findOne(mediaId);
-    return createReadStream(join(process.cwd(), media.path),{});
+    return createReadStream(join(process.cwd(), media.path), {});
   }
 
   findOne(mediaId: string) {

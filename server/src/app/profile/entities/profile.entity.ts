@@ -25,7 +25,7 @@ export class Profile extends BaseEntity {
   @Column({ nullable: true })
   lastName!: string;
 
-  @Column({ nullable: false})
+  @Column({ nullable: false })
   photoUrl: string;
 
   @Column({ length: 1024 })

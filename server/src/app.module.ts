@@ -9,16 +9,20 @@ import { MediaModule } from './app/media/media.module';
 import ORMConfig from 'ormconfig';
 
 @Module({
-  imports: [AuthModule, UserModule, PostModule, TypeOrmModule.forRoot(ORMConfig),
+  imports: [
+    AuthModule,
+    UserModule,
+    PostModule,
+    TypeOrmModule.forRoot(ORMConfig),
     ConfigModule.forRoot({
-      envFilePath: ".env",
+      envFilePath: '.env',
       isGlobal: true,
-      load:[]
+      load: [],
     }),
     ProfileModule,
-    MediaModule
+    MediaModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

@@ -37,7 +37,7 @@ export class UserService {
     }
   }
 
-  async validateUser(email: string, password: string) : Promise<Profile> {
+  async validateUser(email: string, password: string): Promise<Profile> {
     try {
       const user = await this.userRepository.findOneOrFail({ email });
       if (password == user.passwordHash) {

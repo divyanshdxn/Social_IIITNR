@@ -20,7 +20,7 @@ export class Media extends BaseEntity {
   @Column()
   fileName: string;
 
-  @Column({nullable:true})
+  @Column({ nullable: true })
   originalName: string;
 
   @Column({ unique: true })

@@ -14,7 +14,7 @@ import {
 
 @Entity('post')
 export class Post extends BaseEntity {
-  @PrimaryColumn({type:"uuid"})
+  @PrimaryColumn({ type: 'uuid' })
   postId: string;
 
   @Column()
