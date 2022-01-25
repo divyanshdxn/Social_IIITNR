@@ -1,5 +1,11 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { stringify } from 'querystring';
 import { Repository } from 'typeorm';
 import { v4 } from 'uuid';
 import { MediaService } from '../media/media.service';
@@ -48,15 +54,60 @@ export class PostService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findAllByUserId(userId:string) {
+    try {
+      const posts = await this.postRepository.find({profileUserId:userId});
+      return posts;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 
-  update(id: string, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async fingById(postId: string) {
+    try {
+      return await this.postRepository.findOneOrFail({ postId });
+    } catch (error) {
+      console.log(error);
+      throw new BadRequestException(error);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async update(userId: string, postId: string, updatePostDto: UpdatePostDto) {
+    if (this.isOwnedBy(userId, postId)) {
+      try {
+        const post = await this.fingById(postId);
+        return await this.postRepository.update(postId, updatePostDto);
+      } catch (error) {
+        console.log(error);
+        throw new BadRequestException(error);
+      }
+    } else {
+      throw new UnauthorizedException('This post belongs to other user');
+    }
+  }
+
+  async remove(userId: string, postId: string) {
+    if (this.isOwnedBy(userId, postId)) {
+      try {
+        const post = await this.fingById(postId);
+        return this.postRepository.remove(post);
+      } catch (error) {
+        console.log(error);
+        throw new BadRequestException(error);
+      }
+    } else {
+      throw new UnauthorizedException('This post belongs to other user');
+    }
+  }
+
+  async isOwnedBy(userId: string, postId: string) {
+    try {
+      const post = await this.fingById(postId);
+      return userId == post.profile.userId;
+    } catch (error) {
+      console.log(error);
+      throw new BadRequestException(error);
+    }
   }
 }

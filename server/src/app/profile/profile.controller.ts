@@ -29,8 +29,8 @@ export class ProfileController {
   @Get('get/email')
   @ApiTags('Profile')
   @UseGuards(JwtAuthGuard)
-  async findByEmail(id: string) {
-    return await this.profileService.findByEmail(id);
+  async findByEmail(@Body('email') email: string) {
+    return await this.profileService.findByEmail(email);
   }
 
   // get one user-profile by its userId
