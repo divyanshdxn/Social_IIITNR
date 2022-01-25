@@ -64,8 +64,6 @@ export class PostController {
     return this.postService.fingById(postId);
   }
 
-
-
   @Get('user/:userId')
   @ApiTags('Post')
   @UseGuards(JwtAuthGuard)

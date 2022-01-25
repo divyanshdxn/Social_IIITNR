@@ -54,9 +54,9 @@ export class PostService {
     }
   }
 
-  async findAllByUserId(userId:string) {
+  async findAllByUserId(userId: string) {
     try {
-      const posts = await this.postRepository.find({profileUserId:userId});
+      const posts = await this.postRepository.find({ profileUserId: userId });
       return posts;
     } catch (error) {
       console.error(error);
