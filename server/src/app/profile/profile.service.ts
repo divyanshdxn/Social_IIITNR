@@ -1,8 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InsertResult, Repository } from 'typeorm';
 import { v4 } from 'uuid';
-import { Post } from '../post/entities/post.entity';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { Profile } from './entities/profile.entity';
@@ -16,17 +15,18 @@ export class ProfileService {
 
   async findById(userId: string): Promise<Profile> {
     try {
-      return await this.profileRepository.findOne({ userId });
+      return await this.profileRepository.findOneOrFail({ userId });
     } catch (err) {
-      throw err;
+      console.log(err);
+      throw new BadRequestException(err);
     }
   }
 
   async findByEmail(email: string): Promise<Profile> {
     try {
-      return await this.profileRepository.findOne({ email });
+      return await this.profileRepository.findOneOrFail({ email });
     } catch (err) {
-      throw err;
+      throw new BadRequestException(err);
     }
   }
 

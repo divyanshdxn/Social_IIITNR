@@ -13,7 +13,7 @@ export class JwtStratagy extends PassportStrategy(Strategy) {
     super({
       secretOrKey: envConfig.jwtSecret,
       ignoreExpiration: false,
-      jwtFromRequest: (req:Request) => req.cookies['access_token'],
+      jwtFromRequest: (req: Request) => req.cookies['access_token'],
     });
   }
 

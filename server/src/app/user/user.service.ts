@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { ProfileService } from '../profile/profile.service';
 import { Profile } from '../profile/entities/profile.entity';
+import { genSalt, hash, compare } from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -22,12 +23,13 @@ export class UserService {
         firstName: createUserDto.firstName,
         lastName: createUserDto.lastName,
       });
+      const salt = await genSalt();
+      const passwordHash = await hash(createUserDto.password, salt);
       const user = this.userRepository.create({
-        profile: profile,
+        salt,
+        profile,
         email: profile.email,
-        passwordHash: createUserDto.password,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        passwordHash,
       });
       await user.save();
       return profile;
@@ -40,7 +42,8 @@ export class UserService {
   async validateUser(email: string, password: string): Promise<Profile> {
     try {
       const user = await this.userRepository.findOneOrFail({ email });
-      if (password == user.passwordHash) {
+
+      if (await compare(password, user.passwordHash)) {
         return await this.profileService.findByEmail(email);
       }
       return null;

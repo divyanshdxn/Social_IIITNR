@@ -11,7 +11,7 @@ import {
 import { ProfileService } from './profile.service';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { JwtAuthGuard } from '../auth/guard/jwt.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { Profile } from './entities/profile.entity';
 
 @Controller('profile')
@@ -24,6 +24,13 @@ export class ProfileController {
   @ApiTags('Profile')
   findAll() {
     return this.profileService.findAll();
+  }
+
+  @Get('get/email')
+  @ApiTags('Profile')
+  @UseGuards(JwtAuthGuard)
+  async findByEmail(id: string) {
+    return await this.profileService.findByEmail(id);
   }
 
   // get one user-profile by its userId
