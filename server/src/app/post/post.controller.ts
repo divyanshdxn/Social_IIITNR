@@ -10,6 +10,7 @@ import {
   Request,
   UseInterceptors,
   UploadedFile,
+  Req,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -30,21 +31,24 @@ export class PostController {
   if verification succeeds, then the request object gets populated
   with the associated profile, and we can then access the verified
   profile by request.user
+  [POST] /post/create
   */
   @Post('create')
   @UseGuards(JwtAuthGuard)
   @ApiTags('Post')
-  @UseInterceptors(FileInterceptor('media', postMulterConfig))
+  @UseInterceptors(FileInterceptor('file', postMulterConfig))
   create(
     @Body() createPostDto: CreatePostDto,
     @Request() req: any,
-    @UploadedFile() media: Express.Multer.File,
+    @UploadedFile('file') file: Express.Multer.File,
   ) {
     const profile: Profile = req.user;
-    return this.postService.create(createPostDto, profile, media);
+    return this.postService.create(createPostDto, profile, file);
   }
 
-  /* get all posts, only a signed in user can see all the posts */
+  /* get all posts, only a signed in user can see all the posts 
+    [GET] /post
+  */
   @Get()
   @ApiTags('Post')
   @UseGuards(JwtAuthGuard)
@@ -53,10 +57,18 @@ export class PostController {
   }
 
   /* get a post by its id, only a signed in user can ask for a post */
-  @Get(':id')
+  @Get(':postId')
   @ApiTags('Post')
-  findOne(@Param('id') id: string) {
-    return this.postService.findOne(+id);
+  @UseGuards(JwtAuthGuard)
+  findOne(@Param('postId') postId: string) {
+    return this.postService.fingById(postId);
+  }
+
+  @Get('user/:userId')
+  @ApiTags('Post')
+  @UseGuards(JwtAuthGuard)
+  findOneByUser(@Param('userId') userId: string) {
+    return this.postService.findAllByUserId(userId);
   }
 
   /* 
@@ -64,10 +76,16 @@ export class PostController {
   a user can update only those post, which belongs to him
   if not then throw unAuthorized exception - "this post belongs to another user" 
   */
-  @Patch(':id')
+  @Patch(':postId')
   @ApiTags('Post')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postService.update(id, updatePostDto);
+  @UseGuards(JwtAuthGuard)
+  update(
+    @Param('postId') postId: string,
+    @Body() updatePostDto: UpdatePostDto,
+    @Req() req: any,
+  ) {
+    const profile: Profile = req.user;
+    return this.postService.update(profile.userId, postId, updatePostDto);
   }
 
   /* 
@@ -75,9 +93,11 @@ export class PostController {
   a user can delete only those post, which belongs to him
   if not then throw unAuthorized exception - "this post belongs to another user" 
   */
-  @Delete(':id')
+  @Delete(':postId')
   @ApiTags('Post')
-  remove(@Param('id') id: string) {
-    return this.postService.remove(+id);
+  @UseGuards(JwtAuthGuard)
+  remove(@Param('postId') postId: string, @Req() req: any) {
+    const profile: Profile = req.user;
+    return this.postService.remove(profile.userId, postId);
   }
 }

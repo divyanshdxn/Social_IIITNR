@@ -7,6 +7,7 @@ import {
   JoinColumn,
   OneToOne,
   PrimaryColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity('users')
@@ -14,13 +15,16 @@ export class User extends BaseEntity {
   @Column({ nullable: false })
   passwordHash: string;
 
+  @Column({ nullable: false })
+  salt: string;
+
   @PrimaryColumn()
   email: string;
 
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column({ type: 'timestamp', nullable: false })
+  @UpdateDateColumn()
   updatedAt: Date;
 
   @OneToOne(() => Profile, { cascade: true })
