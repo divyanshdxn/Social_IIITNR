@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { ProfileModule } from './app/profile/profile.module';
 import { MediaModule } from './app/media/media.module';
+import { PagesModule } from './app/pages/pages.module';
 import ORMConfig from 'ormconfig';
 
 @Module({
@@ -21,6 +22,7 @@ import ORMConfig from 'ormconfig';
     }),
     ProfileModule,
     MediaModule,
+    PagesModule,
   ],
   controllers: [],
   providers: [],
