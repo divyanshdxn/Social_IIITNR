@@ -30,7 +30,6 @@ export class Post extends BaseEntity {
   profileUserId: string;
 
   @ManyToOne(() => Profile, (profile) => profile.posts, { onDelete: 'CASCADE' })
-  @JoinColumn()
   profile: Profile;
 
   @Column({ type: 'simple-array' })
