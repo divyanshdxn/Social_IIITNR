@@ -5,12 +5,11 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { stringify } from 'querystring';
 import { Repository } from 'typeorm';
 import { v4 } from 'uuid';
 import { MediaService } from '../media/media.service';
+import { PagesService } from '../pages/pages.service';
 import { Profile } from '../profile/entities/profile.entity';
-import { ProfileService } from '../profile/profile.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
@@ -20,6 +19,7 @@ export class PostService {
   constructor(
     @InjectRepository(Post) public postRepository: Repository<Post>,
     private mediaService: MediaService,
+    private pagesService: PagesService,
   ) {}
 
   async create(
@@ -29,15 +29,15 @@ export class PostService {
   ) {
     try {
       const mediaId = await this.mediaService.create(file);
-      const post = await this.postRepository
-        .create({
-          postId: v4(),
-          caption: createPostDto.caption,
-          profile: profile,
-          media: [mediaId],
-        })
-        .save();
-      return post;
+      const post = this.postRepository.create({
+        postId: v4(),
+        caption: createPostDto.caption,
+        profile: profile,
+        media: [mediaId],
+      });
+      if (createPostDto.pageId)
+        post.page = await this.pagesService.findOne(createPostDto.pageId);
+      return post.save();
     } catch (error) {
       console.log(error);
       throw new InternalServerErrorException(error);
@@ -46,7 +46,7 @@ export class PostService {
 
   async findAll() {
     try {
-      const posts = await this.postRepository.find({});
+      const posts = await this.postRepository.find({ relations: ['page'] });
       return posts;
     } catch (error) {
       console.error(error);
@@ -56,7 +56,9 @@ export class PostService {
 
   async findAllByUserId(userId: string) {
     try {
-      const posts = await this.postRepository.find({ profileUserId: userId });
+      const posts = await this.postRepository.find({
+        profileUserId: userId,
+      });
       return posts;
     } catch (error) {
       console.error(error);
@@ -66,7 +68,9 @@ export class PostService {
 
   async fingById(postId: string) {
     try {
-      return await this.postRepository.findOneOrFail({ postId });
+      return await this.postRepository.findOneOrFail(postId, {
+        relations: ['page'],
+      });
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error);
@@ -77,7 +81,8 @@ export class PostService {
     if (this.isOwnedBy(userId, postId)) {
       try {
         const post = await this.fingById(postId);
-        return await this.postRepository.update(postId, updatePostDto);
+        post.caption = updatePostDto.caption;
+        return await post.save();
       } catch (error) {
         console.log(error);
         throw new BadRequestException(error);

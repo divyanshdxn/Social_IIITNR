@@ -6,6 +6,8 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { isString } from 'class-validator';
 import { Repository } from 'typeorm';
+import { MediaService } from '../media/media.service';
+import { Post } from '../post/entities/post.entity';
 import { Profile } from '../profile/entities/profile.entity';
 import { ProfileService } from '../profile/profile.service';
 import { CreatePageDto } from './dto/create-page.dto';
@@ -16,7 +18,7 @@ import { Page } from './entities/pages.entity';
 export class PagesService {
   constructor(
     @InjectRepository(Page) private pagesRepository: Repository<Page>,
-    private profileService: ProfileService,
+    private mediaService: MediaService,
   ) {}
 
   findAll(): Promise<Page[]> {
@@ -31,10 +33,27 @@ export class PagesService {
     }
   }
 
-  async createPage(createPageDto: CreatePageDto, profile: Profile) {
+  async findPosts(id: string): Promise<Post[]> {
+    try {
+      const page = await this.pagesRepository.findOneOrFail(id, {
+        relations: ['posts'],
+      });
+      return page.posts;
+    } catch (err) {
+      throw new NotFoundException('Page you requested was not found');
+    }
+  }
+
+  async createPage(
+    createPageDto: CreatePageDto,
+    profile: Profile,
+    file: Express.Multer.File,
+  ) {
     console.log(profile);
     const newPage = this.pagesRepository.create(createPageDto);
+    const media = await this.mediaService.create(file);
     newPage.admins = [profile];
+    newPage.media = [media];
     await newPage.save();
     profile.adminOfPages = [newPage];
     await profile.save();

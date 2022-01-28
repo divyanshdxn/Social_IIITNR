@@ -9,3 +9,21 @@ export const postMulterConfig: MulterOptions = {
     fileSize: 1000000,
   },
 };
+
+export const eventMulterConfig: MulterOptions = {
+  storage: diskStorage({
+    destination: './uploads/event',
+  }),
+  limits: {
+    fileSize: 1000000,
+  },
+};
+
+export const pageMulterConfig: MulterOptions = {
+  storage: diskStorage({
+    destination: './uploads/page',
+  }),
+  limits: {
+    fileSize: 1000000,
+  },
+};

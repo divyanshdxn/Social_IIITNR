@@ -6,12 +6,14 @@ import {
   Param,
   Patch,
   Post,
-  Req,
   Request,
-  Res,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
+import { pageMulterConfig } from 'src/config/multer.config';
 import { JwtAuthGuard } from '../auth/guard/jwt.guard';
 import { CreatePageDto } from './dto/create-page.dto';
 import { UpdatePageDto } from './dto/update-page.dto';
@@ -34,10 +36,21 @@ export class PagesController {
     return this.pagesService.findOne(id);
   }
 
+  @Get(':id/posts')
+  @UseGuards(JwtAuthGuard)
+  getPosts(@Param('id') id: string) {
+    return this.pagesService.findPosts(id);
+  }
+
   @Post()
   @UseGuards(JwtAuthGuard)
-  createPage(@Body() body: CreatePageDto, @Request() req: any) {
-    return this.pagesService.createPage(body, req.user);
+  @UseInterceptors(FileInterceptor('file', pageMulterConfig))
+  createPage(
+    @Body() body: CreatePageDto,
+    @Request() req: any,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.pagesService.createPage(body, req.user, file);
   }
 
   @Patch(':id')

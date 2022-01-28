@@ -5,11 +5,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Post } from 'src/app/post/entities/post.entity';
 
 @Entity()
 export class Page extends BaseEntity {
@@ -35,4 +37,9 @@ export class Page extends BaseEntity {
     onDelete: 'CASCADE',
   })
   admins: Profile[];
+
+  @Column({ type: 'simple-array', nullable: true })
+  media: string[];
+  @OneToMany(() => Post, (post) => post.page)
+  posts: Post[];
 }
