@@ -21,6 +21,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { postMulterConfig } from 'src/config/multer.config';
 import { Profile } from '../profile/entities/profile.entity';
 
+@ApiTags('Post')
 @Controller('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
@@ -35,7 +36,6 @@ export class PostController {
   */
   @Post('create')
   @UseGuards(JwtAuthGuard)
-  @ApiTags('Post')
   @UseInterceptors(FileInterceptor('file', postMulterConfig))
   create(
     @Body() createPostDto: CreatePostDto,
@@ -50,7 +50,6 @@ export class PostController {
     [GET] /post
   */
   @Get()
-  @ApiTags('Post')
   @UseGuards(JwtAuthGuard)
   findAll() {
     return this.postService.findAll();
@@ -58,14 +57,12 @@ export class PostController {
 
   /* get a post by its id, only a signed in user can ask for a post */
   @Get(':postId')
-  @ApiTags('Post')
   @UseGuards(JwtAuthGuard)
   findOne(@Param('postId') postId: string) {
     return this.postService.fingById(postId);
   }
 
   @Get('user/:userId')
-  @ApiTags('Post')
   @UseGuards(JwtAuthGuard)
   findOneByUser(@Param('userId') userId: string) {
     return this.postService.findAllByUserId(userId);
@@ -77,7 +74,6 @@ export class PostController {
   if not then throw unAuthorized exception - "this post belongs to another user" 
   */
   @Patch(':postId')
-  @ApiTags('Post')
   @UseGuards(JwtAuthGuard)
   update(
     @Param('postId') postId: string,
@@ -94,7 +90,6 @@ export class PostController {
   if not then throw unAuthorized exception - "this post belongs to another user" 
   */
   @Delete(':postId')
-  @ApiTags('Post')
   @UseGuards(JwtAuthGuard)
   remove(@Param('postId') postId: string, @Req() req: any) {
     const profile: Profile = req.user;

@@ -1,14 +1,12 @@
+import { Page } from 'src/app/pages/entities/pages.entity';
 import { Profile } from 'src/app/profile/entities/profile.entity';
 import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryColumn,
-  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
@@ -30,9 +28,11 @@ export class Post extends BaseEntity {
   profileUserId: string;
 
   @ManyToOne(() => Profile, (profile) => profile.posts, { onDelete: 'CASCADE' })
-  @JoinColumn()
   profile: Profile;
 
   @Column({ type: 'simple-array' })
   media: string[];
+
+  @ManyToOne(() => Page, (page) => page.posts, { nullable: true })
+  page: Page;
 }

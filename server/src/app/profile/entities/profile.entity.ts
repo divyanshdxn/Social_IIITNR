@@ -4,9 +4,10 @@ import {
   Entity,
   Column,
   OneToMany,
-  JoinColumn,
   BaseEntity,
   PrimaryColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity('profile')
@@ -32,11 +33,13 @@ export class Profile extends BaseEntity {
   @Column({ length: 1024 })
   bio: string;
 
-  @OneToMany((type) => Post, (post) => post.profile)
-  @JoinColumn()
+  @OneToMany(() => Post, (post) => post.profile, { onDelete: 'SET NULL' })
   posts: Post[];
 
-  @OneToMany(() => Page, (page) => page.createdBy)
-  @JoinColumn()
-  ownerOfPages: Page[];
+  @ManyToMany(() => Page, (page) => page.admins, { onDelete: 'SET NULL' })
+  @JoinTable({
+    joinColumn: { name: 'pages' },
+    inverseJoinColumn: { name: 'profile' },
+  })
+  adminOfPages: Page[];
 }

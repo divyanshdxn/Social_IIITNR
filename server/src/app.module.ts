@@ -8,12 +8,14 @@ import { ProfileModule } from './app/profile/profile.module';
 import { MediaModule } from './app/media/media.module';
 import { PagesModule } from './app/pages/pages.module';
 import ORMConfig from 'ormconfig';
+import { EventsModule } from './app/events/events.module';
 
 @Module({
   imports: [
     AuthModule,
     UserModule,
     PostModule,
+    EventsModule,
     TypeOrmModule.forRoot(ORMConfig),
     ConfigModule.forRoot({
       envFilePath: '.env',
