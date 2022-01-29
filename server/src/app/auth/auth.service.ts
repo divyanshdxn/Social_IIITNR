@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
@@ -7,6 +7,7 @@ import { ProfileService } from '../profile/profile.service';
 import { sign } from 'crypto';
 import { JwtPayload } from './dto/jwt.payload';
 import { Profile } from '../profile/entities/profile.entity';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,25 @@ export class AuthService {
     private profileService: ProfileService,
     private jwtService: JwtService,
   ) {}
+
+  googleLogin(req: any, res: Response) {
+    if (!req.user) {
+      throw new UnauthorizedException();
+    }
+    const profile: Profile = req.user.profile;
+    const payload: JwtPayload = {
+      userId: profile.userId,
+      email: profile.email,
+      name: profile.firstName,
+    };
+    const accessToken = this.jwtService.sign(payload);
+    return res
+      .cookie('access_token', accessToken, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      })
+      .send(profile);
+  }
 
   async signup(signupDto: SignupDto) {
     try {

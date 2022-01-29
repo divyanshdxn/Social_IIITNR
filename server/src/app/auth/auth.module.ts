@@ -9,10 +9,11 @@ import { LocalStrategy } from './stratagy/local.stratagy';
 import { envConfig } from 'src/config/env.config';
 import { ProfileModule } from '../profile/profile.module';
 import { env } from 'process';
+import { GoogleStrategy } from './stratagy/google.strategy';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, JwtStratagy, LocalStrategy],
+  providers: [AuthService, JwtStratagy, LocalStrategy, GoogleStrategy],
   imports: [
     UserModule,
     PassportModule,

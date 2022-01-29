@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InsertResult, Repository } from 'typeorm';
 import { v4 } from 'uuid';
@@ -32,19 +32,23 @@ export class ProfileService {
 
   async createProfile(createProfileDto: CreateProfileDto): Promise<Profile> {
     try {
-      const profile = this.profileRepository.create({
-        userId: v4(),
-        updatedAt: new Date(),
+      var profile = await this.profileRepository.findOne({
         email: createProfileDto.email,
-        firstName: createProfileDto.firstName,
-        lastName: createProfileDto.lastName,
-        photoUrl: createProfileDto.photoUrl,
-        bio: createProfileDto.bio,
       });
-      await profile.save();
+      if (!profile) {
+        profile = await this.profileRepository.save({
+          userId: v4(),
+          updatedAt: new Date(),
+          email: createProfileDto.email,
+          firstName: createProfileDto.firstName,
+          lastName: createProfileDto.lastName,
+          photoUrl: createProfileDto.photoUrl,
+          bio: createProfileDto.bio,
+        });
+      }
       return profile;
     } catch (err) {
-      throw err;
+      throw new HttpException(err, 400);
     }
   }
 
