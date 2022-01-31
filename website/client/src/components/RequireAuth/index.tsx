@@ -1,7 +1,17 @@
+import { Error } from "../error";
 import React from "react";
-import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import Loading from "../loading";
 
-export default function RequireAuth({ children }: { children: JSX.Element }) {
-  console.log(axios.get("/api/auth/protected"));
-  return children;
+interface Props {
+  children: JSX.Element;
 }
+
+export const RequireAuth: React.FC<Props> = ({ children }) => {
+  const { isSuccess, isLoading, isError, status } = useAuth();
+  if (isLoading) return <Loading />;
+  else if (isError) return <Error code={status as number} />;
+  else if (isSuccess) return children;
+  else return <Navigate to="/login" replace={true} />;
+};
