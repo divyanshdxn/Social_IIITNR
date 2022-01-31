@@ -1,4 +1,6 @@
-import axios from "axios";
-import React from "react";
+import useApi from "./useApi";
 
-export default function useAuth() {}
+export const useAuth = () => {
+  const auth = useApi("/api/auth/protected", "get");
+  return auth;
+};
