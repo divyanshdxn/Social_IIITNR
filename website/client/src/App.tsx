@@ -2,6 +2,7 @@ import "./styles/tailwind.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { RequireAuth } from "./components/RequireAuth";
 import { useEffect } from "react";
+import Login from "./pages/login";
 
 export default function App() {
   return (
@@ -15,7 +16,7 @@ export default function App() {
             </RequireAuth>
           }
         ></Route>
-        <Route path="login" element={<div> Hello </div>} />
+        <Route path="login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

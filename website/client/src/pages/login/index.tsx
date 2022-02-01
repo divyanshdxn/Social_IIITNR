@@ -1,5 +1,14 @@
 import React from "react";
+import LoginPanel from "./LoginPanel";
 
-export default function Login() {
-  return <main>Login</main>;
-}
+interface Props {}
+
+const Login: React.FC<Props> = () => {
+  return (
+    <main className="h-full w-full flex justify-center items-center bg-cover bg-iiitnr overflow-auto text-text-primary dark:text-d-text-primary">
+      <LoginPanel />
+    </main>
+  );
+};
+
+export default Login;
