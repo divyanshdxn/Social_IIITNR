@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">InsCon</string>
+    <string name="college_photo">college photo</string>
+    <string name="translucent">Making it translucent</string>
+    <string name="white_screen">white_screen</string>
+    <string name="logo">logo_iiitnr</string>
+    <string name="button_content">Continue with college email</string>
 </resources>
