@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body,
+#root {
+  height: 100vh;
+  width: 100vw;
+}
+
+.bg-iiitnr {
+  --bg-opacity: 0.7;
+  background: linear-gradient(
+      rgba(0, 0, 0, var(--bg-opacity)),
+      rgba(0, 0, 0, var(--bg-opacity))
+    ),
+    url("../../public/assets/iiitnr.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1 {
+  @apply text-3xl;
+}
+h2 {
+  @apply text-2xl font-semibold;
+}
+
+h3 {
+  @apply text-sm font-medium mb-4;
+}
+
+h4 {
+  @apply text-xs font-medium text-justify;
+}
