@@ -6,15 +6,22 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStratagy } from './stratagy/jwt.stratagy';
 import { LocalStrategy } from './stratagy/local.stratagy';
-import { config } from 'src/config/configurations';
+import { envConfig } from 'src/config/env.config';
+import { ProfileModule } from '../profile/profile.module';
+import { env } from 'process';
+import { GoogleStrategy } from './stratagy/google.strategy';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, JwtStratagy, LocalStrategy],
+  providers: [AuthService, JwtStratagy, LocalStrategy, GoogleStrategy],
   imports: [
     UserModule,
     PassportModule,
-    JwtModule.register({ secret: config.jwtSecret }),
+    ProfileModule,
+    JwtModule.register({
+      secret: envConfig.jwtSecret,
+      signOptions: { expiresIn: '24h' },
+    }),
   ],
 })
 export class AuthModule {}

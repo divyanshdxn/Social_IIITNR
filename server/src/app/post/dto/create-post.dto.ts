@@ -1,11 +1,9 @@
-import { UploadedFile } from "@nestjs/common"
-import { ApiProperty } from "@nestjs/swagger"
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePostDto {
+  @ApiProperty()
+  caption: string;
 
-    @ApiProperty()
-    caption: string
-
-    @ApiProperty()
-    userId: string
+  @ApiProperty()
+  pageId?: string;
 }

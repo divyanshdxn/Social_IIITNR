@@ -5,6 +5,9 @@
 #env variables
 .env
 
+/uploads
+/src/database
+
 # Logs
 logs
 *.log

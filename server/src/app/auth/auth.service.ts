@@ -1,40 +1,68 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { UserService } from '../user/user.service';
-import { JwtService } from '@nestjs/jwt'
+import { JwtService } from '@nestjs/jwt';
 import { SignupDto } from './dto/signup.dto';
+import { ProfileService } from '../profile/profile.service';
+import { sign } from 'crypto';
+import { JwtPayload } from './dto/jwt.payload';
+import { Profile } from '../profile/entities/profile.entity';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
+  constructor(
+    private userService: UserService,
+    private profileService: ProfileService,
+    private jwtService: JwtService,
+  ) {}
 
-  constructor(private userService: UserService, private jwtService: JwtService) { }
+  googleLogin(req: any, res: Response) {
+    if (!req.user) {
+      throw new UnauthorizedException();
+    }
+    const profile: Profile = req.user.profile;
+    const payload: JwtPayload = {
+      userId: profile.userId,
+      email: profile.email,
+      name: profile.firstName,
+    };
+    const accessToken = this.jwtService.sign(payload);
+    return res
+      .cookie('access_token', accessToken, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      })
+      .send(profile);
+  }
 
-  signup(signupDto: SignupDto) {
+  async signup(signupDto: SignupDto) {
     try {
-      return this.userService.create(signupDto);
+      const profile = this.userService.create({
+        email: signupDto.email,
+        password: signupDto.password,
+        firstName: signupDto.firstName,
+        lastName: signupDto.lastName,
+        photoUrl: signupDto.photoUrl,
+        bio: signupDto.bio,
+      });
+      return profile;
     } catch (error) {
-      throw new BadRequestException(error)
+      throw new BadRequestException(error);
     }
   }
 
-  async validateUser(email: string, password: string) {
-    const dbUser = await this.userService.findByEmail(email)    
-    if (dbUser.passwordHash == password) {
-      dbUser.passwordHash = null;
-      return dbUser
-    }
-    return null;
+  validateUser(email: string, password: string): Promise<Profile> {
+    return this.userService.validateUser(email, password);
   }
-
 
   async signin(email: string, password: string) {
-    const user = await this.userService.findByEmail(email)
-    const payload = { id: user.userId, name: user.firstName }
-    return {
-      access_token: this.jwtService.sign(payload)
-    }
+    const user = await this.profileService.findByEmail(email);
+    const payload: JwtPayload = {
+      userId: user.userId,
+      email: user.email,
+      name: user.firstName,
+    };
+    return this.jwtService.sign(payload);
   }
-
-
-
 }

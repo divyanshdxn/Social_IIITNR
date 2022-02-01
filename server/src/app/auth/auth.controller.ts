@@ -1,38 +1,46 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  UseGuards,
+  Res,
+  Req,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SigninDto } from './dto/signin.dto';
-import { SignupDto } from './dto/signup.dto';
 import { JwtAuthGuard } from './guard/jwt.guard';
-import { LocalAuthGuard } from './guard/local.guard';
-import { ApiTags} from '@nestjs/swagger'
+import { ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
+import { GoogleAuthGuard } from './guard/google.guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiTags('Auth')
-  @Post('signup')
-  signup(@Body() signupDto: SignupDto) {
-    return this.authService.signup(signupDto);
+  @Get('signin')
+  @UseGuards(GoogleAuthGuard)
+  async googleAuth(@Req() req:any) {}
+
+  @Get('google/redirect')
+  @UseGuards(GoogleAuthGuard)
+  googleAuthRedirect(@Req() req: any, @Res() res: Response) {
+    return this.authService.googleLogin(req, res);
   }
 
-  @ApiTags('Auth')
-  @UseGuards(LocalAuthGuard)
-  @Post('signin')
-  signin(@Body() signinDto: SigninDto) {
-    return this.authService.signin(signinDto.email, signinDto.password)
-  }
-
-  @ApiTags('Auth')
   @Get('signout')
-  signout() {
-
+  @ApiTags('Auth')
+  signout(@Res() res: Response) {
+    res.clearCookie('access_token');
+    console.log('Signout ');
+    return res.json({
+      message: 'Signed out successfully',
+    });
   }
 
+  @Get('protected')
   @ApiTags('Auth')
   @UseGuards(JwtAuthGuard)
-  @Get('protected')
   protected() {
-    return { msg: "this is a protected route, can only be accessed by logged in user " }
+    return {
+      msg: 'this is a protected route, can only be accessed by logged in user ',
+    };
   }
 }

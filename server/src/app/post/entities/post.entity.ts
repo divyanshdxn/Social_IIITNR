@@ -1,31 +1,38 @@
-import { User } from "src/app/user/entities/user.entity";
-import { BaseEntity, Column, Entity, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Page } from 'src/app/pages/entities/pages.entity';
+import { Profile } from 'src/app/profile/entities/profile.entity';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-@Entity()
+@Entity('post')
 export class Post extends BaseEntity {
+  @PrimaryColumn({ type: 'uuid' })
+  postId: string;
 
-    @PrimaryGeneratedColumn("uuid")
-    postId: string
+  @Column()
+  caption: string;
 
-    @Column()
-    caption: string
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @Column({ type: "bytea", nullable: true })
-    media: Buffer
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-    @Column({nullable:true})
-    mimeType: string
+  @Column({ nullable: true })
+  profileUserId: string;
 
-    @Column({ type: "timestamp", nullable: false })
-    createdAt: Date
+  @ManyToOne(() => Profile, (profile) => profile.posts, { onDelete: 'CASCADE' })
+  profile: Profile;
 
-    @Column({ type: "timestamp", nullable: false })
-    updatedAt: Date
+  @Column({ type: 'simple-array' })
+  media: string[];
 
-    @OneToOne(type => User)
-    user: User
-
-    @ManyToMany(type => User)
-    likes: User[]
-
+  @ManyToOne(() => Page, (page) => page.posts, { nullable: true })
+  page: Page;
 }
