@@ -12,26 +12,31 @@ interface State<T> {
   isSuccess: boolean | null;
   status: number | null;
   data: T | null;
+  timer: NodeJS.Timer | null;
 }
 
-export default function useApi<T, Y = any>(
+const useApi = <T, Y = any>(
   url: string,
   method: Method,
-  payload?: T
-): State<Y> {
+  payload?: T,
+  interval?: number
+): State<Y> => {
   const [state, setState] = useState<State<Y>>({
     isLoading: true,
     isSuccess: null,
     isError: null,
     status: null,
     data: null,
+    timer: null,
   });
 
   const handleRequest = async () => {
     try {
+      setState({ ...state });
       const config: AxiosRequestConfig<T> = { method, data: payload };
       const res: AxiosResponse<Y, T> = await axios(url, config);
       setState({
+        ...state,
         isLoading: false,
         isSuccess: res.status >= 200 && res.status < 300,
         isError: false,
@@ -43,6 +48,7 @@ export default function useApi<T, Y = any>(
       if (err.response && err.response.status === 401) {
         console.log(err.response);
         setState({
+          ...state,
           isLoading: false,
           isSuccess: false,
           isError: false,
@@ -55,7 +61,20 @@ export default function useApi<T, Y = any>(
     }
   };
   useEffect(() => {
-    handleRequest();
+    if (interval) {
+      const intervalTimer: NodeJS.Timer = setInterval(() => {
+        handleRequest();
+        console.log();
+      }, interval);
+      setState({
+        ...state,
+        timer: intervalTimer,
+      });
+    } else {
+      handleRequest();
+    }
   }, []);
   return state;
-}
+};
+
+export default useApi;

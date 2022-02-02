@@ -1,8 +1,8 @@
-import { Error } from "../error";
+import { Error } from "../Error";
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import Loading from "../loading";
+import Loading from "../Loading";
 
 interface Props {
   children: JSX.Element;
