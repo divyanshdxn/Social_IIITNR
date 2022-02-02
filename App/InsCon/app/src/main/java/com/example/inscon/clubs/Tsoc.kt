@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.inscon.R
 
-class TrainingnPlacement : Fragment() {
+class Tsoc : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_trainingn_placement, container, false)
+        return inflater.inflate(R.layout.fragment_tsoc, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
