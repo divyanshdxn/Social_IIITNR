@@ -22,6 +22,7 @@ class Login : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
         login = view.findViewById<Button>(R.id.login_button)
         login.setOnClickListener {
             findNavController().navigate(R.id.action_logInFragment_to_creatorFragment)
@@ -39,6 +40,7 @@ class Login : Fragment() {
 
     override fun onStop() {
         super.onStop()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
         val bottomView = (activity as AppCompatActivity)
             .findViewById<BottomNavigationView>(R.id.nav_view)
         bottomView.visibility = View.VISIBLE
