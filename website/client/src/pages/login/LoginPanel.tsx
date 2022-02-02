@@ -6,10 +6,10 @@ interface Props {}
 const LoginPanel: React.FC<Props> = () => {
   return (
     <section
-      className="flex  w-full h-full sm:w-5/6 max-w-3xl min-h-fit"
+      className="dark flex w-full h-full sm:w-5/6 max-w-3xl min-h-fit"
       style={{ height: "480px" }}
     >
-      <div className="hidden md:flex flex-col justify-center items-center md:w-1/2 h-full px-10 bg-opacity-70 bg-primary dark:bg-d-primary text-white">
+      <div className="hidden md:flex flex-col justify-center items-center md:w-1/2 h-full px-10 bg-primary dark:bg-d-primary bg-opacity-70 dark:bg-opacity-70 text-white">
         <div className="ml-10">
           <h1>Join the club</h1>
           <h4>
