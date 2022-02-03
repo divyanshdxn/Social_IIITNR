@@ -25,7 +25,7 @@ class Login : Fragment() {
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
         login = view.findViewById<Button>(R.id.login_button)
         login.setOnClickListener {
-            findNavController().navigate(R.id.action_logInFragment_to_creatorFragment)
+            findNavController().navigate(R.id.action_logInFragment_to_tnp)
         }
     }
     override fun onResume() {
@@ -34,7 +34,7 @@ class Login : Fragment() {
             .findViewById<BottomNavigationView>(R.id.nav_view)
         bottomView.visibility = View.GONE
         login.setOnClickListener {
-            findNavController().navigate(R.id.action_logInFragment_to_creatorFragment)
+            findNavController().navigate(R.id.action_logInFragment_to_tnp)
         }
     }
 

@@ -47,5 +47,8 @@
     <string name="sample_message">This is a sample message that will appear</string>
     <string name="send_button">send button</string>
     <string name="start_chat_value">| Write Message</string>
+    <string name="placement_cell"><![CDATA[TRAINING & PLACEMENT CELL]]></string>
+    <string name="iiit_naya_raipur">WELCOME TO IIIT NAYA RAIPUR</string>
+    <string name="amit_kumar_agrawal">AMIT KUMAR AGRAWAL</string>
 
 </resources>
