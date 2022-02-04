@@ -33,6 +33,13 @@ export class ProfileController {
     return await this.profileService.findByEmail(email);
   }
 
+  @Get('current')
+  @UseGuards(JwtAuthGuard)
+  getCurrent(@Request() req: any) {
+    const profile: Profile = req.user;
+    return profile;
+  }
+
   // get one user-profile by its userId
   @Get(':id')
   @ApiTags('Profile')

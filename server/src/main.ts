@@ -16,8 +16,9 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api/docs', app, document);
   app.use(cookieParser());
+  app.setGlobalPrefix('/api', { exclude: ['auth/google/redirect'] });
   await app.listen(3000);
 }
 bootstrap();

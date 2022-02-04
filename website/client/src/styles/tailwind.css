@@ -1,3 +1,57 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body,
+#root {
+  height: 100vh;
+  width: 100vw;
+}
+
+.bg-iiitnr {
+  --bg-opacity: 0.7;
+  background: linear-gradient(
+      rgba(0, 0, 0, var(--bg-opacity)),
+      rgba(0, 0, 0, var(--bg-opacity))
+    ),
+    url('../../public/assets/iiitnr.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1 {
+  @apply text-3xl;
+}
+h2 {
+  @apply text-2xl font-semibold;
+}
+
+h3 {
+  @apply text-sm font-medium mb-4;
+}
+
+h4 {
+  @apply text-xs font-medium text-justify;
+}
+
+main {
+  @apply h-full w-full text-text-primary dark:text-d-text-primary bg-background dark:bg-d-background overflow-y-auto;
+}
+
+.btn {
+  @apply bg-primary dark:bg-d-primary 
+  text-d-text-primary dark:text-text-primary
+  rounded-full text-sm h-5;
+}
+
+[contenteditable='true']:empty:before {
+  content: attr(placeholder);
+  display: block;
+  color: #aaa;
+}
