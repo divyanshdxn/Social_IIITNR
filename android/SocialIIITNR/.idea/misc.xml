@@ -6,9 +6,15 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.23958333333333334" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.23958333333333334" />
         <entry key="app/src/main/res/drawable/login_card_bg.xml" value="0.23958333333333334" />
+        <entry key="app/src/main/res/layout/activity_auth.xml" value="0.2234375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.29812369701181374" />
         <entry key="app/src/main/res/layout/activity_signin.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_create_post.xml" value="0.2234375" />
+        <entry key="app/src/main/res/layout/fragment_ecell.xml" value="0.2234375" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2234375" />
+        <entry key="app/src/main/res/layout/fragment_pages.xml" value="0.2234375" />
+        <entry key="app/src/main/res/layout/fragment_post_detail.xml" value="0.2234375" />
+        <entry key="app/src/main/res/layout/fragment_trainingn_placement.xml" value="0.2234375" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.33" />
       </map>
     </option>

@@ -2,4 +2,13 @@
     <string name="app_name">Social IIITNR</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="college_photo">college photo</string>
+    <string name="placement_cell">
+        <![CDATA[ TRAINING & PLACEMENT CELL ]]>
+    </string>
+    <string name="position_of_amitsir">HEAD, TRAINING AND CAREER CELL OFFICE</string>
+    <string name="amitsir_content">IIIT NR is gearing to build world class human resource with an expectation to play a lead role in organisations</string>
+    <string name="post_of_director">DIRECTOR</string>
+    <string name="content_director">The institute firmly believes and strives hard to impart knowledge and entrepreneurial skills to its students to enable them to address real world problem with ease.</string>
+    <string name="recruiter_company">recruiter company</string>
 </resources>
