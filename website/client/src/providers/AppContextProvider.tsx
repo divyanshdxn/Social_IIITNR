@@ -1,5 +1,5 @@
-import React from "react";
-import AppContext from "../contexts/AppContext";
+import React from 'react';
+import AppContext from '../contexts/AppContext';
 
 interface Props {
   children?: React.ReactNode;
@@ -7,5 +7,7 @@ interface Props {
 }
 
 const AppContextProvider: React.FC<Props> = ({ children, value }) => {
-  return <AppContext.Provider value={value} />;
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
+
+export default AppContextProvider;

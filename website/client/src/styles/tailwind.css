@@ -20,7 +20,7 @@ body,
       rgba(0, 0, 0, var(--bg-opacity)),
       rgba(0, 0, 0, var(--bg-opacity))
     ),
-    url("../../public/assets/iiitnr.png");
+    url('../../public/assets/iiitnr.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -41,5 +41,17 @@ h4 {
 }
 
 main {
-  @apply h-full w-full;
+  @apply h-full w-full text-text-primary dark:text-d-text-primary bg-background dark:bg-d-background overflow-y-auto;
+}
+
+.btn {
+  @apply bg-primary dark:bg-d-primary 
+  text-d-text-primary dark:text-text-primary
+  rounded-full text-sm h-5;
+}
+
+[contenteditable='true']:empty:before {
+  content: attr(placeholder);
+  display: block;
+  color: #aaa;
 }

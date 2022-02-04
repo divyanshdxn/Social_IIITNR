@@ -3,8 +3,8 @@ import axios, {
   Method,
   AxiosRequestConfig,
   AxiosResponse,
-} from "axios";
-import React, { useEffect, useState } from "react";
+} from 'axios';
+import React, { useEffect, useState } from 'react';
 
 interface State<T> {
   isError: boolean | null;
@@ -18,8 +18,8 @@ interface State<T> {
 const useApi = <T, Y = any>(
   url: string,
   method: Method,
+  interval?: number,
   payload?: T,
-  interval?: number
 ): State<Y> => {
   const [state, setState] = useState<State<Y>>({
     isLoading: true,
@@ -46,7 +46,6 @@ const useApi = <T, Y = any>(
     } catch (error) {
       const err = error as AxiosError;
       if (err.response && err.response.status === 401) {
-        console.log(err.response);
         setState({
           ...state,
           isLoading: false,
@@ -64,7 +63,6 @@ const useApi = <T, Y = any>(
     if (interval) {
       const intervalTimer: NodeJS.Timer = setInterval(() => {
         handleRequest();
-        console.log();
       }, interval);
       setState({
         ...state,
