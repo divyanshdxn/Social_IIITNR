@@ -14,7 +14,6 @@ const SinglePost: React.FC<Props> = ({ post }) => {
     `/api/profile/${post.profileUserId}`,
     'get',
   );
-  console.log('Hello');
   const [isReadMore, setIsReadMore] = useState(false);
   useEffect(() => {});
 

@@ -1,13 +1,15 @@
 import apiGet from '../helpers/apiGet';
+import PostByUserResponse from '../types/response/PostsByUserResponse';
 import SinglePostResponse from '../types/response/SinglePostResponse';
 import SingleProfileResponse from '../types/response/SingleProfileResponse';
 
 export interface MyProfileReducerState {
-  myPosts: SinglePostResponse[];
-  profile?: SingleProfileResponse;
+  myPosts: PostByUserResponse[];
+  profile: Partial<SingleProfileResponse>;
 }
 export type MyProfileReducerAction =
-  | { type: 'set-local'; payload: Partial<MyProfileReducerState> }
+  | { type: 'set-profile'; payload: SingleProfileResponse }
+  | { type: 'set-posts'; payload: PostByUserResponse[] }
   | { type: 'new-post'; payload: MyProfileReducerState }
   | { type: 'delete'; payload: Partial<MyProfileReducerState> }
   | {
@@ -26,13 +28,13 @@ export type MyProfileReducerType = (
 const MyProfileReducer: MyProfileReducerType = (state, action) => {
   const { type, payload } = action;
   switch (type) {
-    case 'set-local':
-      if ('profile' in payload) {
-        state.profile = payload.profile;
-      }
-	  if('myPosts' in payload && payload.myPosts) {
-		  state.myPosts = payload.myPosts;
-	  }
+    case 'set-profile':
+      state = { ...state, profile: payload as SingleProfileResponse };
+      break;
+    case 'set-posts':
+      state = { ...state, myPosts: payload as PostByUserResponse[] };
+      console.log('payload:', payload);
+
       break;
     case 'delete':
       break;

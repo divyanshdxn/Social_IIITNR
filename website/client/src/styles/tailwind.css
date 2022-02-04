@@ -50,7 +50,7 @@ main {
   rounded-full text-sm h-5;
 }
 
-[contenteditable='true']:empty:before {
+div:empty:before {
   content: attr(placeholder);
   display: block;
   color: #aaa;

@@ -3,6 +3,11 @@ import MyProfileReducerContext, {
 } from '../contexts/MyProfileReducerContext';
 import { MyProfileReducerState } from '../reducers/MyPostsReducer';
 
-const MyProfileProvider: React.Provider<Partial<MyProfileContextValue>> =
-  MyProfileReducerContext.Provider;
+interface Props {
+  children?: React.ReactNode;
+  value: any;
+}
+const MyProfileProvider: React.FC<Props> = ({ children, value }) => {
+  return <MyProfileReducerContext.Provider value={value} children={children} />;
+};
 export default MyProfileProvider;

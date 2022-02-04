@@ -15,6 +15,7 @@ const App: React.FC = () => {
   const [darkMode, setDarkMode] = useDarkMode();
   const [myProfileState, dispatch] = useReducer(MyProfileReducer, {
     myPosts: [],
+    profile: {},
   });
   return (
     <div className={`${darkMode && 'dark'} h-screen w-screen`}>

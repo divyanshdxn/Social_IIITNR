@@ -4,10 +4,11 @@ import {
   MyProfileReducerState,
 } from '../reducers/MyPostsReducer';
 export interface MyProfileContextValue {
-  state: Partial<MyProfileReducerState>;
+  state: MyProfileReducerState;
   dispatch: React.Dispatch<MyProfileReducerAction>;
 }
-const MyProfileReducerContext = createContext<Partial<MyProfileContextValue>>(
-  {},
-);
+const MyProfileReducerContext = createContext<MyProfileContextValue>({
+  state: { myPosts: [], profile: {} },
+  dispatch: () => {},
+});
 export default MyProfileReducerContext;

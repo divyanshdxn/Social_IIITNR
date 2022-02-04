@@ -11,16 +11,19 @@ interface Props {
 
 const Bio: React.FC<Props> = ({ edit }) => {
   const { state, dispatch } = useMyProfileContext();
-  const bioValue = state?.profile?.bio;
-  const [darkMode, setDarkMode] = useDarkMode();
-  const [isEditing, setIsEditing] = useState(false);
-  const bioRef = useRef<HTMLInputElement>(null);
-  const handleEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setIsEditing(true);
-    bioRef.current?.focus();
-  };
-  const submit = () => {};
+  const [bio, setBio] = useState('');
+  useEffect(() => {
+    console.log(`bio: ${state?.profile?.bio}`);
+    if (!state || !state.profile) setBio('Loading...');
+    else if (!state.profile.bio || state.profile.bio === '') {
+      if (edit) {
+        setBio("You don't have a bio.");
+      } else {
+        setBio(`${state.profile.firstName} doesn't have a bio.`);
+      }
+    }
+    console.log(state);
+  }, [state]);
   const noBio = edit
     ? "You don't have a bio"
     : `${state?.profile?.firstName} doen't have a bio`;
@@ -28,17 +31,16 @@ const Bio: React.FC<Props> = ({ edit }) => {
     <form
       className={`flex relative w-full justify-between border-b-2
 	   border-primary dark:border-d-primary mt-4
-	   outline-primary rounded-sm outline-2 ${isEditing && 'outline'}`}
+	   outline-primary rounded-sm outline-2 `}
     >
-      <input
-        className=" flex flex-1 text-sm bg-background dark:bg-d-background"
-        disabled={!isEditing}
-        value={`Bio: ${bioValue === '' ? noBio : bioValue}`}
-        ref={bioRef}
+      <div
+        className=" flex flex-1 text-sm bg-background dark:bg-d-background "
+        style={{ minHeight: '1.5rem' }}
+        placeholder={`Bio: ${bio}`}
       />
       {edit && (
-        <button className="" onClick={(e) => handleEdit(e)}>
-          <EditIcon className={`${!darkMode && 'invert'} `} />
+        <button className="">
+          <EditIcon className="invert dark:invert-0" />
         </button>
       )}
     </form>
