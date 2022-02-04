@@ -1,4 +1,4 @@
-interface SingleProfileResponse {
+interface SingleProfile {
   userId: string;
   updateAt: Date;
   email: string;
@@ -8,4 +8,4 @@ interface SingleProfileResponse {
   bio: string;
 }
 
-export default SingleProfileResponse;
+export default SingleProfile;

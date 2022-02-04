@@ -1,30 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { MyProfileContextValue } from '../../contexts/MyProfileReducerContext';
 import useDarkMode from '../../hooks/useDarkMode';
+import { useMyProfileContext } from '../../hooks/useMyProfileContext';
 import SingleProfileResponse from '../../types/response/SingleProfileResponse';
 import EditIcon from '../Icons/EditIcon';
 
 interface Props {
-  data: SingleProfileResponse | null;
   edit?: boolean;
 }
 
-const Bio: React.FC<Props> = ({ data, edit }) => {
+const Bio: React.FC<Props> = ({ edit }) => {
+  const { state, dispatch } = useMyProfileContext();
+  const bioValue = state?.profile?.bio;
   const [darkMode, setDarkMode] = useDarkMode();
   const [isEditing, setIsEditing] = useState(false);
-  const [bioValue, setBioValue] = useState(data?.bio);
   const bioRef = useRef<HTMLInputElement>(null);
   const handleEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsEditing(true);
     bioRef.current?.focus();
   };
-  useEffect(() => {
-    setBioValue(data?.bio);
-  }, [data]);
   const submit = () => {};
   const noBio = edit
     ? "You don't have a bio"
-    : `${data?.firstName} doen't have a bio`;
+    : `${state?.profile?.firstName} doen't have a bio`;
   return (
     <form
       className={`flex relative w-full justify-between border-b-2

@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import useApi from '../../hooks/useApi';
+import MyProfileReducer from '../../reducers/MyPostsReducer';
 import SinglePostResponse from '../../types/response/SinglePostResponse';
 import SingleProfileResponse from '../../types/response/SingleProfileResponse';
 import PostLoading from '../Loaders/PostLoading';
@@ -9,11 +10,10 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const SinglePost: React.FC<Props> = ({ post }) => {
-  const { isLoading, isSuccess, data: axiosData } = useApi<any, SingleProfileResponse>(
+  const { isLoading, isSuccess, data } = useApi<any, SingleProfileResponse>(
     `/api/profile/${post.profileUserId}`,
     'get',
   );
-  const [data, dispatch] = useReducer()
   console.log('Hello');
   const [isReadMore, setIsReadMore] = useState(false);
   useEffect(() => {});

@@ -1,12 +1,13 @@
 import axios, { AxiosError } from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import useAppContext from '../../hooks/useAppContext';
+import { useMyProfileContext } from '../../hooks/useMyProfileContext';
 import CreatePostRequest from '../../types/Request/CreatePostRequest';
 
 interface Props {}
 const NewPost: React.FC<Props> = () => {
   const [isUploading, setIsUploading] = useState(false);
-  const { userData, setUserData } = useAppContext();
+  const { state: userData, dispatch } = useMyProfileContext();
   const inputRef = useRef<HTMLDivElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const handleSubmit = async (
@@ -34,7 +35,7 @@ const NewPost: React.FC<Props> = () => {
         const error = err as AxiosError;
         console.log(err, error.response);
         setIsUploading(false);
-        if (fileRef.current) fileRef.current.value = "";
+        if (fileRef.current) fileRef.current.value = '';
         alert('Post Upload Failed');
       }
     }
@@ -54,8 +55,8 @@ const NewPost: React.FC<Props> = () => {
       border-2 border-hints dark:border-d-hints 
       p-4 rounded-lg my-px h-32 gap-5  items-center fw-full"
     >
-      <div className="rounded-full object-cover w-16 overflow-hidden">
-        <img src={`${userData?.photoUrl}`} alt="" className="w-full" />
+      <div className="rounded-full object-cover w-16 overflow-hidden bg-background_variant dark:bg-d-background_variant">
+        <img src={`${userData?.profile?.photoUrl}`} alt="" className="w-full" />
       </div>
       <form
         className=" flex relative h-full w-full rounded-md overflow-hidden"
