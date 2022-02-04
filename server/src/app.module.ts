@@ -25,7 +25,7 @@ import { join } from 'path/posix';
       load: [],
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'client'),
+      rootPath: join(__dirname, '..', '..', 'client/build'),
     }),
     ProfileModule,
     MediaModule,
