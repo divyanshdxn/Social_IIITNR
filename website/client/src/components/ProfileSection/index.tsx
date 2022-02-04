@@ -34,7 +34,10 @@ const ProfileSection: React.FC<Props> = ({ userId }) => {
 	  rounded-xl z-20 bg-background dark:bg-d-background overflow-hidden"
       style={{ height: 'calc(90% - 3rem)', minWidth: '18rem' }}
     >
-      <div className=" w-44 aspect-square rounded-full overflow-hidden mt-5 mb-2 bg-background_variant">
+      <div
+        className=" w-44 aspect-square rounded-full overflow-hidden mt-5 mb-2 bg-background_variant 
+      dark:bg-background_variant"
+      >
         <img src={data?.photoUrl} alt="" className=" w-44 object-cover " />
       </div>
       <div className="flex flex-col">

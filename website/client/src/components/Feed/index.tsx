@@ -24,10 +24,10 @@ const Feed: React.FC<Props> = () => {
       {isLoading ? (
         <PostLoading />
       ) : (
-          isSuccess &&
-            data?.map((item, index) => {
-              <SinglePost post={item} key={index} />;
-            })
+        isSuccess &&
+        data?.map((item, index) => {
+          return <SinglePost post={item} key={index} />;
+        })
       )}
     </div>
   );

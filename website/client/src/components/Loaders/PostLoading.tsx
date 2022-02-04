@@ -11,18 +11,6 @@ const PostLoading: React.FC = (props) => {
       p-4 rounded-lg w-full"
       style={{ height: '450px' }}
     >
-      {/* <ContentLoader
-        speed={2}
-        width="100%"
-        height="100%"
-        backgroundColor="#f3f3f3"
-        foregroundColor={`${darkMode ? '#F5F5F5' : '#eaeaea'}`}
-        {...props}
-        className=""
-      >
-        <path d="M 0 66 h 741 v 413.744 H 0 z" /> 
-        <circle cx="40" cy="27" r="27" />
-      </ContentLoader> */}
       <ContentLoader
         viewBox="0 0 100% 100% "
         speed={2}
