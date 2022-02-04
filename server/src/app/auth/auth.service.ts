@@ -1,4 +1,9 @@
-import { BadRequestException, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
@@ -33,7 +38,8 @@ export class AuthService {
         httpOnly: true,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
       })
-      .send(profile);
+      .send('<script>window.close()</script>');
+    // .send(profile);
   }
 
   async signup(signupDto: SignupDto) {

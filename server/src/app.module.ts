@@ -9,6 +9,8 @@ import { MediaModule } from './app/media/media.module';
 import { PagesModule } from './app/pages/pages.module';
 import ORMConfig from 'ormconfig';
 import { EventsModule } from './app/events/events.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path/posix';
 
 @Module({
   imports: [
@@ -21,6 +23,9 @@ import { EventsModule } from './app/events/events.module';
       envFilePath: '.env',
       isGlobal: true,
       load: [],
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'client/build'),
     }),
     ProfileModule,
     MediaModule,
