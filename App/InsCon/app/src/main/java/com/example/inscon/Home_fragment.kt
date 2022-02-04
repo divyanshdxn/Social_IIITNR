@@ -17,6 +17,7 @@ class Home_fragment : Fragment() {
     }
     override fun onStart() {
         super.onStart()
+        findNavController().navigate(R.id.action_homeFragment_to_logInFragment)
         // if not Authorized then pass to login frag
 //        if (auth.currentUser == null) {
 //            findNavController().navigate(R.id.action_homeFragment_to_logInFragment)
