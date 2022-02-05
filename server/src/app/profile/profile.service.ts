@@ -32,11 +32,17 @@ export class ProfileService {
 
   async createProfile(createProfileDto: CreateProfileDto): Promise<Profile> {
     try {
-      var profile = await this.profileRepository.findOne({
-        email: createProfileDto.email,
-      });
+      console.log('In Create Profile');
+      let profile = await this.profileRepository
+        .findOneOrFail({
+          email: createProfileDto.email,
+        })
+        .catch((e) => {
+          console.log('error in createProfil:', e);
+        });
+      console.log('Existing Profile:', profile);
       if (!profile) {
-        profile = await this.profileRepository.save({
+        profile = this.profileRepository.create({
           userId: v4(),
           updatedAt: new Date(),
           email: createProfileDto.email,
@@ -46,7 +52,8 @@ export class ProfileService {
           bio: createProfileDto.bio,
         });
       }
-      return profile;
+      console.log('Profile Created: ', profile);
+      return profile.save();
     } catch (err) {
       throw new HttpException(err, 400);
     }
