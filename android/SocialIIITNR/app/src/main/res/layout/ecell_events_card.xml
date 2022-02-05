@@ -6,6 +6,8 @@
         android:id="@+id/event_ecell"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="1dp"
         android:src="@drawable/bigbull"
         />
 </androidx.cardview.widget.CardView>
