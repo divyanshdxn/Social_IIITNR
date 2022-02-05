@@ -12,9 +12,6 @@ const Feed: React.FC<Props> = () => {
     any,
     SinglePostResponse[]
   >('/api/post', 'get');
-  useEffect(() => {
-    console.log(data);
-  }, [isSuccess]);
   return (
     <div
       className="flex relative flex-col flex-1 top-12 translate-y-6 h-fit"
