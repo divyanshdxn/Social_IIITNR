@@ -1,10 +1,10 @@
-import axios, { AxiosError, AxiosRequestHeaders } from 'axios';
-import { useEffect, useRef, useState } from 'react';
-import { apiPost, getHeaders } from '../../helpers/apiRequest';
-import useAppContext from '../../hooks/useAppContext';
+import { AxiosError, AxiosRequestHeaders } from 'axios';
+import { ReactText, useEffect, useRef, useState } from 'react';
+import { apiPost } from '../../helpers/apiRequest';
 import { useMyProfileContext } from '../../hooks/useMyProfileContext';
-import CreatePostRequest from '../../types/Request/CreatePostRequest';
 import PostByUserResponse from '../../types/response/PostsByUserResponse';
+import { toast } from 'react-toastify';
+import { type } from 'os';
 
 interface Props {}
 const NewPost: React.FC<Props> = () => {
@@ -12,6 +12,7 @@ const NewPost: React.FC<Props> = () => {
   const { state: userData, dispatch } = useMyProfileContext();
   const inputRef = useRef<HTMLDivElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const toastId = useRef<ReactText | null>(null);
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
@@ -26,7 +27,6 @@ const NewPost: React.FC<Props> = () => {
       setIsUploading(true);
       try {
         let headers: AxiosRequestHeaders = {};
-
         const [res, code] = await apiPost<FormData, PostByUserResponse>(
           '/api/post/create',
           request,
@@ -34,12 +34,28 @@ const NewPost: React.FC<Props> = () => {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
+            onUploadProgress: (p) => {
+              const progress = p.loaded / p.total;
+              if (toastId.current === null) {
+                toastId.current = toast('Upload in Progress', {
+                  progress: progress,
+                  autoClose: 5000,
+                });
+              } else {
+                toast.update(toastId.current, {
+                  progress: progress,
+                });
+              }
+            },
           },
         );
         console.log(res);
         setIsUploading(false);
         if (code >= 200 && code < 300) {
-          alert('Uploaded Successfully..');
+          toast.update(toastId.current as ReactText, {
+            render: 'Uploaded Successfully',
+            type: 'success',
+          });
           dispatch({ type: 'new-post', payload: res as PostByUserResponse });
         }
       } catch (err) {
@@ -47,7 +63,10 @@ const NewPost: React.FC<Props> = () => {
         console.log(err, error.response);
         setIsUploading(false);
         if (fileRef.current) fileRef.current.value = '';
-        alert('Post Upload Failed');
+        toast.update(toastId.current as ReactText, {
+          render: 'Upload Failed',
+          type: 'error',
+        });
       }
     }
   };
