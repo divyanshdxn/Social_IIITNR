@@ -1,13 +1,21 @@
+import { profile } from 'console';
 import React, {
   LegacyRef,
   RefObject,
   useEffect,
+  useReducer,
   useRef,
   useState,
 } from 'react';
 import useApi from '../../hooks/useApi';
 import useAppContext from '../../hooks/useAppContext';
 import useDarkMode from '../../hooks/useDarkMode';
+import { useMyProfileContext } from '../../hooks/useMyProfileContext';
+import MyProfileProvider from '../../providers/MyProfileProvider';
+import MyProfileReducer, {
+  MyProfileReducerState,
+  MyProfileReducerType,
+} from '../../reducers/MyPostsReducer';
 import SingleProfileResponse from '../../types/response/SingleProfileResponse';
 import EditIcon from '../Icons/EditIcon';
 import Bio from './BioComponent';
@@ -23,10 +31,15 @@ const ProfileSection: React.FC<Props> = ({ userId }) => {
     `/api/profile/${url}`,
     'get',
   );
-  const { setUserData } = useAppContext();
+  const { state, dispatch } = useMyProfileContext();
+  const [profile, setProfile] = useState<Partial<SingleProfileResponse>>({});
   useEffect(() => {
-    if (setUserData) setUserData(data);
+    if (isSuccess && data && dispatch && !userId)
+      dispatch({ type: 'set-profile', payload: data });
   }, [isSuccess]);
+  useEffect(() => {
+    setProfile(state.profile);
+  });
   return (
     <div
       className="sticky translate-y-6 px-8 mx-8 left-10 top-12 
@@ -38,19 +51,19 @@ const ProfileSection: React.FC<Props> = ({ userId }) => {
         className=" w-44 aspect-square rounded-full overflow-hidden mt-5 mb-2 bg-background_variant 
       dark:bg-background_variant"
       >
-        <img src={data?.photoUrl} alt="" className=" w-44 object-cover " />
+        <img src={profile.photoUrl} alt="" className=" w-44 object-cover " />
       </div>
       <div className="flex flex-col">
-        <h2 className="font-semibold">{data?.firstName}</h2>
+        <h2 className="font-semibold">{profile.firstName}</h2>
         <span className="text-xs text-text-secondary dark:text-d-text-secondary">
           Student | CSE
         </span>
         <span className="text-xs text-text-secondary dark:text-d-text-secondary">
-          {data?.email}
+          {profile.email}
         </span>
       </div>
-      <Bio data={data} edit={userId ? false : true} />
-      {isSuccess && <PostList userID={data?.userId} />}
+      <Bio edit={userId ? false : true} />
+      {isSuccess && <PostList owner={!userId} userID={profile.userId} />}
     </div>
   );
 };

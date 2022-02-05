@@ -1,6 +1,6 @@
 interface SinglePostResponse {
   postId: string;
-  caption: 'just another random post 2';
+  caption: string;
   createdAt: Date;
   updatedAt: Date;
   profileUserId: string;
