@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import com.iiitnr.social.R
 import com.iiitnr.social.databinding.FragmentHomeBinding
 import com.iiitnr.social.databinding.FragmentPostDetailBinding
+import com.iiitnr.social.ui.MainActivity
+import com.iiitnr.social.ui.fragments.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class Home : Fragment() {
+class Home : BaseFragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -23,6 +25,12 @@ class Home : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.text.text = mainActivity.signInResponse.profile.firstName
+
     }
 
 

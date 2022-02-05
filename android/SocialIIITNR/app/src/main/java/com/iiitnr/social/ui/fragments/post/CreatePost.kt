@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import com.iiitnr.social.R
 import com.iiitnr.social.databinding.FragmentCreatePostBinding
 import com.iiitnr.social.databinding.FragmentPostDetailBinding
+import com.iiitnr.social.ui.fragments.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class CreatePost : Fragment() {
+class CreatePost : BaseFragment() {
 
     private var _binding: FragmentCreatePostBinding? = null
     private val binding get() = _binding!!
