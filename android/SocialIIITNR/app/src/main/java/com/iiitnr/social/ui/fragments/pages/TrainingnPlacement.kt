@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.iiitnr.social.databinding.FragmentTrainingnPlacementBinding
+import com.iiitnr.social.ui.fragments.BaseFragment
 
-class TrainingnPlacement : Fragment() {
+class TrainingnPlacement : BaseFragment() {
     private var _binding: FragmentTrainingnPlacementBinding? = null
     private val binding get() = _binding!!
 

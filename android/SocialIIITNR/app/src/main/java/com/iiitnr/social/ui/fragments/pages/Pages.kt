@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import com.iiitnr.social.R
 import com.iiitnr.social.databinding.FragmentPagesBinding
 import com.iiitnr.social.databinding.FragmentPostDetailBinding
+import com.iiitnr.social.ui.fragments.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class Pages : Fragment() {
+class Pages : BaseFragment() {
 
     private var _binding: FragmentPagesBinding? = null
     private val binding get() = _binding!!

@@ -12,8 +12,9 @@ import com.iiitnr.social.databinding.FragmentEcellBinding
 import com.iiitnr.social.databinding.FragmentTrainingnPlacementBinding
 import com.iiitnr.social.ui.Adapters.EcellRecyclerAdapter
 import com.iiitnr.social.ui.Adapters.ImageViewHolder
+import com.iiitnr.social.ui.fragments.BaseFragment
 
-class Ecell : Fragment() {
+class Ecell : BaseFragment() {
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<ImageViewHolder>? = null
     private var _binding: FragmentEcellBinding? = null
