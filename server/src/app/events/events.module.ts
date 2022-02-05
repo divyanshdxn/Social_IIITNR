@@ -8,7 +8,12 @@ import { MediaModule } from '../media/media.module';
 import { ProfileModule } from '../profile/profile.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([EventDetails]), PagesModule, MediaModule,ProfileModule],
+  imports: [
+    TypeOrmModule.forFeature([EventDetails]),
+    PagesModule,
+    MediaModule,
+    ProfileModule,
+  ],
   controllers: [EventsController],
   providers: [EventsService],
 })

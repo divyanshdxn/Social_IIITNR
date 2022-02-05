@@ -22,7 +22,6 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-
   googleSignin(req: any, res: Response) {
     try {
       const profile: Profile = req.profile;
