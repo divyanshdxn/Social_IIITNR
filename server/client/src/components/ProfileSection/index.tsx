@@ -1,23 +1,7 @@
-import { profile } from 'console';
-import React, {
-  LegacyRef,
-  RefObject,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import useApi from '../../hooks/useApi';
-import useAppContext from '../../hooks/useAppContext';
-import useDarkMode from '../../hooks/useDarkMode';
 import { useMyProfileContext } from '../../hooks/useMyProfileContext';
-import MyProfileProvider from '../../providers/MyProfileProvider';
-import MyProfileReducer, {
-  MyProfileReducerState,
-  MyProfileReducerType,
-} from '../../reducers/MyPostsReducer';
 import SingleProfileResponse from '../../types/response/SingleProfileResponse';
-import EditIcon from '../Icons/EditIcon';
 import Bio from './BioComponent';
 import PostList from './PostList';
 

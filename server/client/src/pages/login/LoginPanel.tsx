@@ -1,33 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { HTMLAttributes, useEffect, useState } from 'react';
 import Logo from '../../components/Icons/Logo';
-import { googleLogin, handleLogin } from '../../helpers/login';
+import {
+  onFailure,
+  onSuccess,
+} from '../../helpers/login';
 import features from '../../data/features';
 import { useAuth } from '../../hooks/useAuth';
-import {GoogleLogin} from 'react-google-login';
-
+import {
+  GoogleLogin,
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+  useGoogleLogin,
+} from 'react-google-login';
 
 interface Props {}
 
 const LoginPanel: React.FC<Props> = () => {
-  const { isSuccess, timer } = useAuth(500000);
+  // const { isSuccess, timer } = useAuth();
   const [clicked, setClicked] = useState(false);
-  useEffect(() => {
-    if (isSuccess && clicked) {
-      window.open('/', '_self');
-    }
-    return () => {
-      clearInterval(timer as NodeJS.Timeout);
-    };
-  }, [isSuccess, clicked]);
-
-  const onSuccess = (response: any) => {
-    googleLogin(response.tokenId)
-      .then((body) => console.log(body))
-      .catch((error) => console.log(error));
-  };
-  const onFailure = (error: any) => {
-    console.log(error);
-  };
+  // useEffect(() => {
+  //   if (isSuccess && clicked) {
+  //     window.open('/', '_self');
+  //   }
+  //   return () => {
+  //     clearInterval(timer as NodeJS.Timeout);
+  //   };
+  // }, [isSuccess, clicked]);
 
   return (
     <section
@@ -59,20 +57,32 @@ const LoginPanel: React.FC<Props> = () => {
           <Logo className="w-12" />
           <h2>Welcome</h2>
           <h3 className="mb-10">Community for IIIT NR Family</h3>
-          <button
-            className={`${
-              clicked && 'bg-primary_variant dark:bg-d-primary_variant'
-            } 
-            ${clicked && 'text-text-primary dark:text-d-text-primary'} px-5 
-            py-1.5 rounded-full bg-primary dark:bg-d-primary text-white text-lg`}
-            onClick={() => {
-              handleLogin(clicked, setClicked);
-              setClicked((prev) => !prev);
+          <GoogleLogin
+            clientId={
+              process.env.REACT_APP_GOOGLE_CLIENT_ID ||
+              '557790709288-4la84pac5ktcasmjtdfa40312pgk5nnj.apps.googleusercontent.com'
+            }
+            onSuccess={(
+              res: GoogleLoginResponse | GoogleLoginResponseOffline,
+            ) => {
+              setClicked(false);
+              onSuccess(res as GoogleLoginResponse);
             }}
-            disabled={clicked}
-          >
-            {clicked ? 'Logging You In ' : 'Continue With College Email'}
-          </button>
+            onFailure={(e) => {
+              setClicked(false);
+              onFailure(e);
+            }}
+            icon={true}
+            cookiePolicy={'single_host_origin'}
+            render={({ disabled, onClick }) => (
+              <CustomButton
+                clicked={clicked}
+                disabled={disabled}
+                onClick={onClick}
+                setClicked={setClicked}
+              />
+            )}
+          />
           {clicked && (
             <button
               className="text-xs p-1 text-primary 
@@ -82,17 +92,41 @@ const LoginPanel: React.FC<Props> = () => {
               Cancel
             </button>
           )}
-          <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
-            buttonText="Continue with college email"
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            cookiePolicy={'single_host_origin'}
-          />
         </div>
       </div>
     </section>
   );
 };
 
+interface CustomButtonProps extends HTMLAttributes<HTMLButtonElement> {
+  clicked: boolean;
+  disabled: boolean | undefined;
+  onClick: () => void;
+  setClicked: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const CustomButton: React.FC<CustomButtonProps> = ({
+  clicked,
+  disabled,
+  onClick,
+  setClicked,
+}) => {
+  const msg = disabled
+    ? 'Please Wait...'
+    : clicked
+    ? 'Logging You In...'
+    : 'Continue With College Email';
+  return (
+    <button
+      className="disabled:bg-primary_variant disabled:dark:bg-d-primary_variant
+            px-5 w-72 py-1.5 rounded-full bg-primary dark:bg-d-primary text-white text-lg"
+      onClick={() => {
+        if (onClick) onClick();
+        setClicked((prev) => !prev);
+      }}
+      disabled={clicked || disabled}
+    >
+      {msg}
+    </button>
+  );
+};
 export default LoginPanel;

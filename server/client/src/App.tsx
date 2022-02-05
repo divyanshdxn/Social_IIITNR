@@ -24,15 +24,15 @@ const App: React.FC = () => {
           <BrowserRouter>
             <Routes>
               {/* Login Route */}
-              <Route path="/login" element={<Login />} />
+              <Route path="login" element={<Login />} />
               <Route
                 path="/"
                 element={<Navigate to="/app/home" replace={true} />}
               />
               {/* Protected Routes */}
-              <Route path="/app/*" element={<ProtectedRoutes />} />
+              <Route path="app/*" element={<ProtectedRoutes />} />
               {/* Ummatched Routes */}
-              <Route path="*" element={<Error message="Page Not Found" />} />
+              <Route path="*" element={<Error code={404} retry={true} />} />
             </Routes>
           </BrowserRouter>
         </MyProfileProvider>
