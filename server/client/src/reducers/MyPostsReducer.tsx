@@ -8,7 +8,7 @@ export interface MyProfileReducerState {
 export type MyProfileReducerAction =
   | { type: 'set-profile'; payload: SingleProfileResponse }
   | { type: 'set-posts'; payload: PostByUserResponse[] }
-  | { type: 'new-post'; payload: MyProfileReducerState }
+  | { type: 'new-post'; payload: PostByUserResponse }
   | { type: 'delete'; payload: Partial<MyProfileReducerState> }
   | {
       type: 'update';
@@ -37,6 +37,11 @@ const MyProfileReducer: MyProfileReducerType = (state, action) => {
     case 'delete':
       break;
     case 'new-post':
+      const { myPosts } = state;
+      state = {
+        ...state,
+        myPosts: [payload as PostByUserResponse, ...myPosts],
+      };
       break;
     case 'delete':
       break;
