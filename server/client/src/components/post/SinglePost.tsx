@@ -1,20 +1,18 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useApi from '../../hooks/useApi';
-import MyProfileReducer from '../../reducers/MyPostsReducer';
 import SinglePostResponse from '../../types/response/SinglePostResponse';
 import SingleProfileResponse from '../../types/response/SingleProfileResponse';
-import PostLoading from '../Loaders/PostLoading';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   post: SinglePostResponse;
 }
 
 const SinglePost: React.FC<Props> = ({ post }) => {
-  const { isLoading, isSuccess, data } = useApi<any, SingleProfileResponse>(
+  const { data } = useApi<any, SingleProfileResponse>(
     `/api/profile/${post.profileUserId}`,
     'get',
   );
-  const [isReadMore, setIsReadMore] = useState(false);
+  const [isReadMore, setIsReadMore] = useState(true);
   useEffect(() => {});
 
   return (
@@ -23,17 +21,23 @@ const SinglePost: React.FC<Props> = ({ post }) => {
       p-4 rounded-lg w-full gap-3"
     >
       <div className=" flex gap-3 h-8">
-        <div className="w-8 h-8 rounded-full overflow-hidden bg-background_variant dark:bg-d-background_variant">
+        <div
+          className="flex justify-center items-center w-8 h-8 rounded-full overflow-hidden 
+            bg-background_variant dark:bg-d-background_variant"
+        >
           <img src={`${data?.photoUrl}`} alt="" />
         </div>
         <div>{data?.firstName}</div>
       </div>
       {post.media && (
-        <div className="w-full aspect-video bg-background_variant dark:bg-d-background_variant">
+        <div
+          className="w-full aspect-video bg-background_variant dark:bg-d-background_variant"
+          style={{ maxHeight: '44rem' }}
+        >
           <img
             src={`/api/media/${post.media}`}
             alt=""
-            className="w-full object-contain"
+            className="h-full object-contain"
           />
         </div>
       )}

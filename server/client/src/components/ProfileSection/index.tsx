@@ -20,10 +20,10 @@ const ProfileSection: React.FC<Props> = ({ userId }) => {
   useEffect(() => {
     if (isSuccess && data && dispatch && !userId)
       dispatch({ type: 'set-profile', payload: data });
-  }, [isSuccess]);
+  }, [isSuccess, data, dispatch, userId]);
   useEffect(() => {
     setProfile(state.profile);
-  });
+  }, [state]);
   return (
     <div
       className="sticky translate-y-6 px-8 mx-8 left-10 top-12 
@@ -34,6 +34,7 @@ const ProfileSection: React.FC<Props> = ({ userId }) => {
       <div
         className=" w-44 aspect-square rounded-full overflow-hidden mt-5 mb-2 bg-background_variant 
       dark:bg-background_variant"
+        style={{ minHeight: '10rem' }}
       >
         <img src={profile.photoUrl} alt="" className=" w-44 object-cover " />
       </div>
