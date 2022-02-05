@@ -83,7 +83,7 @@ const LoginPanel: React.FC<Props> = () => {
             </button>
           )}
           <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || '557790709288-4la84pac5ktcasmjtdfa40312pgk5nnj.apps.googleusercontent.com'}
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
             buttonText="Continue with college email"
             onSuccess={onSuccess}
             onFailure={onFailure}
