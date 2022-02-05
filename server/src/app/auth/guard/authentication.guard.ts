@@ -23,7 +23,7 @@ export class AuthenticationGuard implements CanActivate {
       const token = authHeader.substring(7, authHeader.length);
       const profile = await this.verify(token);
       request.profile = profile;
-      request.idToken = token
+      request.idToken = token;
       return true;
     } else {
       throw new UnauthorizedException('No Authorization headers found!');
