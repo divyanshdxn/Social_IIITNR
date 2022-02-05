@@ -22,25 +22,36 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  googleLogin(req: any, res: Response) {
-    if (!req.user) {
-      throw new UnauthorizedException();
+
+  googleSignin(req: any, res: Response) {
+    try {
+      const profile: Profile = req.profile;
+      const idToken: string = req.idToken;
+      return res.json({ idToken, profile });
+    } catch (error) {
+      throw new UnauthorizedException(error);
     }
-    const profile: Profile = req.user.profile;
-    const payload: JwtPayload = {
-      userId: profile.userId,
-      email: profile.email,
-      name: profile.firstName,
-    };
-    const accessToken = this.jwtService.sign(payload);
-    return res
-      .cookie('access_token', accessToken, {
-        httpOnly: true,
-        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
-      })
-      .send('<script>window.close()</script>');
-    // .send(profile);
   }
+
+  // googleLogin(req: any, res: Response) {
+  //   if (!req.user) {
+  //     throw new UnauthorizedException();
+  //   }
+  //   const profile: Profile = req.user.profile;
+  //   const payload: JwtPayload = {
+  //     userId: profile.userId,
+  //     email: profile.email,
+  //     name: profile.firstName,
+  //   };
+  //   const accessToken = this.jwtService.sign(payload);
+  //   return res
+  //     .cookie('access_token', accessToken, {
+  //       httpOnly: true,
+  //       expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+  //     })
+  //     .send('<script>window.close()</script>');
+  //   // .send(profile);
+  // }
 
   async signup(signupDto: SignupDto) {
     try {

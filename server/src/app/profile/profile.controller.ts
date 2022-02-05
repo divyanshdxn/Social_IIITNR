@@ -10,9 +10,9 @@ import {
 } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { JwtAuthGuard } from '../auth/guard/jwt.guard';
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { Profile } from './entities/profile.entity';
+import { AuthorizationGuard } from '../auth/guard/authorization.guard';
 
 @Controller('profile')
 export class ProfileController {
@@ -20,7 +20,7 @@ export class ProfileController {
 
   // get all users-profiles on server
   @Get()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   @ApiTags('Profile')
   findAll() {
     return this.profileService.findAll();
@@ -28,41 +28,41 @@ export class ProfileController {
 
   @Get('get/email')
   @ApiTags('Profile')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   async findByEmail(@Body('email') email: string) {
     return await this.profileService.findByEmail(email);
   }
 
   @Get('current')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   getCurrent(@Request() req: any) {
-    const profile: Profile = req.user;
+    const profile: Profile = req.profile;
     return profile;
   }
 
   // get one user-profile by its userId
   @Get(':id')
   @ApiTags('Profile')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   findOne(@Param('id') id: string) {
     return this.profileService.findById(id);
   }
 
   // update the profile of signed in user
   @Patch()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   @ApiTags('Profile')
   update(@Request() req: any, @Body() updateProfileDto: UpdateProfileDto) {
-    const profile: Profile = req.user;
+    const profile: Profile = req.profile;
     return this.profileService.update(profile.userId, updateProfileDto);
   }
 
   // delete the profile of signed in user
   @Delete()
   @ApiTags('Profile')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   remove(@Request() req: any) {
-    const profile: Profile = req.user;
+    const profile: Profile = req.profile;
     return this.profileService.remove(profile.userId);
   }
 }

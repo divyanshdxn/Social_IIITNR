@@ -18,6 +18,7 @@ import { JwtAuthGuard } from '../auth/guard/jwt.guard';
 import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { eventMulterConfig } from 'src/config/multer.config';
+import { AuthorizationGuard } from '../auth/guard/authorization.guard';
 
 @ApiTags('Events')
 @Controller('pages/:page_id/events')
@@ -25,7 +26,7 @@ export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   @UseInterceptors(FileInterceptor('file', eventMulterConfig))
   create(
     @Param('page_id') pages_id: string,
@@ -37,30 +38,30 @@ export class EventsController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   findAll(@Param('page_id') pages_id: string) {
     return this.eventsService.findAll(pages_id);
   }
 
   @Get('rel')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   findAllAndJoin(@Param('page_id') pages_id: string) {
     return this.eventsService.findAllAndJoin(pages_id);
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   findOne(@Param('page_id') pages_id: string, @Param('id') id: string) {
     return this.eventsService.findOne(id, pages_id);
   }
   @Get(':id/rel')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   findOneAndJoin(@Param('id') id: string, @Param('page_id') pages_id: string) {
     return this.eventsService.findOneAndJoin(id, pages_id);
   }
 
   @Patch(':id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   update(
     @Param('id') id: string,
     @Body() updateEventDto: UpdateEventDto,
@@ -71,7 +72,7 @@ export class EventsController {
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   remove(
     @Param('id') id: string,
     @Param('page_id') pages_id: string,

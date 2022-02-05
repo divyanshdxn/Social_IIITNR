@@ -20,6 +20,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
 import { postMulterConfig } from 'src/config/multer.config';
 import { Profile } from '../profile/entities/profile.entity';
+import { AuthorizationGuard } from '../auth/guard/authorization.guard';
 
 @ApiTags('Post')
 @Controller('post')
@@ -35,14 +36,14 @@ export class PostController {
   [POST] /post/create
   */
   @Post('create')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   @UseInterceptors(FileInterceptor('file', postMulterConfig))
   create(
     @Body() createPostDto: CreatePostDto,
     @Request() req: any,
     @UploadedFile('file') file: Express.Multer.File,
   ) {
-    const profile: Profile = req.user;
+    const profile: Profile = req.profile;
     return this.postService.create(createPostDto, profile, file);
   }
 
@@ -50,20 +51,20 @@ export class PostController {
     [GET] /post
   */
   @Get()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   findAll() {
     return this.postService.findAll();
   }
 
   /* get a post by its id, only a signed in user can ask for a post */
   @Get(':postId')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   findOne(@Param('postId') postId: string) {
     return this.postService.fingById(postId);
   }
 
   @Get('user/:userId')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   findOneByUser(@Param('userId') userId: string) {
     return this.postService.findAllByUserId(userId);
   }
@@ -74,13 +75,13 @@ export class PostController {
   if not then throw unAuthorized exception - "this post belongs to another user" 
   */
   @Patch(':postId')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   update(
     @Param('postId') postId: string,
     @Body() updatePostDto: UpdatePostDto,
     @Req() req: any,
   ) {
-    const profile: Profile = req.user;
+    const profile: Profile = req.profile;
     return this.postService.update(profile.userId, postId, updatePostDto);
   }
 
@@ -90,9 +91,9 @@ export class PostController {
   if not then throw unAuthorized exception - "this post belongs to another user" 
   */
   @Delete(':postId')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthorizationGuard)
   remove(@Param('postId') postId: string, @Req() req: any) {
-    const profile: Profile = req.user;
+    const profile: Profile = req.profile;
     return this.postService.remove(profile.userId, postId);
   }
 }
