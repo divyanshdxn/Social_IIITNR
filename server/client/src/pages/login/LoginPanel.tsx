@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Logo from '../../components/Icons/Logo';
-import CommunityIcon from '../../components/Icons/CommunityIcon';
-import EventsIcon from '../../components/Icons/EventsIcon';
-import PagesIcon from '../../components/Icons/PagesIcon';
-import { handleLogin } from '../../helpers/login';
+import { googleLogin, handleLogin } from '../../helpers/login';
 import features from '../../data/features';
-import useApi from '../../hooks/useApi';
 import { useAuth } from '../../hooks/useAuth';
+import { GoogleLogin } from 'react-google-login';
 
 interface Props {}
 
 const LoginPanel: React.FC<Props> = () => {
-  const { isSuccess, timer } = useAuth(5000);
+  const { isSuccess, timer } = useAuth(500000);
   const [clicked, setClicked] = useState(false);
   useEffect(() => {
     if (isSuccess && clicked) {
@@ -21,6 +18,15 @@ const LoginPanel: React.FC<Props> = () => {
       clearInterval(timer as NodeJS.Timeout);
     };
   }, [isSuccess, clicked]);
+
+  const onSuccess = (response: any) => {
+    googleLogin(response.tokenId)
+      .then((body) => console.log(body))
+      .catch((error) => console.log(error));
+  };
+  const onFailure = (error: any) => {
+    console.log(error);
+  };
 
   return (
     <section
@@ -75,6 +81,15 @@ const LoginPanel: React.FC<Props> = () => {
               Cancel
             </button>
           )}
+          <GoogleLogin
+            clientId={
+              '557790709288-4la84pac5ktcasmjtdfa40312pgk5nnj.apps.googleusercontent.com'
+            }
+            buttonText="Continue with college email"
+            onSuccess={onSuccess}
+            onFailure={onFailure}
+            cookiePolicy={'single_host_origin'}
+          />
         </div>
       </div>
     </section>

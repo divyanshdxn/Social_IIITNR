@@ -9,7 +9,7 @@ import { PagesService } from './pages.service';
 @Module({
   controllers: [PagesController],
   providers: [PagesService],
-  imports: [TypeOrmModule.forFeature([Page]), MediaModule,ProfileModule],
+  imports: [TypeOrmModule.forFeature([Page]), MediaModule, ProfileModule],
   exports: [PagesService],
 })
 export class PagesModule {}
