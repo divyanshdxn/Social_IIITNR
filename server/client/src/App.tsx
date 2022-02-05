@@ -1,15 +1,15 @@
-import './styles/tailwind.css';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/login';
-import ProtectedRoutes from './routes/ProtectedRoutes';
+import { useReducer } from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Error } from './components/Error';
-import AppContextProvider from './providers/AppContextProvider';
 import useDarkMode from './hooks/useDarkMode';
-import { useReducer, useState } from 'react';
-import SingleProfileResponse from './types/response/SingleProfileResponse';
+import Login from './pages/login';
+import AppContextProvider from './providers/AppContextProvider';
 import MyProfileProvider from './providers/MyProfileProvider';
-import { useMyProfileContext } from './hooks/useMyProfileContext';
 import MyProfileReducer from './reducers/MyPostsReducer';
+import ProtectedRoutes from './routes/ProtectedRoutes';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './styles/tailwind.css';
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useDarkMode();
@@ -37,6 +37,14 @@ const App: React.FC = () => {
           </BrowserRouter>
         </MyProfileProvider>
       </AppContextProvider>
+      <ToastContainer
+        position="top-right"
+        theme={darkMode ? 'dark' : 'light'}
+        autoClose={5000}
+        closeOnClick
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
