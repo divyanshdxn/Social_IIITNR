@@ -1,5 +1,5 @@
-import React from "react";
-import LoginPanel from "./LoginPanel";
+import React from 'react';
+import LoginPanel from './LoginPanel';
 
 interface Props {}
 

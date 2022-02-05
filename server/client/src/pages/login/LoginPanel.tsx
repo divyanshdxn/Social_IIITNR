@@ -3,8 +3,7 @@ import Logo from '../../components/Icons/Logo';
 import { googleLogin, handleLogin } from '../../helpers/login';
 import features from '../../data/features';
 import { useAuth } from '../../hooks/useAuth';
-import {GoogleLogin} from 'react-google-login';
-
+import { GoogleLogin } from 'react-google-login';
 
 interface Props {}
 
@@ -83,7 +82,9 @@ const LoginPanel: React.FC<Props> = () => {
             </button>
           )}
           <GoogleLogin
-            clientId={'557790709288-4la84pac5ktcasmjtdfa40312pgk5nnj.apps.googleusercontent.com'}
+            clientId={
+              '557790709288-4la84pac5ktcasmjtdfa40312pgk5nnj.apps.googleusercontent.com'
+            }
             buttonText="Continue with college email"
             onSuccess={onSuccess}
             onFailure={onFailure}

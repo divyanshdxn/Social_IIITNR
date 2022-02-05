@@ -1,6 +1,6 @@
-import CommunityIcon from "../components/Icons/CommunityIcon";
-import EventsIcon from "../components/Icons/EventsIcon";
-import PagesIcon from "../components/Icons/PagesIcon";
+import CommunityIcon from '../components/Icons/CommunityIcon';
+import EventsIcon from '../components/Icons/EventsIcon';
+import PagesIcon from '../components/Icons/PagesIcon';
 
 interface Feature {
   name: string;
@@ -9,15 +9,15 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    name: "Community",
+    name: 'Community',
     icon: <CommunityIcon />,
   },
   {
-    name: "Pages",
+    name: 'Pages',
     icon: <PagesIcon />,
   },
   {
-    name: "Events",
+    name: 'Events',
     icon: <EventsIcon />,
   },
 ];
