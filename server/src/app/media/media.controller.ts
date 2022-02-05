@@ -21,7 +21,7 @@ export class MediaController {
     res.set({
       'Content-type': media.mimeType,
     });
-    const file = createReadStream(join(process.cwd(), media.path));
+    const file = createReadStream(join(__dirname,"..","..","..","..",media.path));
     return file.pipe(res);
   }
 
