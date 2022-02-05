@@ -1,4 +1,3 @@
 package com.iiitnr.social.util
 
-class Utils {
-}
+fun getBearerHeader(token: String) = "bearer $token"

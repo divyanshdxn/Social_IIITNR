@@ -13,7 +13,6 @@ import com.iiitnr.social.ui.Adapters.EcellRecyclerAdapter
 
 class Ecell : Fragment() {
     private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<EcellRecyclerAdapter.ViewHolder>? = null
     private var _binding: FragmentEcellBinding? = null
     private val binding get() = _binding!!
 
@@ -28,11 +27,7 @@ class Ecell : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.ongoingEcellList.apply {
-            // set a LinearLayoutManager to handle Android
-            // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
-            // set the custom adapter to the RecyclerView
-            adapter = EcellRecyclerAdapter()
         }
     }
 }
