@@ -1,6 +1,4 @@
-import apiGet from '../helpers/apiGet';
 import PostByUserResponse from '../types/response/PostsByUserResponse';
-import SinglePostResponse from '../types/response/SinglePostResponse';
 import SingleProfileResponse from '../types/response/SingleProfileResponse';
 
 export interface MyProfileReducerState {

@@ -5,6 +5,7 @@ import axios, {
   AxiosResponse,
 } from 'axios';
 import React, { useEffect, useState } from 'react';
+import { checkToken, getHeaders } from '../helpers/apiRequest';
 
 interface State<T> {
   isError: boolean | null;
@@ -31,33 +32,25 @@ const useApi = <T, Y = any>(
   });
 
   const handleRequest = async () => {
-    try {
-      setState({ ...state });
-      const config: AxiosRequestConfig<T> = { method, data: payload };
-      const res: AxiosResponse<Y, T> = await axios(url, config);
-      setState({
-        ...state,
-        isLoading: false,
-        isSuccess: res.status >= 200 && res.status < 300,
-        isError: false,
-        status: res.status,
-        data: res.data,
-      });
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response && err.response.status === 401) {
-        setState({
-          ...state,
-          isLoading: false,
-          isSuccess: false,
-          isError: false,
-          status: err.response.status,
-          data: err.response.data,
-        });
-      } else {
-        setState({ ...state, isLoading: false, isError: true });
-      }
+    setState({ ...state });
+    if (!checkToken()) {
+      setState({ ...state, isLoading: false, isSuccess: false });
+      return;
     }
+    const config: AxiosRequestConfig<T> = {
+      method,
+      data: payload,
+      headers: getHeaders(),
+    };
+    const res: AxiosResponse<Y, T> = await axios(url, config);
+    setState({
+      ...state,
+      isLoading: false,
+      isSuccess: res.status >= 200 && res.status < 300,
+      isError: false,
+      status: res.status,
+      data: res.data,
+    });
   };
   useEffect(() => {
     if (interval) {

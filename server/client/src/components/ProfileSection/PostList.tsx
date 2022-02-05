@@ -1,7 +1,5 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import apiGet from '../../helpers/apiGet';
-import useApi from '../../hooks/useApi';
+import { apiGet } from '../../helpers/apiRequest';
 import { useMyProfileContext } from '../../hooks/useMyProfileContext';
 import PostByUserResponse from '../../types/response/PostsByUserResponse';
 import SinglePostPrev from './SinglePostPrev';
@@ -34,7 +32,7 @@ const PostList: React.FC<Props> = ({ userID, owner }) => {
     setData(state.myPosts);
   });
   return (
-    <div className=" w-full mt-6 flex-1 basis-1/3">
+    <div className=" w-full mt-6 flex-1 basis-1/3" style={{ maxHeight: '45%' }}>
       <h2 className="text-lg ml-1">Your Posts</h2>
       <div
         className="flex flex-col justify-start gap-3 w-full h-full 

@@ -1,8 +1,10 @@
 import axios, { AxiosError } from 'axios';
 import { useEffect, useRef, useState } from 'react';
+import { apiPost } from '../../helpers/apiRequest';
 import useAppContext from '../../hooks/useAppContext';
 import { useMyProfileContext } from '../../hooks/useMyProfileContext';
 import CreatePostRequest from '../../types/Request/CreatePostRequest';
+import PostByUserResponse from '../../types/response/PostsByUserResponse';
 
 interface Props {}
 const NewPost: React.FC<Props> = () => {
@@ -23,12 +25,16 @@ const NewPost: React.FC<Props> = () => {
         request.append('caption', inputRef.current.textContent);
       setIsUploading(true);
       try {
-        const res = await axios.post('/api/post/create', request, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
+        const [res] = await apiPost<FormData, PostByUserResponse>(
+          '/api/post/create',
+          request,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
           },
-        });
-        console.log(res.data);
+        );
+        console.log(res);
         setIsUploading(false);
         alert('Uploaded Successfully..');
       } catch (err) {

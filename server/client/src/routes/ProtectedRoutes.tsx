@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Navigate, Route, Routes } from 'react-router';
+import React from 'react';
+import { Route, Routes } from 'react-router';
 import { Error } from '../components/Error';
 import Navigation from '../components/Navigation';
 import { RequireAuth } from '../components/RequireAuth';
@@ -10,20 +10,16 @@ import { RoutePath } from '../types/Route';
 
 const routes: RoutePath[] = [
   {
-    path: '/home',
+    path: 'home',
     component: <Home />,
   },
   {
-    path: '/pages',
+    path: 'pages',
     component: <Pages />,
   },
   {
-    path: '/events',
+    path: 'events',
     component: <Events />,
-  },
-  {
-    path: '*',
-    component: <Error />,
   },
 ];
 
