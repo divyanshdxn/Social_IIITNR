@@ -1,6 +1,6 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestHeaders } from 'axios';
 import { useEffect, useRef, useState } from 'react';
-import { apiPost } from '../../helpers/apiRequest';
+import { apiPost, getHeaders } from '../../helpers/apiRequest';
 import useAppContext from '../../hooks/useAppContext';
 import { useMyProfileContext } from '../../hooks/useMyProfileContext';
 import CreatePostRequest from '../../types/Request/CreatePostRequest';
@@ -25,7 +25,9 @@ const NewPost: React.FC<Props> = () => {
         request.append('caption', inputRef.current.textContent);
       setIsUploading(true);
       try {
-        const [res] = await apiPost<FormData, PostByUserResponse>(
+        let headers: AxiosRequestHeaders = {};
+
+        const [res, code] = await apiPost<FormData, PostByUserResponse>(
           '/api/post/create',
           request,
           {
@@ -36,7 +38,10 @@ const NewPost: React.FC<Props> = () => {
         );
         console.log(res);
         setIsUploading(false);
-        alert('Uploaded Successfully..');
+        if (code >= 200 && code < 300) {
+          alert('Uploaded Successfully..');
+          dispatch({ type: 'new-post', payload: res as PostByUserResponse });
+        }
       } catch (err) {
         const error = err as AxiosError;
         console.log(err, error.response);

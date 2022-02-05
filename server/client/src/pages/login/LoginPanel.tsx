@@ -1,31 +1,17 @@
-import React, { HTMLAttributes, useEffect, useState } from 'react';
-import Logo from '../../components/Icons/Logo';
-import {
-  onFailure,
-  onSuccess,
-} from '../../helpers/login';
-import features from '../../data/features';
-import { useAuth } from '../../hooks/useAuth';
+import React, { HTMLAttributes, useState } from 'react';
 import {
   GoogleLogin,
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
-  useGoogleLogin,
 } from 'react-google-login';
+import Logo from '../../components/Icons/Logo';
+import features from '../../data/features';
+import { onFailure, onSuccess } from '../../helpers/login';
 
 interface Props {}
 
 const LoginPanel: React.FC<Props> = () => {
-  // const { isSuccess, timer } = useAuth();
   const [clicked, setClicked] = useState(false);
-  // useEffect(() => {
-  //   if (isSuccess && clicked) {
-  //     window.open('/', '_self');
-  //   }
-  //   return () => {
-  //     clearInterval(timer as NodeJS.Timeout);
-  //   };
-  // }, [isSuccess, clicked]);
 
   return (
     <section
