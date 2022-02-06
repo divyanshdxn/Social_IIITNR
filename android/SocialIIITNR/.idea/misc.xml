@@ -18,19 +18,16 @@
         <entry key="app/src/main/res/layout/fragment_ciphercell.xml" value="0.2234375" />
         <entry key="app/src/main/res/layout/fragment_clubs.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_comet.xml" value="0.2234375" />
-        <entry key="app/src/main/res/layout/fragment_create_post.xml" value="0.2234375" />
+        <entry key="app/src/main/res/layout/fragment_create_post.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_ecell.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.17815614617940198" />
-        <entry key="app/src/main/res/layout/fragment_pages.xml" value="0.2234375" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2234375" />
         <entry key="app/src/main/res/layout/fragment_inquizitive.xml" value="0.2234375" />
         <entry key="app/src/main/res/layout/fragment_pages.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_post_detail.xml" value="0.2234375" />
-        <entry key="app/src/main/res/layout/fragment_trainingn_placement.xml" value="0.2234375" />
-        <entry key="app/src/main/res/layout/layout_create_post.xml" value="0.2234375" />
-        <entry key="app/src/main/res/layout/layout_post_card.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2234375" />
         <entry key="app/src/main/res/layout/fragment_trainingn_placement.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/layout_create_post.xml" value="0.2234375" />
+        <entry key="app/src/main/res/layout/layout_post_card.xml" value="0.33" />
         <entry key="app/src/main/res/layout/profile_post_item.xml" value="0.2234375" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.33" />
       </map>

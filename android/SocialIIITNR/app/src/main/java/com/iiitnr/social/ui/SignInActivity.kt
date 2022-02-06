@@ -56,7 +56,6 @@ class SignInActivity : AppCompatActivity() {
                         val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
                         val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
                         handleLogin(account)
-                        mGoogleSignInClient.revokeAccess()
                     } catch (e: Exception) {
                         shortToast("Authentication failed")
                     }
