@@ -118,7 +118,7 @@ export class PostService {
   async isOwnedBy(userId: string, postId: string) {
     try {
       const post = await this.fingById(postId);
-      return userId == post.profile.userId;
+      return userId === post.profile.userId;
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error);
