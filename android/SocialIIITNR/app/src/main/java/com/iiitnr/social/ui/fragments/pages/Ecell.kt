@@ -28,7 +28,7 @@ class Ecell : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val items : ArrayList<Int> = ArrayList()
+        val items: ArrayList<Int> = ArrayList()
         items.add(R.drawable.bigbull)
         items.add(R.drawable.index)
         items.add(R.drawable.esummit)
@@ -36,7 +36,7 @@ class Ecell : BaseFragment() {
         binding.ongoingEcellList.apply {
             // set a LinearLayoutManager to handle Android
             // RecyclerView behavior
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             // set the custom adapter to the RecyclerView
             adapter = EcellRecyclerAdapter(items)
         }

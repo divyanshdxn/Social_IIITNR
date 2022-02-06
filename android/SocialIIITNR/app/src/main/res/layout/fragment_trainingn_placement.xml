@@ -4,223 +4,236 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="50dp"
     android:padding="2dp"
     tools:context=".ui.fragments.pages.TrainingnPlacement">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
         android:id="@+id/Tnp_fixed"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
         <FrameLayout
             android:id="@+id/IIIT_intro"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
                 android:id="@+id/college_image"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-                android:src="@drawable/college_drone"
+                android:contentDescription="@string/college_photo"
                 android:scaleType="fitStart"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/college_photo" />
+                android:src="@drawable/college_drone"
+                app:layout_constraintTop_toTopOf="parent" />
         </FrameLayout>
+
         <TextView
             android:id="@+id/tnp"
-            app:layout_constraintTop_toBottomOf="@id/IIIT_intro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center"
             android:text="@string/placement_cell"
-            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:gravity="center"
-            android:layout_gravity="bottom"
-            />
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/IIIT_intro" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/amitsir_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/directorsir_card"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            app:layout_constraintTop_toBottomOf="@id/directorsir_card">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <ImageView
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/amitinfo"
-                    app:layout_constraintLeft_toLeftOf="parent"
                     android:id="@+id/amitsir"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:contentDescription="@+id/amitname"
                     android:src="@drawable/amit_tnp"
-                    android:contentDescription="@+id/amitname" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/amitinfo"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
-                    android:padding="3dp"
-                    app:layout_constraintLeft_toRightOf="@id/amitsir"
                     android:id="@+id/amitname"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
+                    android:padding="3dp"
                     android:text="@string/position_of_amitsir"
                     android:textColor="@color/black"
-                    />
-                <TextView
-                    android:padding="3dp"
-                    android:id="@+id/amitinfo"
                     app:layout_constraintLeft_toRightOf="@id/amitsir"
-                    app:layout_constraintTop_toBottomOf="@id/amitname"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/amitinfo"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:padding="3dp"
                     android:text="@string/amitsir_content"
-                    />
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/amitsir"
+                    app:layout_constraintTop_toBottomOf="@id/amitname" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/directorsir_card"
-            app:layout_constraintTop_toBottomOf="@id/tnp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            app:layout_constraintTop_toBottomOf="@id/tnp">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <ImageView
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/directorinfo"
                     android:id="@+id/directorsir"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:contentDescription="@+id/directorname"
                     android:src="@drawable/director_mod"
-                    android:contentDescription="@+id/directorname" />
+                    app:layout_constraintLeft_toRightOf="@id/directorinfo"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
-                    android:padding="3dp"
-                    app:layout_constraintRight_toLeftOf="@id/directorsir"
                     android:id="@+id/directorname"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
+                    android:padding="3dp"
                     android:text="@string/post_of_director"
                     android:textColor="@color/black"
-                    />
-                <TextView
-                    android:padding="3dp"
-                    android:id="@+id/directorinfo"
                     app:layout_constraintRight_toLeftOf="@id/directorsir"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/directorname"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/directorinfo"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:padding="3dp"
                     android:text="@string/content_director"
-                    />
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/directorsir"
+                    app:layout_constraintTop_toBottomOf="@id/directorname" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:layout_marginTop="20dp"
-            android:textStyle="bold"
             android:id="@+id/recruiter"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/amitsir_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="OUR RECRUITERS"
-            />
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/amitsir_card" />
+
         <GridLayout
-            app:layout_constraintTop_toBottomOf="@id/recruiter"
+            android:id="@+id/gridLayout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="#FFFFFF"
             android:columnCount="3"
             android:padding="10dp"
-            android:background="#FFFFFF"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            >
-            <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/goldmansachs"
-                android:contentDescription="@string/recruiter_company" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recruiter">
 
             <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/amazon"
-                android:contentDescription="@string/recruiter_company" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/recruiter_company"
+                android:src="@drawable/goldmansachs" />
 
             <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/codenation"
-                android:contentDescription="@string/recruiter_company" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/recruiter_company"
+                android:src="@drawable/amazon" />
 
             <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/delloite"
-                android:contentDescription="@string/recruiter_company" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/recruiter_company"
+                android:src="@drawable/codenation" />
 
             <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/deltax"
-                android:contentDescription="@string/recruiter_company" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/recruiter_company"
+                android:src="@drawable/delloite" />
 
             <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/zeiss"
-                android:contentDescription="@string/recruiter_company" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/recruiter_company"
+                android:src="@drawable/deltax" />
 
             <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/erricsion"
-                android:contentDescription="@string/recruiter_company" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/recruiter_company"
+                android:src="@drawable/zeiss" />
 
             <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/lnt"
-                android:contentDescription="@string/recruiter_company" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/recruiter_company"
+                android:src="@drawable/erricsion" />
 
             <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/omg"
-                android:contentDescription="@string/recruiter_company" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/recruiter_company"
+                android:src="@drawable/lnt" />
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/recruiter_company"
+                android:src="@drawable/omg" />
 
         </GridLayout>
 
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </ScrollView>

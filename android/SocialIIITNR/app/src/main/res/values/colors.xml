@@ -21,4 +21,6 @@
 
     <color name="muted">#B5B5B5</color>
 
+    <color name="search_bar_background">#0D000000</color>
+
 </resources>
