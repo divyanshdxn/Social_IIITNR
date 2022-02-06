@@ -28,6 +28,9 @@ export class PostService {
     file: Express.Multer.File,
   ) {
     try {
+      if (!file) {
+        throw new Error('No media file was found');
+      }
       const mediaId = await this.mediaService.create(file);
       const post = this.postRepository.create({
         postId: v4(),
@@ -39,8 +42,8 @@ export class PostService {
         post.page = await this.pagesService.findOne(createPostDto.pageId);
       return post.save();
     } catch (error) {
-      console.log(error);
-      throw new InternalServerErrorException(error);
+      console.error(error);
+      throw new BadRequestException(error.message);
     }
   }
 
