@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.iiitnr.social.R
 import com.iiitnr.social.databinding.FragmentPagesBinding
 import com.iiitnr.social.databinding.FragmentPostDetailBinding
@@ -24,6 +25,16 @@ class Pages : BaseFragment() {
     ): View {
         _binding = FragmentPagesBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.entrepreneurCell.setOnClickListener{
+            findNavController().navigate(R.id.action_pages_to_ecell)
+        }
+        binding.trainingP.setOnClickListener{
+            findNavController().navigate(R.id.action_pages_to_tnp)
+        }
     }
 
 }
