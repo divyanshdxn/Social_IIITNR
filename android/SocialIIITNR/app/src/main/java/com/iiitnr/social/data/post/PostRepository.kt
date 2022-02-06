@@ -6,9 +6,12 @@ import com.iiitnr.social.common.getBearerHeader
 import com.iiitnr.social.data.profile.ProfileApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
+import okhttp3.MediaType
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.HttpException
 import java.io.File
+import java.io.InputStream
 
 class PostRepository(
     private val postApi: PostApi,
@@ -38,10 +41,17 @@ class PostRepository(
 
     }
 
-    fun createPost(idToken: String, file: MultipartBody.Part, caption: String) = flow<Resource<Boolean>> {
+    fun createPost(idToken: String, file: InputStream, caption: String) = flow<Resource<Boolean>> {
         try {
             emit(Resource.Loading())
-            postApi.create(getBearerHeader(idToken), file, caption)
+            val filePart = MultipartBody.Part.createFormData(
+                "file", "filename", RequestBody.create(
+                    MediaType.parse("image/*"),
+                    file.readBytes()
+                )
+            )
+            val captionPart = MultipartBody.Part.createFormData("caption", caption)
+            postApi.create(getBearerHeader(idToken), filePart, captionPart)
             emit(Resource.Success(true))
         } catch (e: HttpException) {
             Log.e(TAG, "createPost: ", e)

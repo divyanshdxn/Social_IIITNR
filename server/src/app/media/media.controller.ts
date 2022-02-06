@@ -20,10 +20,10 @@ export class MediaController {
   @Get(':mediaId')
   async findOne(@Param('mediaId') mediaId: string, @Res() res: Response) {
     try {
-       const media = await this.mediaService.findOne(mediaId);
-    res.set({
-      'Content-type': media.mimeType,
-    });
+      const media = await this.mediaService.findOne(mediaId);
+      res.set({
+        'Content-type': media.mimeType,
+      });
       console.log(path);
       const file = createReadStream(join(path, media.path));
       return file.pipe(res);

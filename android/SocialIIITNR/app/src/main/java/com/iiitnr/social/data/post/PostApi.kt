@@ -20,7 +20,7 @@ interface PostApi {
     suspend fun create(
         @Header("Authorization") bearerToken: String,
         @Part() file: MultipartBody.Part,
-        @Part("caption") caption: String
+        @Part() caption:  MultipartBody.Part
     )
 
 }

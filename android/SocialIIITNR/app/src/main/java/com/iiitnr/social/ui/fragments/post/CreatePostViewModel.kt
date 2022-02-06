@@ -36,15 +36,9 @@ constructor(
     val success: LiveData<Boolean> get() = _success
 
 
-    fun createPost(inputStream: InputStream, caption: String, idToken: String) {
+    fun createPost(inputStream: InputStream, filename: String, caption: String, idToken: String) {
         viewModelScope.launch {
-            val part = MultipartBody.Part.createFormData(
-                "pic", "myPic", RequestBody.create(
-                    MediaType.parse("image/*"),
-                    inputStream.readBytes()
-                )
-            )
-            postRepository.createPost(idToken, part, caption).collect {
+            postRepository.createPost(idToken, inputStream, caption).collect {
                 when (it) {
                     is Resource.Loading -> {
                         _loading.value = true

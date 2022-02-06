@@ -61,6 +61,7 @@ class CreatePost : BaseFragment() {
             if (imageInputStream != null) {
                 viewModel.createPost(
                     imageInputStream!!,
+                    "IMG00${System.currentTimeMillis()}",
                     caption,
                     mainActivity.signInResponse.idToken
                 )
