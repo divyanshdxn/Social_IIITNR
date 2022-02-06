@@ -1,6 +1,6 @@
 package com.iiitnr.social.data.post
 
-data class PostResponseItem(
+data class Post(
     val caption: String,
     val createdAt: String,
     val media: List<String>,

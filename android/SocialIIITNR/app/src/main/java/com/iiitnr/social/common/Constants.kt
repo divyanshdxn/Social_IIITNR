@@ -1,4 +1,4 @@
-package com.iiitnr.social.util
+package com.iiitnr.social.common
 
 object Constants {
     const val BASE_URL = "https://social-iiitnr.herokuapp.com/"

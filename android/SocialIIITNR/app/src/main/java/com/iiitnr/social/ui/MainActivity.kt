@@ -7,8 +7,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.iiitnr.social.R
 import com.iiitnr.social.data.auth.SignInResponse
 import com.iiitnr.social.databinding.ActivityMainBinding
-import com.iiitnr.social.util.Constants
-import com.iiitnr.social.util.shortToast
+import com.iiitnr.social.common.Constants
+import com.iiitnr.social.common.shortToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iiitnr.social.R
 import com.iiitnr.social.databinding.FragmentEcellBinding
-import com.iiitnr.social.databinding.FragmentTrainingnPlacementBinding
 import com.iiitnr.social.ui.Adapters.EcellRecyclerAdapter
 import com.iiitnr.social.ui.Adapters.ImageViewHolder
 import com.iiitnr.social.ui.fragments.BaseFragment

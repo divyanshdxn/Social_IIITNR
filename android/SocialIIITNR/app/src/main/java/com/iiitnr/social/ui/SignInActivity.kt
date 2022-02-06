@@ -16,11 +16,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.iiitnr.social.data.auth.AuthApi
 import com.iiitnr.social.databinding.ActivitySigninBinding
-import com.iiitnr.social.util.Constants
-import com.iiitnr.social.util.getBearerHeader
-import com.iiitnr.social.util.shortToast
+import com.iiitnr.social.common.Constants
+import com.iiitnr.social.common.getBearerHeader
+import com.iiitnr.social.common.shortToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 
@@ -91,12 +92,18 @@ class SignInActivity : AppCompatActivity() {
     private fun handleLogin(account: GoogleSignInAccount) {
         val idToken = account.idToken
         lifecycleScope.launch {
-            val signInResponse = authApi.signIn(getBearerHeader(idToken!!))
-            val intent = Intent(this@SignInActivity, MainActivity::class.java).apply {
-                putExtra(Constants.SIGN_IN_RESPONSE, signInResponse)
+            try {
+                val signInResponse = authApi.signIn(getBearerHeader(idToken!!))
+                val intent = Intent(this@SignInActivity, MainActivity::class.java).apply {
+                    putExtra(Constants.SIGN_IN_RESPONSE, signInResponse)
+                }
+                startActivity(intent)
+                finish()
+            } catch (e: HttpException) {
+                hideLoading()
+                Log.e(TAG, "handleLogin: ${e.localizedMessage}")
             }
-            startActivity(intent)
-            finish()
+
         }
     }
 
