@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import useApi from '../../hooks/useApi';
 import { useMyProfileContext } from '../../hooks/useMyProfileContext';
 import SingleProfileResponse from '../../types/response/SingleProfileResponse';
@@ -17,6 +18,7 @@ const ProfileSection: React.FC<Props> = ({ userId }) => {
   );
   const { state, dispatch } = useMyProfileContext();
   const [profile, setProfile] = useState<Partial<SingleProfileResponse>>({});
+  const loc = useLocation();
   useEffect(() => {
     if (isSuccess && data && dispatch && !userId)
       dispatch({ type: 'set-profile', payload: data });
@@ -28,7 +30,8 @@ const ProfileSection: React.FC<Props> = ({ userId }) => {
     <div
       className="sticky translate-y-6 px-8 mx-8 left-10 top-12 
 	  flex flex-col basis-1/5 border-2  border-hints dark:border-d-hints 
-	  rounded-xl z-20 bg-background dark:bg-d-background overflow-hidden"
+	  rounded-xl z-20 bg-background dark:bg-d-background overflow-hidden
+    hidden md:flex"
       style={{ height: 'calc(90% - 3rem)', minWidth: '18rem' }}
     >
       <div
