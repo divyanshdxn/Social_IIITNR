@@ -5,6 +5,7 @@ import { useMyProfileContext } from '../../hooks/useMyProfileContext';
 import PostByUserResponse from '../../types/response/PostsByUserResponse';
 import { toast } from 'react-toastify';
 import { type } from 'os';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {}
 const NewPost: React.FC<Props> = () => {
@@ -13,6 +14,7 @@ const NewPost: React.FC<Props> = () => {
   const inputRef = useRef<HTMLDivElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const toastId = useRef<ReactText | null>(null);
+  const nav = useNavigate();
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
@@ -83,11 +85,17 @@ const NewPost: React.FC<Props> = () => {
     <div
       className="flex  
       border-2 border-hints dark:border-d-hints 
-      p-4 rounded-lg my-px h-32 gap-5  items-center fw-full"
+      p-4 rounded-lg my-px h-32 gap-5  items-center w-full"
+      style={{ minHeight: '8rem' }}
     >
-      <div className="rounded-full object-cover w-16 overflow-hidden bg-background_variant dark:bg-d-background_variant">
+      <button
+        className="rounded-full object-cover w-16 overflow-hidden bg-background_variant dark:bg-d-background_variant"
+        onClick={() => {
+          nav('profile');
+        }}
+      >
         <img src={`${userData?.profile?.photoUrl}`} alt="" className="w-full" />
-      </div>
+      </button>
       <form
         className=" flex relative h-full w-full rounded-md overflow-hidden"
         action=""

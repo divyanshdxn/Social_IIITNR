@@ -6,7 +6,7 @@ import Login from './pages/login';
 import AppContextProvider from './providers/AppContextProvider';
 import MyProfileProvider from './providers/MyProfileProvider';
 import MyProfileReducer from './reducers/MyPostsReducer';
-import ProtectedRoutes from './routes/ProtectedRoutes';
+import ProtectedRoutes, { protectedRoutes } from './routes/ProtectedRoutes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/tailwind.css';
@@ -26,11 +26,22 @@ const App: React.FC = () => {
               {/* Login Route */}
               <Route path="login" element={<Login />} />
               <Route
-                path="/"
+                index
                 element={<Navigate to="/app/home" replace={true} />}
               />
               {/* Protected Routes */}
-              <Route path="app/*" element={<ProtectedRoutes />} />
+              <Route path="app/" element={<ProtectedRoutes />}>
+                <Route index element={<Error code={404} retry to="/" />} />
+                {protectedRoutes.map((route, index): JSX.Element => {
+                  return (
+                    <Route
+                      path={route.path}
+                      element={route.component}
+                      key={index}
+                    />
+                  );
+                })}
+              </Route>
               {/* Ummatched Routes */}
               <Route path="*" element={<Error code={404} retry={true} />} />
             </Routes>
