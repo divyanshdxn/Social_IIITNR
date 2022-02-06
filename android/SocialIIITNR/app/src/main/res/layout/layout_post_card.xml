@@ -29,24 +29,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
+            android:text="Bruce Banner"
             android:textColor="@color/text_primary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/profile_photo"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="Bruce Banner" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/post_timestamp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:textColor="@color/text_primary"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/options"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="10:39 AM, 12 July" />
 
         <ImageButton
             android:id="@+id/options"
@@ -108,5 +97,13 @@
         android:textStyle="italic"
         tools:text="I am using a web view in which I am adding an image view. How can I set the background of this image view to transparent?" />
 
+    <TextView
+        android:paddingStart="8dp"
+        android:id="@+id/post_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/text_primary"
+        tools:text="10:39 AM, 12 July" />
 
 </LinearLayout>

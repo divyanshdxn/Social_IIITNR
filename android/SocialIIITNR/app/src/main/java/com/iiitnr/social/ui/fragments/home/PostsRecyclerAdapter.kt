@@ -1,6 +1,5 @@
 package com.iiitnr.social.ui.fragments.home
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +10,29 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.iiitnr.social.R
 import com.iiitnr.social.common.Constants
+import com.iiitnr.social.common.getFormattedTime
 import com.iiitnr.social.data.post.Post
+import com.iiitnr.social.data.post.PostDto
+import com.iiitnr.social.data.profile.Profile
 
-class PostsRecyclerAdapter() :
+class PostsRecyclerAdapter :
     RecyclerView.Adapter<PostsRecyclerAdapter.PostViewHolder>() {
 
-    val posts = mutableListOf<Post>()
-    fun loadData(posts: List<Post>) {
-        this.posts.clear()
-        this.posts.addAll(posts)
-        notifyDataSetChanged()
+    private val posts = mutableListOf<Post>()
+    private val usersMap = mutableMapOf<String, Profile>()
+
+    fun loadData(post: List<Post>? = null, usersMap: Map<String, Profile>? = null) {
+        post?.let {
+            this.posts.clear()
+            this.posts.addAll(post)
+            notifyDataSetChanged()
+        }
+        usersMap?.let {
+            this.usersMap.clear()
+            this.usersMap.putAll(usersMap)
+            notifyDataSetChanged()
+        }
+
     }
 
     inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -42,7 +54,9 @@ class PostsRecyclerAdapter() :
         holder.apply {
             postImage.load("${Constants.BASE_URL}api/media/${post.media[0]}")
             captions.text = post.caption
-            postTimeStamp.text = post.updatedAt
+            postTimeStamp.text = getFormattedTime(post.updatedAt)
+            userName.text = post.userName
+            profilePhoto.load(post.profilePhoto)
         }
     }
 

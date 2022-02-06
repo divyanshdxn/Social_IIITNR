@@ -1,7 +1,6 @@
 package com.iiitnr.social.ui.fragments.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +37,7 @@ class Home : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
         observeData()
-        viewModel.loadPost(mainActivity.signInResponse.idToken)
+        viewModel.loadData(mainActivity.signInResponse.idToken)
     }
 
     private fun setupUI() {
@@ -53,6 +52,9 @@ class Home : BaseFragment() {
     private fun observeData() {
         viewModel.posts.observe(viewLifecycleOwner) {
             postsRecyclerAdapter.loadData(it)
+        }
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.postLoading.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
     }
 

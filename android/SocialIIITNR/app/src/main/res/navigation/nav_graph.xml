@@ -62,4 +62,9 @@
         android:label="Tnp Page"
         tools:layout="@layout/fragment_trainingn_placement"
         />
+    <fragment
+        android:id="@+id/create_post"
+        android:name="com.iiitnr.social.ui.fragments.post.CreatePost"
+        android:label="fragment_create_post"
+        tools:layout="@layout/fragment_create_post" />
 </navigation>
