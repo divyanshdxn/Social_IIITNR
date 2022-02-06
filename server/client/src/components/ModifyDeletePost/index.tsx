@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import React, { ReactText, useRef } from 'react';
-import { toast } from 'react-toastify';
+import { Bounce, toast } from 'react-toastify';
 import { apiGetOrDelete } from '../../helpers/apiRequest';
 import useAppContext from '../../hooks/useAppContext';
 import { useMyProfileContext } from '../../hooks/useMyProfileContext';
@@ -36,6 +36,7 @@ const ModifyDeletePost: React.FC<Props> = ({ post }) => {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
+          transition: Bounce,
         },
       )
       .catch((err) => {

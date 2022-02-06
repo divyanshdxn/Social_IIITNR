@@ -8,7 +8,7 @@ import AppContextProvider from './providers/AppContextProvider';
 import MyProfileProvider from './providers/MyProfileProvider';
 import MyProfileReducer from './reducers/MyPostsReducer';
 import ProtectedRoutes, { protectedRoutes } from './routes/ProtectedRoutes';
-import { ToastContainer } from 'react-toastify';
+import { Bounce, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/tailwind.css';
 import Modal from './components/Modal/Modal';
