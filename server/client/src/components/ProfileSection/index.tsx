@@ -29,9 +29,9 @@ const ProfileSection: React.FC<Props> = ({ userId }) => {
   return (
     <div
       className="sticky translate-y-6 px-8 mx-8 left-10 top-12 
-	  flex flex-col basis-1/5 border-2  border-hints dark:border-d-hints 
+	  flex-col basis-1/5 border-2  border-hints dark:border-d-hints 
 	  rounded-xl z-20 bg-background dark:bg-d-background overflow-hidden
-    hidden md:flex"
+     hidden sm:flex"
       style={{ height: 'calc(90% - 3rem)', minWidth: '18rem' }}
     >
       <div

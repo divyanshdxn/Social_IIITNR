@@ -15,14 +15,17 @@ const PagesAndEventsPanel: React.FC<Props> = ({ type, buttons }) => {
       </div>
       <div
         className="flex-1 flex flex-col justify-center items-center 
-      text-text-secondary dark:text-text-d-secondary"
+      text-text-secondary  dark:text-d-text-secondary text-sm"
       >
         <span>Uhh No...</span>
         <span>You don't have any</span>
       </div>
       <div className="flex justify-end gap-2">
         {buttons.map((btn, index) => (
-          <button className="btn px-2 text-xs capitalize h-5" key={index}>
+          <button
+            className="btn flex justify-center items-center text-xs capitalize py-2 w-24 text-white"
+            key={index}
+          >
             {btn}
           </button>
         ))}

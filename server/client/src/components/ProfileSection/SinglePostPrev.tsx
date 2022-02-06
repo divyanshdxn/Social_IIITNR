@@ -18,23 +18,28 @@ const SinglePostPrev: React.FC<Props> = ({ data, isLoading }) => {
   return (
     <div
       className="flex w-full h-16 rounded-md overflow-hidden 
-	shadow-gray-400 dark:shadow-gray-700 shadow-sm group relative"
+	shadow-gray-400 dark:shadow-gray-700 shadow-sm group cursor-pointer items-center"
       style={{ minHeight: '4rem' }}
+      onClick={handleModify}
     >
-      <div
-        className="h-full aspect-square bg-background_variant dark:bg-d-background_variant z-0 cursor-pointer"
-        onClick={handleModify}
-      >
+      <div className="h-full aspect-square bg-background_variant dark:bg-d-background_variant z-0">
         <img
           src={`/api/media/${data.media[0]}`}
           alt=""
           className="object-cover h-full"
         />
       </div>
-      <div className="text-xs p-1 text-ellipsish whitespace-wrap ">
-        {data.caption}
+      <div className="text-xs px-1 py-2 text-ellipsish whitespace-wrap relative w-full h-full flex font-medium">
+        {data.caption.substring(0, 50)}
+        {data.caption.length > 50 && '...'}
+        <div
+          className="absolute w-full inset-0 h-full z-30 flex 
+        justify-center items-center transition-opacity opacity-0 bg-primary 
+        dark:bg-d-primary group-hover:opacity-90 text-white text-xs"
+        >
+          View Post
+        </div>
       </div>
-      <div className="absolute w-full, h-full z-30"></div>
     </div>
   );
 };

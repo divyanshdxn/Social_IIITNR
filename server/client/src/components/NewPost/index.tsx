@@ -104,7 +104,7 @@ const NewPost: React.FC<Props> = () => {
       >
         <div
           className="bg-background_variant dark:bg-d-background_variant h-full w-full 
-		   p-3 text-sm "
+		   p-3 text-sm overflow-y-auto"
           placeholder="Write somethinig to share..."
           ref={inputRef}
           contentEditable
@@ -130,7 +130,7 @@ const NewPost: React.FC<Props> = () => {
             />
           </div>
           <button
-            className="btn px-2 py-0 h-5"
+            className="btn px-3 py-0.5 h-5 flex justify-center items-center"
             type="submit"
             onClick={handleSubmit}
           >

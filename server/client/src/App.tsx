@@ -59,17 +59,18 @@ const App: React.FC = () => {
               <Route path="*" element={<Error code={404} retry={true} />} />
             </Routes>
           </BrowserRouter>
+          <ToastContainer
+            position="top-right"
+            theme={darkMode ? 'dark' : 'light'}
+            className="z-50"
+            autoClose={5000}
+            closeOnClick
+            draggable
+            pauseOnHover
+          />
           <Modal isOpen={isModalOpen} />
         </MyProfileProvider>
       </AppContextProvider>
-      <ToastContainer
-        position="top-right"
-        theme={darkMode ? 'dark' : 'light'}
-        autoClose={5000}
-        closeOnClick
-        draggable
-        pauseOnHover
-      />
     </div>
   );
 };

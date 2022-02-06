@@ -5,6 +5,7 @@
 *,
 *::after,
 *::before {
+  @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-primary dark:scrollbar-thumb-d-primary;
   box-sizing: border-box;
 }
 
@@ -45,9 +46,8 @@ main {
 }
 
 .btn {
-  @apply bg-primary dark:bg-d-primary 
-  text-d-text-primary dark:text-text-primary
-  rounded-full text-sm h-5;
+  @apply bg-primary 
+  text-d-text-primary rounded-full text-sm;
 }
 
 div:empty:before {
@@ -55,15 +55,15 @@ div:empty:before {
   display: block;
   color: #aaa;
 }
-@keyframes Toastify__trackProgress {
+/* @keyframes Toastify__trackProgress {
   0% {
     transform: scaleX(1);
   }
   100% {
     transform: scaleX(0);
   }
-}
-.Toastify__progress-bar {
+} */
+/* .Toastify__progress-bar {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -76,4 +76,4 @@ div:empty:before {
 
 .Toastify__progress-bar--animated {
   animation: Toastify__trackProgress linear 1 forwards;
-}
+} */
