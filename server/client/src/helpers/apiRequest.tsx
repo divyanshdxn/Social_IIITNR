@@ -23,12 +23,13 @@ export function getHeaders(config?: AxiosRequestConfig): AxiosRequestHeaders {
   console.log(headers);
   return headers;
 }
-export async function apiGet<Y>(
+export async function apiGetOrDelete<Y>(
   url: string,
   config?: AxiosRequestConfig,
+  method?: 'get' | 'delete',
 ): Promise<[Y, number]> {
   try {
-    const res: AxiosResponse<Y, null> = await axios.get(url, {
+    const res: AxiosResponse<Y, null> = await axios[method || 'get'](url, {
       ...config,
       headers: getHeaders(),
     });
@@ -46,16 +47,21 @@ export async function apiGet<Y>(
   }
 }
 
-export async function apiPost<T, Y>(
+export async function apiPostOrPatch<T, Y>(
   url: string,
   payload: T,
-  config: AxiosRequestConfig,
+  config?: AxiosRequestConfig,
+  method?: 'post' | 'patch',
 ): Promise<[Y, number]> {
   try {
-    const res: AxiosResponse<Y, null> = await axios.post(url, payload, {
-      ...config,
-      headers: getHeaders(config),
-    });
+    const res: AxiosResponse<Y, null> = await axios[method || 'post'](
+      url,
+      payload,
+      {
+        ...config,
+        headers: getHeaders(config),
+      },
+    );
     return [res.data, res.status];
   } catch (err) {
     const error = err as AxiosError;

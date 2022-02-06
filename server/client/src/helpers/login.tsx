@@ -4,7 +4,7 @@ import GoogleLogin, {
 } from 'react-google-login';
 import { useAuth } from '../hooks/useAuth';
 import SingleProfileResponse from '../types/response/SingleProfileResponse';
-import { apiGet } from './apiRequest';
+import { apiGetOrDelete } from './apiRequest';
 
 interface LoginResponse {
   idToken: string;
@@ -16,7 +16,7 @@ export const onSuccess = async (
 ) => {
   try {
     localStorage.setItem('token', response.tokenId);
-    const res = await apiGet('/api/auth/signin');
+    const res = await apiGetOrDelete('/api/auth/signin');
     if (res[1] >= 200 && res[1] < 300) window.open('/', '_self');
   } catch (error) {}
 };

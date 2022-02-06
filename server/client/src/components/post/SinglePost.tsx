@@ -17,8 +17,9 @@ const SinglePost: React.FC<Props> = ({ post }) => {
 
   return (
     <div
-      className=" flex flex-col my-2 border-2 border-hints dark:border-d-hints 
+      className="flex flex-col my-2 border-2 border-hints dark:border-d-hints 
       p-4 rounded-lg w-full gap-3"
+      style={{ maxWidth: '830px' }}
     >
       <div className=" flex gap-3 h-8">
         <div
@@ -31,8 +32,8 @@ const SinglePost: React.FC<Props> = ({ post }) => {
       </div>
       {post.media && (
         <div
-          className="w-full aspect-video bg-background_variant dark:bg-d-background_variant"
-          style={{ maxHeight: '44rem' }}
+          className=" flex justify-center w-full aspect-video bg-background_variant dark:bg-d-background_variant"
+          style={{ maxHeight: '25rem' }}
         >
           <img
             src={`/api/media/${post.media}`}

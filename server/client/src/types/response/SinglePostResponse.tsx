@@ -3,9 +3,8 @@ interface SinglePostResponse {
   caption: string;
   createdAt: Date;
   updatedAt: Date;
-  profileUserId: string;
+  profileUserId?: string;
   media: string[];
-  page: null;
 }
 
 export default SinglePostResponse;
