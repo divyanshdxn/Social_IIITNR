@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.iiitnr.social.databinding.FragmentPostDetailBinding
+import com.iiitnr.social.ui.fragments.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class PostDetail : Fragment() {
+class PostDetail : BaseFragment() {
 
     private var _binding: FragmentPostDetailBinding? = null
     private val binding get() = _binding!!

@@ -1,6 +1,6 @@
 import { AxiosError, AxiosRequestHeaders } from 'axios';
 import { ReactText, useEffect, useRef, useState } from 'react';
-import { apiPost } from '../../helpers/apiRequest';
+import { apiPostOrPatch } from '../../helpers/apiRequest';
 import { useMyProfileContext } from '../../hooks/useMyProfileContext';
 import PostByUserResponse from '../../types/response/PostsByUserResponse';
 import { toast } from 'react-toastify';
@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 interface Props {}
 const NewPost: React.FC<Props> = () => {
   const [isUploading, setIsUploading] = useState(false);
-  const { state: userData, dispatch } = useMyProfileContext();
+  const { state, dispatch } = useMyProfileContext();
   const inputRef = useRef<HTMLDivElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const toastId = useRef<ReactText | null>(null);
@@ -29,7 +29,7 @@ const NewPost: React.FC<Props> = () => {
       setIsUploading(true);
       try {
         let headers: AxiosRequestHeaders = {};
-        const [res, code] = await apiPost<FormData, PostByUserResponse>(
+        const [res, code] = await apiPostOrPatch<FormData, PostByUserResponse>(
           '/api/post/create',
           request,
           {
@@ -58,6 +58,7 @@ const NewPost: React.FC<Props> = () => {
             render: 'Uploaded Successfully',
             type: 'success',
           });
+          toastId.current = null;
           dispatch({ type: 'new-post', payload: res as PostByUserResponse });
         }
       } catch (err) {
@@ -69,6 +70,7 @@ const NewPost: React.FC<Props> = () => {
           render: 'Upload Failed',
           type: 'error',
         });
+        toastId.current = null;
       }
     }
   };
@@ -86,7 +88,7 @@ const NewPost: React.FC<Props> = () => {
       className="flex  
       border-2 border-hints dark:border-d-hints 
       p-4 rounded-lg my-px h-32 gap-5  items-center w-full"
-      style={{ minHeight: '8rem' }}
+      style={{ minHeight: '8rem', maxWidth: '830px' }}
     >
       <button
         className="rounded-full object-cover w-16 overflow-hidden bg-background_variant dark:bg-d-background_variant"
@@ -94,7 +96,7 @@ const NewPost: React.FC<Props> = () => {
           nav('profile');
         }}
       >
-        <img src={`${userData?.profile?.photoUrl}`} alt="" className="w-full" />
+        <img src={`${state?.profile?.photoUrl}`} alt="" className="w-full" />
       </button>
       <form
         className=" flex relative h-full w-full rounded-md overflow-hidden"

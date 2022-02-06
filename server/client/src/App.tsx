@@ -1,4 +1,5 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
+import ReactModal from 'react-modal';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Error } from './components/Error';
 import useDarkMode from './hooks/useDarkMode';
@@ -8,8 +9,8 @@ import MyProfileProvider from './providers/MyProfileProvider';
 import MyProfileReducer from './reducers/MyPostsReducer';
 import ProtectedRoutes, { protectedRoutes } from './routes/ProtectedRoutes';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import './styles/tailwind.css';
+import Modal from './components/Modal/Modal';
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useDarkMode();
@@ -17,9 +18,20 @@ const App: React.FC = () => {
     myPosts: [],
     profile: {},
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalChildren, setModalChildren] = useState(<div />);
   return (
     <div className={`${darkMode && 'dark'} h-screen w-screen`}>
-      <AppContextProvider value={{ darkMode, setDarkMode }}>
+      <AppContextProvider
+        value={{
+          darkMode,
+          setDarkMode,
+          isModalOpen,
+          setIsModalOpen,
+          modalChildren,
+          setModalChildren,
+        }}
+      >
         <MyProfileProvider value={{ state: myProfileState, dispatch }}>
           <BrowserRouter>
             <Routes>
@@ -46,6 +58,7 @@ const App: React.FC = () => {
               <Route path="*" element={<Error code={404} retry={true} />} />
             </Routes>
           </BrowserRouter>
+          <Modal isOpen={isModalOpen} />
         </MyProfileProvider>
       </AppContextProvider>
       <ToastContainer

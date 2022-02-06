@@ -1,6 +1,6 @@
 <resources>
+    <string name="long_dummy_text">I am using a web view in which I am adding an image view. How can I set the background of this image view to transparent?</string>
     <string name="app_name">Social IIITNR</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="college_photo">college photo</string>
     <string name="placement_cell">

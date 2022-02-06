@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { apiGet } from '../../helpers/apiRequest';
+import { apiGetOrDelete } from '../../helpers/apiRequest';
 import { useMyProfileContext } from '../../hooks/useMyProfileContext';
 import PostByUserResponse from '../../types/response/PostsByUserResponse';
 import SinglePostPrev from './SinglePostPrev';
@@ -15,7 +15,7 @@ const PostList: React.FC<Props> = ({ userID, owner }) => {
   const getData = async () => {
     try {
       if (userID) {
-        const [res] = await apiGet<PostByUserResponse[]>(
+        const [res] = await apiGetOrDelete<PostByUserResponse[]>(
           `/api/post/user/${userID}`,
         );
         console.log(res);

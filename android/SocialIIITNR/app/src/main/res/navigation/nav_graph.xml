@@ -13,10 +13,58 @@
         android:id="@+id/pages"
         android:name="com.iiitnr.social.ui.fragments.pages.Pages"
         android:label="Pages"
-        tools:layout="@layout/fragment_pages" />
+        tools:layout="@layout/fragment_pages" >
+        <action android:id="@+id/action_pages_to_ecell" app:destination="@id/ecell"/>
+        <action android:id="@+id/action_pages_to_tnp" app:destination="@id/tnp"/>
+    </fragment>
     <fragment
         android:id="@+id/postDetail"
         android:name="com.iiitnr.social.ui.fragments.post.PostDetail"
         android:label="fragment_post_detail"
         tools:layout="@layout/fragment_post_detail" />
+    <fragment
+        android:id="@+id/ecell"
+        android:name="com.iiitnr.social.ui.fragments.pages.Ecell"
+        android:label="Ecell Page"
+        tools:layout="@layout/fragment_ecell"
+        />
+    <fragment
+        android:id="@+id/clubs"
+        android:name="com.iiitnr.social.ui.fragments.clubs.Clubs"
+        android:label="Clubs Page"
+        tools:layout="@layout/fragment_clubs"
+        >
+        <action android:id="@+id/action_clubs_to_inquizitive" app:destination="@id/inquizitive"/>
+        <action android:id="@+id/action_clubs_to_ciphercell" app:destination="@id/ciphercell"/>
+        <action android:id="@+id/action_clubs_to_comet" app:destination="@id/comet"/>
+    </fragment>
+    <fragment
+        android:id="@+id/inquizitive"
+        android:name="com.iiitnr.social.ui.fragments.clubs.Inquizitive"
+        android:label="Inquizitive Club"
+        tools:layout="@layout/fragment_inquizitive"
+        />
+    <fragment
+        android:id="@+id/ciphercell"
+        android:name="com.iiitnr.social.ui.fragments.clubs.Ciphercell"
+        android:label="Ciphercell Club"
+        tools:layout="@layout/fragment_ciphercell"
+        />
+    <fragment
+        android:id="@+id/comet"
+        android:name="com.iiitnr.social.ui.fragments.clubs.Comet"
+        android:label="Comet Club"
+        tools:layout="@layout/fragment_comet"
+        />
+    <fragment
+        android:id="@+id/tnp"
+        android:name="com.iiitnr.social.ui.fragments.pages.TrainingnPlacement"
+        android:label="Tnp Page"
+        tools:layout="@layout/fragment_trainingn_placement"
+        />
+    <fragment
+        android:id="@+id/create_post"
+        android:name="com.iiitnr.social.ui.fragments.post.CreatePost"
+        android:label="fragment_create_post"
+        tools:layout="@layout/fragment_create_post" />
 </navigation>
