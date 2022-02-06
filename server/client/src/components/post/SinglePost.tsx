@@ -1,39 +1,44 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useApi from '../../hooks/useApi';
-import MyProfileReducer from '../../reducers/MyPostsReducer';
 import SinglePostResponse from '../../types/response/SinglePostResponse';
 import SingleProfileResponse from '../../types/response/SingleProfileResponse';
-import PostLoading from '../Loaders/PostLoading';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   post: SinglePostResponse;
 }
 
 const SinglePost: React.FC<Props> = ({ post }) => {
-  const { isLoading, isSuccess, data } = useApi<any, SingleProfileResponse>(
+  const { data } = useApi<any, SingleProfileResponse>(
     `/api/profile/${post.profileUserId}`,
     'get',
   );
-  const [isReadMore, setIsReadMore] = useState(false);
+  const [isReadMore, setIsReadMore] = useState(true);
   useEffect(() => {});
 
   return (
     <div
-      className=" flex flex-col my-2 border-2 border-hints dark:border-d-hints 
+      className="flex flex-col my-2 border-2 border-hints dark:border-d-hints 
       p-4 rounded-lg w-full gap-3"
+      style={{ maxWidth: '830px' }}
     >
       <div className=" flex gap-3 h-8">
-        <div className="w-8 h-8 rounded-full overflow-hidden bg-background_variant dark:bg-d-background_variant">
+        <div
+          className="flex justify-center items-center w-8 h-8 rounded-full overflow-hidden 
+            bg-background_variant dark:bg-d-background_variant"
+        >
           <img src={`${data?.photoUrl}`} alt="" />
         </div>
         <div>{data?.firstName}</div>
       </div>
       {post.media && (
-        <div className="w-full aspect-video bg-background_variant dark:bg-d-background_variant">
+        <div
+          className=" flex justify-center w-full aspect-video bg-background_variant dark:bg-d-background_variant"
+          style={{ maxHeight: '25rem' }}
+        >
           <img
             src={`/api/media/${post.media}`}
             alt=""
-            className="w-full object-contain"
+            className="h-full object-contain"
           />
         </div>
       )}

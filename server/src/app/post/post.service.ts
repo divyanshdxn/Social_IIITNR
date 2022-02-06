@@ -49,7 +49,10 @@ export class PostService {
 
   async findAll() {
     try {
-      const posts = await this.postRepository.find({ relations: ['page'] });
+      const posts = await this.postRepository.find({
+        relations: ['page'],
+        order: { createdAt: 'DESC', updatedAt: 'DESC' },
+      });
       return posts;
     } catch (error) {
       console.error(error);
@@ -60,7 +63,10 @@ export class PostService {
   async findAllByUserId(userId: string) {
     try {
       const posts = await this.postRepository.find({
-        profileUserId: userId,
+        where: {
+          profileUserId: userId,
+        },
+        order: { createdAt: 'DESC', updatedAt: 'DESC' },
       });
       return posts;
     } catch (error) {
@@ -112,7 +118,7 @@ export class PostService {
   async isOwnedBy(userId: string, postId: string) {
     try {
       const post = await this.fingById(postId);
-      return userId == post.profile.userId;
+      return userId === post.profile.userId;
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error);

@@ -1,23 +1,8 @@
-import { profile } from 'console';
-import React, {
-  LegacyRef,
-  RefObject,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import useApi from '../../hooks/useApi';
-import useAppContext from '../../hooks/useAppContext';
-import useDarkMode from '../../hooks/useDarkMode';
 import { useMyProfileContext } from '../../hooks/useMyProfileContext';
-import MyProfileProvider from '../../providers/MyProfileProvider';
-import MyProfileReducer, {
-  MyProfileReducerState,
-  MyProfileReducerType,
-} from '../../reducers/MyPostsReducer';
 import SingleProfileResponse from '../../types/response/SingleProfileResponse';
-import EditIcon from '../Icons/EditIcon';
 import Bio from './BioComponent';
 import PostList from './PostList';
 
@@ -33,23 +18,26 @@ const ProfileSection: React.FC<Props> = ({ userId }) => {
   );
   const { state, dispatch } = useMyProfileContext();
   const [profile, setProfile] = useState<Partial<SingleProfileResponse>>({});
+  const loc = useLocation();
   useEffect(() => {
     if (isSuccess && data && dispatch && !userId)
       dispatch({ type: 'set-profile', payload: data });
-  }, [isSuccess]);
+  }, [isSuccess, data, dispatch, userId]);
   useEffect(() => {
     setProfile(state.profile);
-  });
+  }, [state]);
   return (
     <div
       className="sticky translate-y-6 px-8 mx-8 left-10 top-12 
-	  flex flex-col basis-1/5 border-2  border-hints dark:border-d-hints 
-	  rounded-xl z-20 bg-background dark:bg-d-background overflow-hidden"
+	  flex-col basis-1/5 border-2  border-hints dark:border-d-hints 
+	  rounded-xl z-20 bg-background dark:bg-d-background overflow-hidden
+     hidden sm:flex"
       style={{ height: 'calc(90% - 3rem)', minWidth: '18rem' }}
     >
       <div
         className=" w-44 aspect-square rounded-full overflow-hidden mt-5 mb-2 bg-background_variant 
       dark:bg-background_variant"
+        style={{ minHeight: '10rem' }}
       >
         <img src={profile.photoUrl} alt="" className=" w-44 object-cover " />
       </div>

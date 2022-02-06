@@ -1,15 +1,20 @@
-import axios, { AxiosError } from 'axios';
-import { useEffect, useRef, useState } from 'react';
-import useAppContext from '../../hooks/useAppContext';
+import { AxiosError, AxiosRequestHeaders } from 'axios';
+import { ReactText, useEffect, useRef, useState } from 'react';
+import { apiPostOrPatch } from '../../helpers/apiRequest';
 import { useMyProfileContext } from '../../hooks/useMyProfileContext';
-import CreatePostRequest from '../../types/Request/CreatePostRequest';
+import PostByUserResponse from '../../types/response/PostsByUserResponse';
+import { toast } from 'react-toastify';
+import { type } from 'os';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {}
 const NewPost: React.FC<Props> = () => {
   const [isUploading, setIsUploading] = useState(false);
-  const { state: userData, dispatch } = useMyProfileContext();
+  const { state, dispatch } = useMyProfileContext();
   const inputRef = useRef<HTMLDivElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const toastId = useRef<ReactText | null>(null);
+  const nav = useNavigate();
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
@@ -23,20 +28,49 @@ const NewPost: React.FC<Props> = () => {
         request.append('caption', inputRef.current.textContent);
       setIsUploading(true);
       try {
-        const res = await axios.post('/api/post/create', request, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
+        let headers: AxiosRequestHeaders = {};
+        const [res, code] = await apiPostOrPatch<FormData, PostByUserResponse>(
+          '/api/post/create',
+          request,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+            onUploadProgress: (p) => {
+              const progress = p.loaded / p.total;
+              if (toastId.current === null) {
+                toastId.current = toast('Upload in Progress', {
+                  progress: progress,
+                  autoClose: 5000,
+                });
+              } else {
+                toast.update(toastId.current, {
+                  progress: progress,
+                });
+              }
+            },
           },
-        });
-        console.log(res.data);
+        );
+        console.log(res);
         setIsUploading(false);
-        alert('Uploaded Successfully..');
+        if (code >= 200 && code < 300) {
+          toast.update(toastId.current as ReactText, {
+            render: 'Uploaded Successfully',
+            type: 'success',
+          });
+          toastId.current = null;
+          dispatch({ type: 'new-post', payload: res as PostByUserResponse });
+        }
       } catch (err) {
         const error = err as AxiosError;
         console.log(err, error.response);
         setIsUploading(false);
         if (fileRef.current) fileRef.current.value = '';
-        alert('Post Upload Failed');
+        toast.update(toastId.current as ReactText, {
+          render: 'Upload Failed',
+          type: 'error',
+        });
+        toastId.current = null;
       }
     }
   };
@@ -53,18 +87,24 @@ const NewPost: React.FC<Props> = () => {
     <div
       className="flex  
       border-2 border-hints dark:border-d-hints 
-      p-4 rounded-lg my-px h-32 gap-5  items-center fw-full"
+      p-4 rounded-lg my-px h-32 gap-5  items-center w-full"
+      style={{ minHeight: '8rem', maxWidth: '830px' }}
     >
-      <div className="rounded-full object-cover w-16 overflow-hidden bg-background_variant dark:bg-d-background_variant">
-        <img src={`${userData?.profile?.photoUrl}`} alt="" className="w-full" />
-      </div>
+      <button
+        className="rounded-full object-cover w-16 overflow-hidden bg-background_variant dark:bg-d-background_variant"
+        onClick={() => {
+          nav('profile');
+        }}
+      >
+        <img src={`${state?.profile?.photoUrl}`} alt="" className="w-full" />
+      </button>
       <form
         className=" flex relative h-full w-full rounded-md overflow-hidden"
         action=""
       >
         <div
           className="bg-background_variant dark:bg-d-background_variant h-full w-full 
-		   p-3 text-sm "
+		   p-3 text-sm overflow-y-auto"
           placeholder="Write somethinig to share..."
           ref={inputRef}
           contentEditable
@@ -90,7 +130,7 @@ const NewPost: React.FC<Props> = () => {
             />
           </div>
           <button
-            className="btn px-2 py-0 h-5"
+            className="btn px-3 py-0.5 h-5 flex justify-center items-center"
             type="submit"
             onClick={handleSubmit}
           >

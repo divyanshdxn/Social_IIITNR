@@ -1,6 +1,4 @@
-import apiGet from '../helpers/apiGet';
 import PostByUserResponse from '../types/response/PostsByUserResponse';
-import SinglePostResponse from '../types/response/SinglePostResponse';
 import SingleProfileResponse from '../types/response/SingleProfileResponse';
 
 export interface MyProfileReducerState {
@@ -10,8 +8,8 @@ export interface MyProfileReducerState {
 export type MyProfileReducerAction =
   | { type: 'set-profile'; payload: SingleProfileResponse }
   | { type: 'set-posts'; payload: PostByUserResponse[] }
-  | { type: 'new-post'; payload: MyProfileReducerState }
-  | { type: 'delete'; payload: Partial<MyProfileReducerState> }
+  | { type: 'new-post'; payload: PostByUserResponse }
+  | { type: 'delete'; payload: string }
   | {
       type: 'update';
       payload: {
@@ -27,6 +25,7 @@ export type MyProfileReducerType = (
 
 const MyProfileReducer: MyProfileReducerType = (state, action) => {
   const { type, payload } = action;
+  const { myPosts } = state;
   switch (type) {
     case 'set-profile':
       state = { ...state, profile: payload as SingleProfileResponse };
@@ -37,8 +36,16 @@ const MyProfileReducer: MyProfileReducerType = (state, action) => {
 
       break;
     case 'delete':
+      state = {
+        ...state,
+        myPosts: myPosts.filter((item) => item.postId != payload),
+      };
       break;
     case 'new-post':
+      state = {
+        ...state,
+        myPosts: [payload as PostByUserResponse, ...myPosts],
+      };
       break;
     case 'delete':
       break;
