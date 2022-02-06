@@ -12,7 +12,7 @@
         <entry key="app/src/main/res/drawable/seachview_background.xml" value="0.23148148148148148" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.2234375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.29812369701181374" />
-        <entry key="app/src/main/res/layout/activity_signin.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_signin.xml" value="0.25" />
         <entry key="app/src/main/res/layout/back_shadow.xml" value="0.2234375" />
         <entry key="app/src/main/res/layout/ecell_events_card.xml" value="0.190625" />
         <entry key="app/src/main/res/layout/fragment_ciphercell.xml" value="0.2234375" />
