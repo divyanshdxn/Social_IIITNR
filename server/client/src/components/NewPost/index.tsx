@@ -15,6 +15,9 @@ const NewPost: React.FC<Props> = () => {
   const fileRef = useRef<HTMLInputElement>(null);
   const toastId = useRef<ReactText | null>(null);
   const nav = useNavigate();
+  const clearFiles = () => {
+    if (fileRef.current) fileRef.current.value = '';
+  };
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
@@ -22,8 +25,22 @@ const NewPost: React.FC<Props> = () => {
     const text = inputRef.current?.innerHTML;
     if (text && text !== '') {
       const request = new FormData();
-      if (fileRef.current && fileRef.current.files)
+      if (
+        !fileRef.current ||
+        fileRef.current.value === '' ||
+        (fileRef.current.files && fileRef.current.files?.length <= 0)
+      ) {
+        toast.error('Please Upload An Image...');
+        return;
+      } else if (fileRef.current.files) {
+        const re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png|\.svg)$/i;
+        if (!re.exec(fileRef.current.files[0].name)) {
+          toast.error('Unsopported File Type');
+          clearFiles();
+          return;
+        }
         request.append('file', fileRef.current?.files[0]);
+      }
       if (inputRef.current && inputRef.current.textContent)
         request.append('caption', inputRef.current.textContent);
       setIsUploading(true);
@@ -41,7 +58,6 @@ const NewPost: React.FC<Props> = () => {
               if (toastId.current === null) {
                 toastId.current = toast('Upload in Progress', {
                   progress: progress,
-                  autoClose: 5000,
                 });
               } else {
                 toast.update(toastId.current, {
@@ -57,6 +73,8 @@ const NewPost: React.FC<Props> = () => {
           toast.update(toastId.current as ReactText, {
             render: 'Uploaded Successfully',
             type: 'success',
+            progress: undefined,
+            autoClose: 5000,
           });
           toastId.current = null;
           dispatch({ type: 'new-post', payload: res as PostByUserResponse });
@@ -65,10 +83,11 @@ const NewPost: React.FC<Props> = () => {
         const error = err as AxiosError;
         console.log(err, error.response);
         setIsUploading(false);
-        if (fileRef.current) fileRef.current.value = '';
+        clearFiles();
         toast.update(toastId.current as ReactText, {
           render: 'Upload Failed',
           type: 'error',
+          autoClose: 5000,
         });
         toastId.current = null;
       }
@@ -125,7 +144,7 @@ const NewPost: React.FC<Props> = () => {
               type="file"
               id="file-upload"
               className="hidden"
-              accept=".jpg, .jpeg, .png, .svg, .gif"
+              accept=".jpg, .jpeg, .png, .svg, .gif, .bmp"
               ref={fileRef}
             />
           </div>
