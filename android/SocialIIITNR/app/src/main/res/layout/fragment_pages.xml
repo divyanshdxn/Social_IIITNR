@@ -27,18 +27,113 @@
             android:queryBackground="@android:color/transparent"
             />
     </LinearLayout>
+    <TextView
+        android:id="@+id/pinned_cells"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_area"
+        android:text="Pinned Cells"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/back_shadow"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        />
     <GridLayout
+        android:id="@+id/table_pages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="2"
-        app:layout_constraintTop_toBottomOf="@id/search_area"
-        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@id/pinned_cells"
+        android:padding="15dp"
         android:background="#FFFFFF"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent">
-
+        <androidx.cardview.widget.CardView
+            android:id="@+id/entrepreneur_cell"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/ecell"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/ecell_black"
+                    />
+                <TextView
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/ecell"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Entrepreneurship Cell"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/training_p"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/tnp"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/tnp"
+                    android:scaleType="centerCrop"
+                    />
+                <TextView
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/tnp"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Training n Placement Cell"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
     </GridLayout>
+    <TextView
+        android:id="@+id/available_cells"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/table_pages"
+        android:text="Available Cells"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/back_shadow"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
