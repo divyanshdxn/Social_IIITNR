@@ -24,11 +24,12 @@
         <entry key="app/src/main/res/layout/fragment_inquizitive.xml" value="0.2234375" />
         <entry key="app/src/main/res/layout/fragment_pages.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_post_detail.xml" value="0.2234375" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2234375" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_trainingn_placement.xml" value="0.33" />
         <entry key="app/src/main/res/layout/layout_create_post.xml" value="0.2234375" />
         <entry key="app/src/main/res/layout/layout_post_card.xml" value="0.33" />
         <entry key="app/src/main/res/layout/profile_post_item.xml" value="0.2234375" />
+        <entry key="app/src/main/res/layout/profile_post_layout.xml" value="0.2234375" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.33" />
       </map>
     </option>

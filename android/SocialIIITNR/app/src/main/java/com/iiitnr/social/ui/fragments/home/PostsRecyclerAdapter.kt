@@ -11,6 +11,7 @@ import coil.load
 import com.iiitnr.social.R
 import com.iiitnr.social.common.Constants
 import com.iiitnr.social.common.getFormattedTime
+import com.iiitnr.social.common.getMediaUrl
 import com.iiitnr.social.data.post.Post
 import com.iiitnr.social.data.post.PostDto
 import com.iiitnr.social.data.profile.Profile
@@ -52,7 +53,7 @@ class PostsRecyclerAdapter :
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = posts[position]
         holder.apply {
-            postImage.load("${Constants.BASE_URL}api/media/${post.media[0]}")
+            postImage.load(getMediaUrl(post.media[0]))
             captions.text = post.caption
             postTimeStamp.text = getFormattedTime(post.updatedAt)
             userName.text = post.userName

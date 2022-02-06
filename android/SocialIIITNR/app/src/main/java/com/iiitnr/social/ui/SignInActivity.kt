@@ -12,13 +12,13 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.iiitnr.social.data.auth.AuthApi
-import com.iiitnr.social.databinding.ActivitySigninBinding
 import com.iiitnr.social.common.Constants
 import com.iiitnr.social.common.getBearerHeader
+import com.iiitnr.social.common.getGoogleSignInClient
 import com.iiitnr.social.common.shortToast
+import com.iiitnr.social.data.auth.AuthApi
+import com.iiitnr.social.databinding.ActivitySigninBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -41,12 +41,7 @@ class SignInActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        mGoogleSignInClient = GoogleSignIn.getClient(
-            this, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("557790709288-4la84pac5ktcasmjtdfa40312pgk5nnj.apps.googleusercontent.com")
-                .requestEmail()
-                .build()
-        )
+        mGoogleSignInClient = getGoogleSignInClient(this)
 
         signInIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {

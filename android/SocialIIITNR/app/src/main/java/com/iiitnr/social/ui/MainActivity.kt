@@ -1,14 +1,16 @@
 package com.iiitnr.social.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.iiitnr.social.R
+import com.iiitnr.social.common.Constants
+import com.iiitnr.social.common.getGoogleSignInClient
 import com.iiitnr.social.data.auth.SignInResponse
 import com.iiitnr.social.databinding.ActivityMainBinding
-import com.iiitnr.social.common.Constants
-import com.iiitnr.social.common.shortToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,6 +18,9 @@ class MainActivity : AppCompatActivity() {
 
     private var _signInResponse: SignInResponse? = null
     val signInResponse: SignInResponse get() = _signInResponse!!
+
+    private var _mGoogleSignInClient: GoogleSignInClient? = null
+    val mGoogleSignInClient: GoogleSignInClient get() = _mGoogleSignInClient!!
 
     private lateinit var binding: ActivityMainBinding
 
@@ -26,7 +31,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         _signInResponse = intent.extras?.getParcelable(Constants.SIGN_IN_RESPONSE)!!
-        shortToast("Welcome ${signInResponse.profile.firstName}!")
+
+        _mGoogleSignInClient = getGoogleSignInClient(this)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -34,5 +40,13 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.setupWithNavController(navController)
 
 
+    }
+
+    fun hideNavBar() {
+        binding.bottomNav.visibility = View.GONE
+    }
+
+    fun showNavBar() {
+        binding.bottomNav.visibility = View.VISIBLE
     }
 }

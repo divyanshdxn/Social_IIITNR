@@ -13,3 +13,5 @@ fun getFormattedTime(time: String): String {
     val ss = time.substring(18, 20);
     return "$hh:$mm, $dd ${DateFormatSymbols().months[MM - 1]}"
 }
+
+fun getMediaUrl(mediaId: String) = "${Constants.BASE_URL}api/media/${mediaId}"

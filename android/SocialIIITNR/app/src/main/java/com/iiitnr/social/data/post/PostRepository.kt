@@ -10,7 +10,6 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.HttpException
-import java.io.File
 import java.io.InputStream
 
 class PostRepository(
@@ -33,7 +32,7 @@ class PostRepository(
                     profile.photoUrl
                 )
             }
-            emit(Resource.Success(posts))
+            emit(Resource.Success(posts.reversed()))
         } catch (exception: HttpException) {
             Log.e(TAG, "getAllPosts: ", exception)
             emit(Resource.Error(exception.message()))
@@ -55,6 +54,25 @@ class PostRepository(
             emit(Resource.Success(true))
         } catch (e: HttpException) {
             Log.e(TAG, "createPost: ", e)
+            emit(Resource.Error(e.message()))
+        }
+    }
+
+    fun getPostByUserId(idToken: String, userId: String) = flow<Resource<List<Post>>> {
+        try {
+            emit(Resource.Loading())
+            val posts = postApi.getPostByUserId(getBearerHeader(idToken), userId).map { postDto ->
+                Post(
+                    postDto.caption,
+                    postDto.media,
+                    postDto.updatedAt,
+                    "",
+                    ""
+                )
+            }
+            emit(Resource.Success(posts.reversed()))
+        } catch (e: HttpException) {
+            Log.e(TAG, "getPostByUserId: ", e)
             emit(Resource.Error(e.message()))
         }
     }

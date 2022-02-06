@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.iiitnr.social.R
@@ -47,6 +48,9 @@ class Home : BaseFragment() {
         binding.postRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.postRecyclerView.adapter = postsRecyclerAdapter
+        binding.profilePhoto.setOnClickListener {
+            findNavController().navigate(R.id.action_home_to_profile)
+        }
     }
 
     private fun observeData() {
