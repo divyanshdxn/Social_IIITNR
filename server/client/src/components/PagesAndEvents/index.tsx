@@ -1,5 +1,5 @@
 import NewPage from '../NewPage';
-import PagesList from './PagesList';
+import PagesListPrev from './PagesListPrev';
 import PagesAndEventsPanel from './Panel';
 
 interface Props {}
@@ -14,7 +14,7 @@ const PagesAndEvents: React.FC<Props> = () => {
       <PagesAndEventsPanel
         type="pages"
         buttons={[['Join'], ['Create', <NewPage />]]}
-        children={<PagesList />}
+        children={<PagesListPrev />}
       />
       <PagesAndEventsPanel type="events" buttons={[['Past Events']]} />
     </div>

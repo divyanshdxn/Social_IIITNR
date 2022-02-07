@@ -10,7 +10,7 @@ export default function Home() {
       className="flex h-full justify-between items-stretch overflow-auto px-10 md:pl-0 lg:pr-0"
       style={{ maxWidth: '1920px' }}
     >
-      <ProfileSection />
+      <ProfileSection hide={true} />
       <Routes>
         <Route index element={<Feed />} />
         <Route path="profile" />
