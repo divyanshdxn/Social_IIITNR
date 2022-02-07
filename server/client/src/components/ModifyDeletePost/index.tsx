@@ -28,7 +28,7 @@ const ModifyDeletePost: React.FC<Props> = ({ post }) => {
         {
           pending: 'Deleting Post...',
           success: 'Post Deleted Successfully',
-          error: 'Could Not Delete Post',
+          // error: 'Could Not Delete Post',
         },
         {
           autoClose: 5000,
@@ -45,7 +45,7 @@ const ModifyDeletePost: React.FC<Props> = ({ post }) => {
         return [error.response?.data, error.response?.status];
       });
     console.log('delete: ', res, code);
-    if (res && code >= 200 && code < 300)
+    // if (res && code >= 200 && code < 300)
       dispatch({ type: 'delete', payload: post.postId });
     setIsModalOpen(false);
   };
