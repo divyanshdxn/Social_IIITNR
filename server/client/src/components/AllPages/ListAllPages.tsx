@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { BsDot } from 'react-icons/bs';
 import useApi from '../../hooks/useApi';
 import PagesResponse from '../../types/response/PagesResponse';
+import { Error } from '../Error';
+import { Loading } from '../Loaders';
 
 const ListAllPages: React.FC = () => {
   const {
@@ -12,6 +14,7 @@ const ListAllPages: React.FC = () => {
     isError,
     isLoading,
     isSuccess,
+    status,
   } = useApi<any, PagesResponse[]>('/api/pages', 'GET');
 
   return (
@@ -20,9 +23,9 @@ const ListAllPages: React.FC = () => {
         <h1>Suggested Pages</h1>
       </div>
       {isLoading ? (
-        <div className="m-auto">Loading...</div>
+		  <Loading/>
       ) : isError ? (
-        <div className="">An Error Occurred...</div>
+        <Error code={status} to="/app/pages" />
       ) : list?.length === 0 ? (
         <>
           <span>Uhh No...</span>

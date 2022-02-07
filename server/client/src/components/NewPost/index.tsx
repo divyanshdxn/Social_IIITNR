@@ -108,7 +108,7 @@ const NewPost: React.FC<Props> = () => {
       <button
         className="rounded-full object-cover w-16 overflow-hidden
        bg-background_variant dark:bg-d-background_variant border-2
-        border-transparent outline-1 outline-primary group relative"
+        border-transparent group relative"
         onClick={() => {
           if (!selectedImage) return;
           setModalChildren(
@@ -131,7 +131,7 @@ const NewPost: React.FC<Props> = () => {
               : state?.profile?.photoUrl
           }`}
           alt=""
-          className="w-full z-0 object-cover"
+          className="w-full aspect-square z-0 object-cover"
         />
       </button>
       <form
@@ -207,7 +207,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ imgUrl, setSelectImage }) => {
         <img
           src={imgUrl}
           alt="Uploaded Image File"
-          className="object-contain"
+          className="aspect-video object-contain w-full"
         />
       </div>
       <div className="flex justify-center gap-4">
