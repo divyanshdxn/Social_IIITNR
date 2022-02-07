@@ -11,7 +11,7 @@ const SinglePostPrev: React.FC<Props> = ({ data, isLoading }) => {
   const { setIsModalOpen, setModalChildren } = useAppContext();
   useEffect(() => {}, [isLoading]);
   if (isLoading) return <span>Loading...</span>;
-  const handleModify = () => {
+  const handleViewMore = () => {
     setIsModalOpen(true);
     setModalChildren(<ModifyDeletePost post={data} />);
   };
@@ -20,7 +20,7 @@ const SinglePostPrev: React.FC<Props> = ({ data, isLoading }) => {
       className="flex w-full h-16 rounded-md overflow-hidden 
 	shadow-gray-400 dark:shadow-gray-700 shadow-sm group cursor-pointer items-center"
       style={{ minHeight: '4rem' }}
-      onClick={handleModify}
+      onClick={handleViewMore}
     >
       <div className="h-full aspect-square bg-background_variant dark:bg-d-background_variant z-0">
         <img

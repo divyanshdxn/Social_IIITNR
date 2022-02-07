@@ -1,9 +1,19 @@
+import useApi from '../../hooks/useApi';
+import useAppContext from '../../hooks/useAppContext';
+
 interface Props {
   type: 'events' | 'pages';
-  buttons: string[];
+  buttons: [string, JSX.Element?][];
+  children?: React.ReactNode;
 }
 
-const PagesAndEventsPanel: React.FC<Props> = ({ type, buttons }) => {
+const PagesAndEventsPanel: React.FC<Props> = ({ type, buttons, children }) => {
+  const { setIsModalOpen, setModalChildren } = useAppContext();
+  const handleClick = (element: JSX.Element) => {
+    setModalChildren(element);
+    setIsModalOpen(true);
+  };
+
   return (
     <div
       className="flex-1 flex flex-col justify-between border-2  border-hints 
@@ -15,22 +25,27 @@ const PagesAndEventsPanel: React.FC<Props> = ({ type, buttons }) => {
       </div>
       <div
         className="flex-1 flex flex-col justify-center items-center 
-      text-text-secondary  dark:text-d-text-secondary text-sm"
+      text-text-secondary  dark:text-d-text-secondary text-sm overflow-y-auto"
       >
-        <span>Uhh No...</span>
-        <span>You don't have any</span>
+        {children}
       </div>
       <div className="flex justify-end gap-2">
         {buttons.map((btn, index) => (
           <button
             className="btn flex justify-center items-center text-xs capitalize py-2 w-24 text-white"
             key={index}
+            onClick={() => {
+              btn[1] && handleClick(btn[1]);
+            }}
           >
-            {btn}
+            {btn[0]}
           </button>
         ))}
       </div>
     </div>
   );
 };
+
+// const PagesList = (page) => {
+
 export default PagesAndEventsPanel;

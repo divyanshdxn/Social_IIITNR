@@ -1,3 +1,5 @@
+import NewPage from '../NewPage';
+import PagesList from './PagesList';
 import PagesAndEventsPanel from './Panel';
 
 interface Props {}
@@ -9,8 +11,12 @@ const PagesAndEvents: React.FC<Props> = () => {
 	  dark:bg-d-background overflow-hidden gap-6"
       style={{ height: 'calc(90% - 3rem)', minWidth: '18rem' }}
     >
-      <PagesAndEventsPanel type="pages" buttons={['Join', 'Create']} />
-      <PagesAndEventsPanel type="events" buttons={['Past Events']} />
+      <PagesAndEventsPanel
+        type="pages"
+        buttons={[['Join'], ['Create', <NewPage />]]}
+        children={<PagesList />}
+      />
+      <PagesAndEventsPanel type="events" buttons={[['Past Events']]} />
     </div>
   );
 };
