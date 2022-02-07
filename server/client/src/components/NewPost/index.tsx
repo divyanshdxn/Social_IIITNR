@@ -110,7 +110,10 @@ const NewPost: React.FC<Props> = () => {
        bg-background_variant dark:bg-d-background_variant border-2
         border-transparent group relative"
         onClick={() => {
-          if (!selectedImage) return;
+          if (!selectedImage) {
+            toast.info('Please upload an image to view...');
+            return;
+          }
           setModalChildren(
             <ImageModal
               imgUrl={`${
