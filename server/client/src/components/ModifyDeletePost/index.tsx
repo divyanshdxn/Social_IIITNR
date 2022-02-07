@@ -46,7 +46,8 @@ const ModifyDeletePost: React.FC<Props> = ({ post }) => {
       });
     console.log('delete: ', res, code);
     // if (res && code >= 200 && code < 300)
-      dispatch({ type: 'delete', payload: post.postId });
+    toast.success('Post Deleted Successfully');
+    dispatch({ type: 'delete', payload: post.postId });
     setIsModalOpen(false);
   };
   return (
