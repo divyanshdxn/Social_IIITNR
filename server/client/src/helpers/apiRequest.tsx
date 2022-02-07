@@ -6,7 +6,7 @@ import axios, {
   AxiosResponseHeaders,
 } from 'axios';
 
-export function checkToken(code?: number): boolean {
+export function checkToken(code?: number | null): boolean {
   if (!localStorage.getItem('token') || code === 401) {
     alert('You have been logged out. Redirecting to login page');
     window.open('/login', '_self');
@@ -20,7 +20,6 @@ export function getHeaders(config?: AxiosRequestConfig): AxiosRequestHeaders {
     ...config?.headers,
     Authorization: `Bearer ${localStorage.getItem('token') as string}`,
   };
-  console.log(headers);
   return headers;
 }
 export async function apiGetOrDelete<Y>(
@@ -33,13 +32,14 @@ export async function apiGetOrDelete<Y>(
       ...config,
       headers: getHeaders(),
     });
+    checkToken(res.status);
     return [res.data, res.status];
   } catch (err) {
     const error = err as AxiosError;
     if (error.isAxiosError && error.response) {
       if (error.response.status === 401) {
         alert('You have been logged out. Redirecting to login page');
-        window.open('/login', '_self');
+        checkToken(error.response.status);
       }
       return [error.response.data, error.response.status];
     }
@@ -62,6 +62,7 @@ export async function apiPostOrPatch<T, Y>(
         headers: getHeaders(config),
       },
     );
+    checkToken(res.status);
     return [res.data, res.status];
   } catch (err) {
     const error = err as AxiosError;
@@ -69,7 +70,7 @@ export async function apiPostOrPatch<T, Y>(
     if (error.isAxiosError && error.response) {
       if (error.response.status === 401) {
         alert('You have been logged out. Redirecting to login page');
-        window.open('/login', '_self');
+        checkToken(error.response.status);
       }
       return [error.response.data, error.response.status];
     }

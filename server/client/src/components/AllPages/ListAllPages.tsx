@@ -15,8 +15,8 @@ const ListAllPages: React.FC = () => {
   } = useApi<any, PagesResponse[]>('/api/pages', 'GET');
 
   return (
-    <div className="w-full h-full grid grid-cols-2 text-sm gap-10 mx-8 sm:ml-0">
-      <div className="flex px-4 pb-2 col-start-1 col-end-3">
+    <div className="w-full h-full grid grid-cols-1 md:grid-cols-2 text-sm gap-10 mx-8 sm:ml-0">
+      <div className="flex px-4 pb-2 col-start-1 col-end-2 sm:col-end-3">
         <h1>Suggested Pages</h1>
       </div>
       {isLoading ? (

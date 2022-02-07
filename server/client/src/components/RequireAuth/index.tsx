@@ -11,8 +11,7 @@ interface Props {
 
 export const RequireAuth: React.FC<Props> = ({ children }) => {
   const { isSuccess, isLoading, isError, status } = useAuth();
-  console.log('token: ', localStorage.getItem('token'));
-  if (!checkToken()) {
+  if (!checkToken(status)) {
     return <Navigate to="/login" replace={true} />;
   }
   if (isLoading) return <Loading />;

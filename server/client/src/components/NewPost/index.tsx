@@ -6,17 +6,20 @@ import PostByUserResponse from '../../types/response/PostsByUserResponse';
 import { toast } from 'react-toastify';
 import { type } from 'os';
 import { useNavigate } from 'react-router-dom';
+import { ImCross } from 'react-icons/im/';
+import useAppContext from '../../hooks/useAppContext';
 
 interface Props {}
 const NewPost: React.FC<Props> = () => {
   const [isUploading, setIsUploading] = useState(false);
   const { state, dispatch } = useMyProfileContext();
   const inputRef = useRef<HTMLDivElement>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
   const toastId = useRef<ReactText | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const nav = useNavigate();
+  const { setModalChildren, setIsModalOpen } = useAppContext();
   const clearFiles = () => {
-    if (fileRef.current) fileRef.current.value = '';
+    setSelectedImage(null);
   };
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -25,27 +28,21 @@ const NewPost: React.FC<Props> = () => {
     const text = inputRef.current?.innerHTML;
     if (text && text !== '') {
       const request = new FormData();
-      if (
-        !fileRef.current ||
-        fileRef.current.value === '' ||
-        (fileRef.current.files && fileRef.current.files?.length <= 0)
-      ) {
+      if (!selectedImage) {
         toast.error('Please Upload An Image...');
         return;
-      } else if (fileRef.current.files) {
-        if (fileRef.current.files.length > 1) {
-          toast.info('Only One Image Can Be Uploaded');
-        }
+      } else {
         const re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png|\.svg)$/i;
-        if (!re.exec(fileRef.current.files[0].name)) {
+        if (!re.exec(selectedImage.name)) {
           toast.error('Unsopported File Type');
           clearFiles();
           return;
         }
-        request.append('file', fileRef.current?.files[0]);
+        request.append('file', selectedImage);
       }
       if (inputRef.current && inputRef.current.textContent)
         request.append('caption', inputRef.current.textContent);
+
       setIsUploading(true);
       try {
         let headers: AxiosRequestHeaders = {};
@@ -81,6 +78,7 @@ const NewPost: React.FC<Props> = () => {
           });
           toastId.current = null;
           dispatch({ type: 'new-post', payload: res as PostByUserResponse });
+          if (inputRef.current.innerHTML) inputRef.current.innerHTML = '';
         }
       } catch (err) {
         const error = err as AxiosError;
@@ -93,18 +91,13 @@ const NewPost: React.FC<Props> = () => {
           autoClose: 5000,
         });
         toastId.current = null;
+      } finally {
+        clearFiles();
       }
+    } else {
+      toast.info('Please Enter A Caption');
     }
   };
-  useEffect(() => {
-    if (inputRef.current) {
-      if (isUploading) inputRef.current.contentEditable = 'false';
-      else {
-        inputRef.current.contentEditable = 'true';
-        inputRef.current.innerHTML = '';
-      }
-    }
-  }, [isUploading]);
   return (
     <div
       className="flex  
@@ -113,12 +106,33 @@ const NewPost: React.FC<Props> = () => {
       style={{ minHeight: '8rem', maxWidth: '830px' }}
     >
       <button
-        className="rounded-full object-cover w-16 overflow-hidden bg-background_variant dark:bg-d-background_variant"
+        className="rounded-full object-cover w-16 overflow-hidden
+       bg-background_variant dark:bg-d-background_variant border-2
+        border-transparent outline-1 outline-primary group relative"
         onClick={() => {
-          nav('profile');
+          if (!selectedImage) return;
+          setModalChildren(
+            <ImageModal
+              imgUrl={`${
+                selectedImage
+                  ? URL.createObjectURL(selectedImage)
+                  : state?.profile?.photoUrl
+              }`}
+              setSelectImage={setSelectedImage}
+            />,
+          );
+          setIsModalOpen(true);
         }}
       >
-        <img src={`${state?.profile?.photoUrl}`} alt="" className="w-full" />
+        <img
+          src={`${
+            selectedImage
+              ? URL.createObjectURL(selectedImage)
+              : state?.profile?.photoUrl
+          }`}
+          alt=""
+          className="w-full z-0 object-cover"
+        />
       </button>
       <form
         className=" flex relative h-full w-full rounded-md overflow-hidden"
@@ -148,7 +162,18 @@ const NewPost: React.FC<Props> = () => {
               id="file-upload"
               className="hidden"
               accept=".jpg, .jpeg, .png, .svg, .gif, .bmp"
-              ref={fileRef}
+              onChange={(e) => {
+                if (e.target.files && e.target.files.length > 0) {
+                  if (e.target.files[0].size > 1000000) {
+                    toast.error('File Size Exceeded');
+                    return;
+                  } else if (e.target.files.length > 1) {
+                    toast.info('Only One Image Can Be Uploaded');
+                    return;
+                  }
+                  setSelectedImage(e.target.files[0]);
+                }
+              }}
             />
           </div>
           <button
@@ -163,4 +188,50 @@ const NewPost: React.FC<Props> = () => {
     </div>
   );
 };
+
+// Image modal props
+interface ImageModalProps {
+  imgUrl: string;
+  setSelectImage: React.Dispatch<React.SetStateAction<File | null>>;
+}
+
+// component to show image in a modal
+const ImageModal: React.FC<ImageModalProps> = ({ imgUrl, setSelectImage }) => {
+  const { setIsModalOpen } = useAppContext();
+  return (
+    <div className="w-full h-full flex flex-col justify-center items-center gap-3">
+      <div
+        style={{ maxWidth: '500px', maxHeight: '700px' }}
+        className="overflow-auto p-1"
+      >
+        <img
+          src={imgUrl}
+          alt="Uploaded Image File"
+          className="object-contain"
+        />
+      </div>
+      <div className="flex justify-center gap-4">
+        <button
+          className="btn px-4 py-2"
+          onClick={() => {
+            setIsModalOpen(false);
+            setSelectImage(null);
+            toast.info('Image Removed');
+          }}
+        >
+          Remove Image
+        </button>
+        <button
+          className="btn px-4 py-2"
+          onClick={() => {
+            setIsModalOpen(false);
+          }}
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  );
+};
+
 export default NewPost;
