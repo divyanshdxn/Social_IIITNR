@@ -22,10 +22,10 @@ const App: React.FC = () => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalChildren, setModalChildren] = useState(<div />);
-  const callApi = async ()=>{
-    const [res,code] =await apiGetOrDelete('/api/pages');
+  const callApi = async () => {
+    const [res, code] = await apiGetOrDelete('/api/pages');
     console.log(res);
-  }
+  };
   return (
     <div className={`${darkMode && 'dark'} h-screen w-screen`}>
       <AppContextProvider

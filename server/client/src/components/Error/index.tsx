@@ -25,7 +25,7 @@ export const Error: React.FC<Props> = ({ code, retry, to }) => {
           <button
             className="btn px-4 py-2 text-lg w-40"
             style={{ height: '2rem' }}
-            onClick={()=>nav(link,{replace: true})}
+            onClick={() => nav(link, { replace: true })}
           >
             Reload
           </button>

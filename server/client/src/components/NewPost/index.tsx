@@ -33,8 +33,8 @@ const NewPost: React.FC<Props> = () => {
         toast.error('Please Upload An Image...');
         return;
       } else if (fileRef.current.files) {
-        if(fileRef.current.files.length >1){
-          toast.info('Only One Image Can Be Uploaded')
+        if (fileRef.current.files.length > 1) {
+          toast.info('Only One Image Can Be Uploaded');
         }
         const re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png|\.svg)$/i;
         if (!re.exec(fileRef.current.files[0].name)) {

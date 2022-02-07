@@ -36,7 +36,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "watch": "npm-watch",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\""
+    "format": "prettier --write \"src/**/*.tsx\" \"test/**/*.tsx\""
   },
   "watch": {
     "build": {

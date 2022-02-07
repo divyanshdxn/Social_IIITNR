@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage";
-import { envConfig } from "./env.config";
+import { initializeApp } from 'firebase/app';
+import { getStorage } from 'firebase/storage';
+import { envConfig } from './env.config';
 
 // Set the configuration for your app
 // TODO: Replace with your app's config object
@@ -8,7 +8,7 @@ const firebaseConfig = {
   apiKey: envConfig.firebase.apiKey,
   authDomain: envConfig.firebase.authDomain,
   databaseURL: envConfig.firebase.databaseURL,
-  storageBucket: envConfig.firebase.storageBucket
+  storageBucket: envConfig.firebase.storageBucket,
 };
 const firebaseApp = initializeApp(firebaseConfig);
 

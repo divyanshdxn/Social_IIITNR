@@ -11,9 +11,7 @@ interface LoginResponse {
   profile: SingleProfileResponse;
 }
 
-export const onSuccess = async (
-  response: GoogleLoginResponse
-) => {
+export const onSuccess = async (response: GoogleLoginResponse) => {
   try {
     localStorage.setItem('token', response.tokenId);
     const res = await apiGetOrDelete('/api/auth/signin');

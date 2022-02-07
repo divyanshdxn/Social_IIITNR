@@ -26,10 +26,10 @@ export class MediaController {
       });
       console.log(path);
       const file = createReadStream(join(path, media.path));
-      file.on("error",() => {
+      file.on('error', () => {
         // throw new Error("Media file not found!")
-        return res.status(400).json({message:"Media not found"})
-      })
+        return res.status(400).json({ message: 'Media not found' });
+      });
       return file.pipe(res);
     } catch (error) {
       console.error(error);
