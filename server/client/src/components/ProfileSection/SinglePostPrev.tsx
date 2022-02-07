@@ -26,7 +26,7 @@ const SinglePostPrev: React.FC<Props> = ({ data, isLoading }) => {
         <img
           src={`/api/media/${data.media[0]}`}
           alt=""
-          className="object-cover h-full"
+          className="object-cover h-full w-full"
         />
       </div>
       <div className="text-xs px-1 py-2 text-ellipsish whitespace-wrap relative w-full h-full flex font-medium">

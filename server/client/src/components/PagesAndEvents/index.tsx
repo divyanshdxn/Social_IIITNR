@@ -1,3 +1,4 @@
+import { Navigate } from 'react-router-dom';
 import NewPage from '../NewPage';
 import PagesListPrev from './PagesListPrev';
 import PagesAndEventsPanel from './Panel';
@@ -13,7 +14,7 @@ const PagesAndEvents: React.FC<Props> = () => {
     >
       <PagesAndEventsPanel
         type="pages"
-        buttons={[['Join'], ['Create', <NewPage />]]}
+        buttons={[['Join', <Navigate to="/app/pages" />], ['Create', <NewPage />]]}
         children={<PagesListPrev />}
       />
       <PagesAndEventsPanel type="events" buttons={[['Past Events']]} />

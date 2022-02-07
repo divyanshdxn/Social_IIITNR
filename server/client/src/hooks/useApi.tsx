@@ -11,7 +11,7 @@ interface State<T> {
   isError: boolean | null;
   isLoading: boolean;
   isSuccess: boolean | null;
-  status: number | null;
+  status: number | null | undefined;
   data: T | null;
   timer: NodeJS.Timer | null;
 }

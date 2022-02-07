@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import navLinks from '../../data/navLinks';
 import useAppContext from '../../hooks/useAppContext';
@@ -73,10 +73,51 @@ const NavLeft: React.FC = () => {
 };
 
 const NavRight: React.FC = () => {
-  const { darkMode, setDarkMode } = useAppContext();
+  const { darkMode, setDarkMode, setIsModalOpen, setModalChildren } =
+    useAppContext();
+  const nav = useNavigate();
   const handleClick = () => {
     if (setDarkMode) setDarkMode((curr) => !curr);
   };
+
+  // Sign Out Confirmation Component for Modal Child
+  // Clear Local Storage if yes
+  const HangleSignOut: React.FC = () => {
+    return (
+      <div className="flex flex-col justify-center items-center gap-4">
+        <h2 className="text-center text-primary font-medium text-sm">
+          Are you sure you want to sign out?
+        </h2>
+        <div className="flex justify-center gap-2">
+          <button
+            className="btn flex justify-center items-center text-xs capitalize py-2 w-24 text-white"
+            onClick={() => {
+              setIsModalOpen(false);
+              localStorage.clear();
+              nav('/login');
+            }}
+          >
+            Yes
+          </button>
+          <button
+            className="btn flex justify-center items-center text-xs capitalize py-2 w-24 text-white"
+            onClick={() => {
+              setIsModalOpen(false);
+            }}
+          >
+            No
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  const signOut = () => {
+    // Open Modal and set child to SignOutModal
+    setIsModalOpen(true);
+    setModalChildren(<HangleSignOut />);
+  };
+
   return (
     <div id="nav_right" className="h-full flex  gap-4 ">
       <button
@@ -94,6 +135,7 @@ const NavRight: React.FC = () => {
         className="flex justify-center items-center rounded-lg h-full p-1 outline-primary
          dark:outline-d-primary outline-2 outline focus:text-text-primary  focus:bg-primary_variant
           hover:text-text-primary hover:bg-primary_variant hover:border-0"
+        onClick={signOut}
       >
         Sign Out
       </button>

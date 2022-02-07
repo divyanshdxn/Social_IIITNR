@@ -1,5 +1,5 @@
-import axios, { AxiosError } from 'axios';
-import React, { ReactText, useRef } from 'react';
+import { AxiosError } from 'axios';
+import React from 'react';
 import { Bounce, toast } from 'react-toastify';
 import { apiGetOrDelete } from '../../helpers/apiRequest';
 import useAppContext from '../../hooks/useAppContext';
@@ -7,7 +7,6 @@ import { useMyProfileContext } from '../../hooks/useMyProfileContext';
 import PostByUserResponse from '../../types/response/PostsByUserResponse';
 import SinglePostResponse from '../../types/response/SinglePostResponse';
 import SinglePost from '../post/SinglePost';
-import SinglePostPrev from '../ProfileSection/SinglePostPrev';
 
 interface Props {
   post: PostByUserResponse;
@@ -28,7 +27,7 @@ const ModifyDeletePost: React.FC<Props> = ({ post }) => {
         {
           pending: 'Deleting Post...',
           success: 'Post Deleted Successfully',
-          // error: 'Could Not Delete Post',
+          error: 'Could Not Delete Post',
         },
         {
           autoClose: 5000,
@@ -45,9 +44,9 @@ const ModifyDeletePost: React.FC<Props> = ({ post }) => {
         return [error.response?.data, error.response?.status];
       });
     console.log('delete: ', res, code);
-    // if (res && code >= 200 && code < 300)
-    toast.success('Post Deleted Successfully');
-    dispatch({ type: 'delete', payload: post.postId });
+    if (res && code >= 200 && code < 300) {
+      dispatch({ type: 'delete', payload: post.postId });
+    }
     setIsModalOpen(false);
   };
   return (

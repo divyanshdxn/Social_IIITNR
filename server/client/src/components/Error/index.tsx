@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { BiError } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 interface Props {
-  code?: number;
+  code?: number | null;
   retry?: boolean;
   to?: string;
 }
