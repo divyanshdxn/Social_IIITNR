@@ -23,7 +23,7 @@ const Modal: React.FC<Partial<Props>> = (props) => {
           overlay: {
             height: '100%',
             width: '100%',
-            zIndex: 100,
+            zIndex: 60,
             background: `${
               darkMode ? 'rgba(40,40,40,0.5)' : 'rgba(0,0,0,0.6)'
             }`,
@@ -50,7 +50,7 @@ const Modal: React.FC<Partial<Props>> = (props) => {
         >
           <AiFillCloseCircle className="text-red-500" />
         </button>
-        <div className="w-full h-full bg-background dak:bg-d-background p-5">
+        <div className="flex w-full h-full bg-background dak:bg-d-background p-5 overflow-auto">
           {modalChildren}
         </div>
       </ReactModal>

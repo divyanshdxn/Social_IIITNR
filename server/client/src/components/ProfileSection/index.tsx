@@ -8,9 +8,10 @@ import PostList from './PostList';
 
 interface Props {
   userId?: string;
+  hide?: boolean;
 }
 
-const ProfileSection: React.FC<Props> = ({ userId }) => {
+const ProfileSection: React.FC<Props> = ({ userId, hide }) => {
   const url = userId ? userId : 'current';
   const { isLoading, isSuccess, data } = useApi<any, SingleProfileResponse>(
     `/api/profile/${url}`,
@@ -28,10 +29,10 @@ const ProfileSection: React.FC<Props> = ({ userId }) => {
   }, [state]);
   return (
     <div
-      className="sticky translate-y-6 px-8 mx-8 left-10 top-12 
+      className={`sticky translate-y-6 px-8 mx-8 left-10 top-12 
 	  flex-col basis-1/5 border-2  border-hints dark:border-d-hints 
 	  rounded-xl z-20 bg-background dark:bg-d-background overflow-hidden
-     hidden sm:flex"
+     ${hide && 'hidden sm:flex'}`}
       style={{ height: 'calc(90% - 3rem)', minWidth: '18rem' }}
     >
       <div

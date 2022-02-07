@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import ReactModal from 'react-modal';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Error } from './components/Error';
@@ -12,6 +12,7 @@ import { Bounce, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/tailwind.css';
 import Modal from './components/Modal/Modal';
+import { apiGetOrDelete } from './helpers/apiRequest';
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useDarkMode();
@@ -21,6 +22,10 @@ const App: React.FC = () => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalChildren, setModalChildren] = useState(<div />);
+  const callApi = async ()=>{
+    const [res,code] =await apiGetOrDelete('/api/pages');
+    console.log(res);
+  }
   return (
     <div className={`${darkMode && 'dark'} h-screen w-screen`}>
       <AppContextProvider
@@ -62,11 +67,11 @@ const App: React.FC = () => {
           <ToastContainer
             position="top-right"
             theme={darkMode ? 'dark' : 'light'}
-            className="z-50"
             autoClose={5000}
             closeOnClick
             draggable
             pauseOnHover
+            style={{ zIndex: 70 }}
           />
           <Modal isOpen={isModalOpen} />
         </MyProfileProvider>

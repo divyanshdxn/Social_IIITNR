@@ -1,3 +1,3 @@
-const navLinks: string[] = ['home', 'clubs', 'events', 'pages'];
+const navLinks: string[] = ['home', 'pages', 'clubs', 'events'];
 
 export default navLinks;

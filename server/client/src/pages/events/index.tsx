@@ -1,5 +1,7 @@
 import React from 'react';
 
-export default function Events() {
+interface Props {}
+const Events: React.FC<Props> = () => {
   return <main>Events</main>;
-}
+};
+export default Events;

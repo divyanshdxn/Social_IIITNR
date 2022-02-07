@@ -9,7 +9,6 @@ import { Repository } from 'typeorm';
 import { MediaService } from '../media/media.service';
 import { Post } from '../post/entities/post.entity';
 import { Profile } from '../profile/entities/profile.entity';
-import { ProfileService } from '../profile/profile.service';
 import { CreatePageDto } from './dto/create-page.dto';
 import { UpdatePageDto } from './dto/update-page.dto';
 import { Page } from './entities/pages.entity';
