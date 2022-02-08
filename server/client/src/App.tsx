@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import ReactModal from 'react-modal';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Error } from './components/Error';
@@ -13,6 +13,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import './styles/tailwind.css';
 import Modal from './components/Modal/Modal';
 import { apiGetOrDelete } from './helpers/apiRequest';
+import { ErrorBoundary } from 'react-error-boundary';
+// import ErrorBoundary from './components/Error/ErrorBoundary';
+import ErrorHandler from './components/Error/ErrorHandler';
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useDarkMode();
@@ -27,56 +30,61 @@ const App: React.FC = () => {
     console.log(res);
   };
   return (
-    <div className={`${darkMode && 'dark'} h-screen w-screen`}>
-      <AppContextProvider
-        value={{
-          darkMode,
-          setDarkMode,
-          isModalOpen,
-          setIsModalOpen,
-          modalChildren,
-          setModalChildren,
-        }}
-      >
-        <MyProfileProvider value={{ state: myProfileState, dispatch }}>
-          <BrowserRouter>
-            <Routes>
-              {/* Login Route */}
-              <Route path="login" element={<Login />} />
-              <Route
-                index
-                element={<Navigate to="/app/home" replace={true} />}
-              />
-              {/* Protected Routes */}
-              <Route path="app/" element={<ProtectedRoutes />}>
-                <Route index element={<Error code={404} retry to="/" />} />
-                {protectedRoutes.map((route, index): JSX.Element => {
-                  return (
-                    <Route
-                      path={route.path}
-                      element={route.component}
-                      key={index}
-                    />
-                  );
-                })}
-              </Route>
-              {/* Ummatched Routes */}
-              <Route path="*" element={<Error code={404} retry={true} />} />
-            </Routes>
-          </BrowserRouter>
-          <ToastContainer
-            position="top-right"
-            theme={darkMode ? 'dark' : 'light'}
-            autoClose={5000}
-            closeOnClick
-            draggable
-            pauseOnHover
-            style={{ zIndex: 70 }}
-          />
-          <Modal isOpen={isModalOpen} />
-        </MyProfileProvider>
-      </AppContextProvider>
-    </div>
+    <ErrorBoundary
+      FallbackComponent={ErrorHandler}
+      onError={() => setIsModalOpen(true)}
+    >
+      <div className={`${darkMode && 'dark'} h-screen w-screen`}>
+        <AppContextProvider
+          value={{
+            darkMode,
+            setDarkMode,
+            isModalOpen,
+            setIsModalOpen,
+            modalChildren,
+            setModalChildren,
+          }}
+        >
+          <MyProfileProvider value={{ state: myProfileState, dispatch }}>
+            <BrowserRouter>
+              <Routes>
+                {/* Login Route */}
+                <Route path="login" element={<Login />} />
+                <Route
+                  index
+                  element={<Navigate to="/app/home" replace={true} />}
+                />
+                {/* Protected Routes */}
+                <Route path="app/" element={<ProtectedRoutes />}>
+                  <Route index element={<Error code={404} retry to="/" />} />
+                  {protectedRoutes.map((route, index): JSX.Element => {
+                    return (
+                      <Route
+                        path={route.path}
+                        element={route.component}
+                        key={index}
+                      />
+                    );
+                  })}
+                </Route>
+                {/* Ummatched Routes */}
+                <Route path="*" element={<Error code={404} retry={true} />} />
+              </Routes>
+            </BrowserRouter>
+            <ToastContainer
+              position="top-right"
+              theme={darkMode ? 'dark' : 'light'}
+              autoClose={5000}
+              closeOnClick
+              draggable
+              pauseOnHover
+              style={{ zIndex: 70 }}
+            />
+            <Modal isOpen={isModalOpen} />
+          </MyProfileProvider>
+        </AppContextProvider>
+      </div>
+    </ErrorBoundary>
   );
 };
 export default App;
