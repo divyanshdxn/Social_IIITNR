@@ -36,7 +36,7 @@ export class PostController {
   [POST] /post/create
   */
   @Post('create')
-  @UseGuards(AuthorizationGuard)
+  // @UseGuards(AuthorizationGuard)
   @UseInterceptors(FileInterceptor('file', postMulterConfig))
   create(
     @Body() createPostDto: CreatePostDto,

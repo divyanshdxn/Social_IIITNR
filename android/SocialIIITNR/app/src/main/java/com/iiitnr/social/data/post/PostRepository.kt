@@ -32,12 +32,11 @@ class PostRepository(
                     profile.photoUrl
                 )
             }
-            emit(Resource.Success(posts.reversed()))
+            emit(Resource.Success(posts))
         } catch (exception: HttpException) {
             Log.e(TAG, "getAllPosts: ", exception)
             emit(Resource.Error(exception.message()))
         }
-
     }
 
     fun createPost(idToken: String, file: InputStream, caption: String) = flow<Resource<Boolean>> {
@@ -70,7 +69,7 @@ class PostRepository(
                     ""
                 )
             }
-            emit(Resource.Success(posts.reversed()))
+            emit(Resource.Success(posts))
         } catch (e: HttpException) {
             Log.e(TAG, "getPostByUserId: ", e)
             emit(Resource.Error(e.message()))

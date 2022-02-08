@@ -1,3 +1,4 @@
+import { Media } from 'src/app/media/entities/media.entity';
 import { Page } from 'src/app/pages/entities/pages.entity';
 import { Profile } from 'src/app/profile/entities/profile.entity';
 import {
@@ -6,6 +7,7 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';

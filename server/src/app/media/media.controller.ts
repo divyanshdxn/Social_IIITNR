@@ -21,16 +21,17 @@ export class MediaController {
   async findOne(@Param('mediaId') mediaId: string, @Res() res: Response) {
     try {
       const media = await this.mediaService.findOne(mediaId);
-      res.set({
-        'Content-type': media.mimeType,
-      });
-      console.log(path);
-      const file = createReadStream(join(path, media.path));
-      file.on('error', () => {
-        // throw new Error("Media file not found!")
-        return res.status(400).json({ message: 'Media not found' });
-      });
-      return file.pipe(res);
+      res.redirect(media.path);
+      // res.set({
+      //   'Content-type': media.mimeType,
+      // });
+      // console.log(path);
+      // const file = createReadStream(join(path, media.path));
+      // file.on('error', () => {
+      //   // throw new Error("Media file not found!")
+      //   return res.status(400).json({ message: 'Media not found' });
+      // });
+      // return file.pipe(res);
     } catch (error) {
       console.error(error);
       throw new BadRequestException(error);
