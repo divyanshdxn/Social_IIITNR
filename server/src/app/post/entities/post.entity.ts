@@ -37,4 +37,8 @@ export class Post extends BaseEntity {
 
   @ManyToOne(() => Page, (page) => page.posts, { nullable: true })
   page: Page;
+  
+  // Create a many to many relation from post to profile for storing post likes
+  @ManyToOne(() => Profile, (profile) => profile.likes, { onDelete: 'CASCADE' })
+  likes: Profile[];
 }

@@ -50,7 +50,7 @@ export class PostService {
   async findAll() {
     try {
       const posts = await this.postRepository.find({
-        relations: ['page'],
+        relations: ['page', 'profile'],
         order: { createdAt: 'DESC', updatedAt: 'DESC' },
       });
       return posts;
@@ -66,6 +66,7 @@ export class PostService {
         where: {
           profileUserId: userId,
         },
+        relations: ['page', 'profile'],
         order: { createdAt: 'DESC', updatedAt: 'DESC' },
       });
       return posts;
@@ -78,7 +79,7 @@ export class PostService {
   async fingById(postId: string) {
     try {
       return await this.postRepository.findOneOrFail(postId, {
-        relations: ['page'],
+        relations: ['page', 'profile'],
       });
     } catch (error) {
       console.log(error);
