@@ -1,13 +1,11 @@
 import { AxiosError, AxiosRequestHeaders } from 'axios';
-import { ReactText, useEffect, useRef, useState } from 'react';
+import { ReactText, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { apiPostOrPatch } from '../../helpers/apiRequest';
+import useAppContext from '../../hooks/useAppContext';
 import { useMyProfileContext } from '../../hooks/useMyProfileContext';
 import PostByUserResponse from '../../types/response/PostsByUserResponse';
-import { toast } from 'react-toastify';
-import { type } from 'os';
-import { useNavigate } from 'react-router-dom';
-import { ImCross } from 'react-icons/im/';
-import useAppContext from '../../hooks/useAppContext';
 
 interface Props {}
 const NewPost: React.FC<Props> = () => {
@@ -16,7 +14,6 @@ const NewPost: React.FC<Props> = () => {
   const inputRef = useRef<HTMLDivElement>(null);
   const toastId = useRef<ReactText | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const nav = useNavigate();
   const { setModalChildren, setIsModalOpen } = useAppContext();
   const clearFiles = () => {
     setSelectedImage(null);
@@ -45,7 +42,6 @@ const NewPost: React.FC<Props> = () => {
 
       setIsUploading(true);
       try {
-        let headers: AxiosRequestHeaders = {};
         const [res, code] = await apiPostOrPatch<FormData, PostByUserResponse>(
           '/api/post/create',
           request,

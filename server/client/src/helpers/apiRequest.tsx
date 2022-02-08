@@ -2,8 +2,7 @@ import axios, {
   AxiosError,
   AxiosRequestConfig,
   AxiosRequestHeaders,
-  AxiosResponse,
-  AxiosResponseHeaders,
+  AxiosResponse
 } from 'axios';
 
 export function checkToken(code?: number | null): boolean {

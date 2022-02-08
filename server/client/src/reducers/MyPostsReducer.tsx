@@ -38,7 +38,7 @@ const MyProfileReducer: MyProfileReducerType = (state, action) => {
     case 'delete':
       state = {
         ...state,
-        myPosts: myPosts.filter((item) => item.postId != payload),
+        myPosts: myPosts.filter((item) => item.postId !== payload),
       };
       break;
     case 'new-post':

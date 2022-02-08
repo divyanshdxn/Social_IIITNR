@@ -1,5 +1,4 @@
-import React, { createContext, useState, Dispatch } from 'react';
-import SingleProfileResponse from '../types/response/SingleProfileResponse';
+import React, { createContext } from 'react';
 export interface ContextValue {
   darkMode: boolean;
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>> | null;

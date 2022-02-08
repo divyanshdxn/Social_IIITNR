@@ -21,8 +21,10 @@ const ProfileSection: React.FC<Props> = ({ userId, hide }) => {
   const [profile, setProfile] = useState<Partial<SingleProfileResponse>>({});
   const loc = useLocation();
   useEffect(() => {
-    if (isSuccess && data && dispatch && !userId)
+    if (isSuccess && data && dispatch && !userId) {
       dispatch({ type: 'set-profile', payload: data });
+      console.log(state);
+    }
   }, [isSuccess, data, dispatch, userId]);
   useEffect(() => {
     setProfile(state.profile);

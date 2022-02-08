@@ -1,8 +1,8 @@
 import React from 'react';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import Feed from '../../components/Feed';
 import PagesAndEvents from '../../components/PagesAndEvents';
 import ProfileSection from '../../components/ProfileSection';
-import { Routes, Route, Outlet } from 'react-router-dom';
 
 export default function Home() {
   return (

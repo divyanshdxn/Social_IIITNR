@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import getMedia from '../../helpers/getMedia';
 import useApi from '../../hooks/useApi';
 import SinglePostResponse from '../../types/response/SinglePostResponse';
 import SingleProfileResponse from '../../types/response/SingleProfileResponse';
@@ -36,7 +37,7 @@ const SinglePost: React.FC<Props> = ({ post }) => {
           style={{ maxHeight: '25rem' }}
         >
           <img
-            src={`/api/media/${post.media}`}
+            src={getMedia(post.media)[0][0]}
             alt=""
             className="h-full object-contain"
           />

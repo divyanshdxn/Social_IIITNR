@@ -1,8 +1,6 @@
 // Create a component
 
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { BsDot } from 'react-icons/bs';
+import React from 'react';
 import useApi from '../../hooks/useApi';
 import PagesResponse from '../../types/response/PagesResponse';
 import { Error } from '../Error';
@@ -13,7 +11,6 @@ const ListAllPages: React.FC = () => {
     data: list,
     isError,
     isLoading,
-    isSuccess,
     status,
   } = useApi<any, PagesResponse[]>('/api/pages', 'GET');
 

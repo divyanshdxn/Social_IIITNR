@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import navLinks from '../../data/navLinks';
@@ -162,3 +162,4 @@ const SingleLink: React.FC<SingleLinkProps> = ({
     </div>
   );
 };
+

@@ -1,18 +1,17 @@
-import { useEffect, useReducer, useState } from 'react';
-import ReactModal from 'react-modal';
+import { useReducer, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Error } from './components/Error';
+import Modal from './components/Modal/Modal';
+import { apiGetOrDelete } from './helpers/apiRequest';
 import useDarkMode from './hooks/useDarkMode';
 import Login from './pages/login';
 import AppContextProvider from './providers/AppContextProvider';
 import MyProfileProvider from './providers/MyProfileProvider';
 import MyProfileReducer from './reducers/MyPostsReducer';
 import ProtectedRoutes, { protectedRoutes } from './routes/ProtectedRoutes';
-import { Bounce, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import './styles/tailwind.css';
-import Modal from './components/Modal/Modal';
-import { apiGetOrDelete } from './helpers/apiRequest';
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useDarkMode();
@@ -22,10 +21,6 @@ const App: React.FC = () => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalChildren, setModalChildren] = useState(<div />);
-  const callApi = async () => {
-    const [res, code] = await apiGetOrDelete('/api/pages');
-    console.log(res);
-  };
   return (
     <div className={`${darkMode && 'dark'} h-screen w-screen`}>
       <AppContextProvider

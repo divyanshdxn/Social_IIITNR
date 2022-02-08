@@ -1,10 +1,8 @@
 import axios, {
-  AxiosError,
-  Method,
   AxiosRequestConfig,
-  AxiosResponse,
+  AxiosResponse, Method
 } from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { checkToken, getHeaders } from '../helpers/apiRequest';
 
 interface State<T> {

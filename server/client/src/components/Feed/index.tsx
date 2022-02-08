@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useApi from '../../hooks/useApi';
 import SinglePostResponse from '../../types/response/SinglePostResponse';
 import PostLoading from '../Loaders/PostLoading';
@@ -8,7 +8,7 @@ import SinglePost from '../post/SinglePost';
 interface Props {}
 
 const Feed: React.FC<Props> = () => {
-  const { isSuccess, isError, isLoading, status, data } = useApi<
+  const { isSuccess,  isLoading, data } = useApi<
     any,
     SinglePostResponse[]
   >('/api/post', 'get');

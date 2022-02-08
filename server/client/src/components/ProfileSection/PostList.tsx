@@ -18,7 +18,7 @@ const PostList: React.FC<Props> = ({ userID, owner }) => {
         const [res] = await apiGetOrDelete<PostByUserResponse[]>(
           `/api/post/user/${userID}`,
         );
-        console.log(res);
+        console.log('My Posts: ', res);
         if (owner) dispatch({ type: 'set-posts', payload: res });
       }
     } catch (err) {

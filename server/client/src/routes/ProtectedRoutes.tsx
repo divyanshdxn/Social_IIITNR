@@ -1,6 +1,5 @@
 import React from 'react';
-import { Route, Routes, Outlet } from 'react-router';
-import { Error } from '../components/Error';
+import { Outlet } from 'react-router';
 import Navigation from '../components/Navigation';
 import { RequireAuth } from '../components/RequireAuth';
 import Events from '../pages/events';
