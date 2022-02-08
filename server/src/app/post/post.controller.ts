@@ -36,7 +36,7 @@ export class PostController {
   [POST] /post/create
   */
   @Post('create')
-  // @UseGuards(AuthorizationGuard)
+  @UseGuards(AuthorizationGuard)
   @UseInterceptors(FileInterceptor('file', postMulterConfig))
   create(
     @Body() createPostDto: CreatePostDto,
@@ -48,7 +48,6 @@ export class PostController {
   }
 
   @Get('user/:userId')
-  //@UseGuards(AuthorizationGuard)
   findOneByUser(@Param('userId') userId: string) {
     return this.postService.findAllByUserId(userId);
   }

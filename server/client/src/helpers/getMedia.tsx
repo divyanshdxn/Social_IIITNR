@@ -1,7 +1,12 @@
-const getMedia = (media: string[]): [string, 'image' | 'video'][] => {
+interface mediaData {
+  url: string;
+  type: 'image' | 'video';
+}
+
+const getMedia = (media: string[]): mediaData[] => {
   console.log(media);
   return media.map((url) => {
-    return [url, 'image'];
+    return { url: url, type: 'image' };
   });
 };
 

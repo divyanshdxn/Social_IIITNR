@@ -1,6 +1,7 @@
 // Create a component
 
 import React from 'react';
+import getMedia from '../../helpers/getMedia';
 import useApi from '../../hooks/useApi';
 import PagesResponse from '../../types/response/PagesResponse';
 import { Error } from '../Error';
@@ -20,14 +21,14 @@ const ListAllPages: React.FC = () => {
         <h1>Suggested Pages</h1>
       </div>
       {isLoading ? (
-		  <Loading/>
+        <Loading />
       ) : isError ? (
         <Error code={status} to="/app/pages" />
       ) : list?.length === 0 ? (
-        <>
+        <div className="flex flex-col">
           <span>Uhh No...</span>
           <span>You don't have any</span>
-        </>
+        </div>
       ) : (
         list &&
         list.map((page) => {
@@ -42,7 +43,7 @@ const ListAllPages: React.FC = () => {
 			  bg-background_variant dark:bg-d-background_variant"
               >
                 <img
-                  src={`/api/media/${page.media}`}
+                  src={getMedia(page.media)[0].url}
                   alt={page.title.trim()}
                   className="w-full object-cover aspect-square"
                 />

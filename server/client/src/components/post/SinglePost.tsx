@@ -37,7 +37,7 @@ const SinglePost: React.FC<Props> = ({ post }) => {
           style={{ maxHeight: '25rem' }}
         >
           <img
-            src={getMedia(post.media)[0][0]}
+            src={getMedia(post.media)[0].url}
             alt=""
             className="h-full object-contain"
           />

@@ -1,5 +1,5 @@
 import { AxiosError, AxiosRequestHeaders } from 'axios';
-import { ReactText, useRef, useState } from 'react';
+import React, { ReactText, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { apiPostOrPatch } from '../../helpers/apiRequest';
@@ -195,42 +195,44 @@ interface ImageModalProps {
 }
 
 // component to show image in a modal
-const ImageModal: React.FC<ImageModalProps> = ({ imgUrl, setSelectImage }) => {
-  const { setIsModalOpen } = useAppContext();
-  return (
-    <div className="w-full h-full flex flex-col justify-center items-center gap-3">
-      <div
-        style={{ maxWidth: '500px', maxHeight: '700px' }}
-        className="overflow-auto p-1"
-      >
-        <img
-          src={imgUrl}
-          alt="Uploaded Image File"
-          className="aspect-video object-contain w-full"
-        />
-      </div>
-      <div className="flex justify-center gap-4">
-        <button
-          className="btn px-4 py-2"
-          onClick={() => {
-            setIsModalOpen(false);
-            setSelectImage(null);
-            toast.info('Image Removed');
-          }}
+const ImageModal: React.FC<ImageModalProps> = React.memo(
+  ({ imgUrl, setSelectImage }) => {
+    const { setIsModalOpen } = useAppContext();
+    return (
+      <div className="w-full h-full flex flex-col justify-center items-center gap-3">
+        <div
+          style={{ maxWidth: '500px', maxHeight: '700px' }}
+          className="overflow-auto p-1"
         >
-          Remove Image
-        </button>
-        <button
-          className="btn px-4 py-2"
-          onClick={() => {
-            setIsModalOpen(false);
-          }}
-        >
-          Close
-        </button>
+          <img
+            src={imgUrl}
+            alt="Uploaded Image File"
+            className="aspect-video object-contain w-full"
+          />
+        </div>
+        <div className="flex justify-center gap-4">
+          <button
+            className="btn px-4 py-2"
+            onClick={() => {
+              setIsModalOpen(false);
+              setSelectImage(null);
+              toast.info('Image Removed');
+            }}
+          >
+            Remove Image
+          </button>
+          <button
+            className="btn px-4 py-2"
+            onClick={() => {
+              setIsModalOpen(false);
+            }}
+          >
+            Close
+          </button>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);
 
 export default NewPost;

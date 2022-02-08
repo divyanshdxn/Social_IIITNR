@@ -24,9 +24,9 @@ import { join } from 'path/posix';
       isGlobal: true,
       load: [],
     }),
-    //ServeStaticModule.forRoot({
-    //rootPath: join(__dirname, '..', '..', 'client/build'),
-    //}),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'client/build'),
+    }),
     ProfileModule,
     MediaModule,
     PagesModule,

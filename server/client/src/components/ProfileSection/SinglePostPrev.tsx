@@ -29,7 +29,7 @@ const SinglePostPrev: React.FC<Props> = ({ data, isLoading }) => {
       dark:bg-d-background_variant z-0"
       >
         <img
-          src={getMedia(data.media)[0][0]}
+          src={getMedia(data.media)[0].url}
           alt=""
           className="object-cover h-full w-full"
         />
