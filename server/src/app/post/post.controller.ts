@@ -47,6 +47,12 @@ export class PostController {
     return this.postService.create(createPostDto, profile, file);
   }
 
+  @Get('user/:userId')
+  //@UseGuards(AuthorizationGuard)
+  findOneByUser(@Param('userId') userId: string) {
+    return this.postService.findAllByUserId(userId);
+  }
+
   /* get all posts, only a signed in user can see all the posts 
     [GET] /post
   */
@@ -61,12 +67,6 @@ export class PostController {
   @UseGuards(AuthorizationGuard)
   findOne(@Param('postId') postId: string) {
     return this.postService.fingById(postId);
-  }
-
-  @Get('user/:userId')
-  @UseGuards(AuthorizationGuard)
-  findOneByUser(@Param('userId') userId: string) {
-    return this.postService.findAllByUserId(userId);
   }
 
   /* 
