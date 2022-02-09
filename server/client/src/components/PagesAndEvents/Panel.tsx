@@ -2,7 +2,7 @@ import useAppContext from '../../hooks/useAppContext';
 
 interface Props {
   type: 'events' | 'pages';
-  buttons: [string, JSX.Element?][];
+  buttons: [string, (JSX.Element | (() => void))?][];
   children?: React.ReactNode;
 }
 
@@ -39,7 +39,13 @@ const PagesAndEventsPanel: React.FC<Props> = ({ type, buttons, children }) => {
             className="btn flex justify-center items-center text-xs capitalize py-2 w-24 text-white"
             key={index}
             onClick={() => {
-              btn[1] && handleClick(btn[1]);
+              if (btn[1]) {
+                if (btn[1] instanceof Function) {
+                  btn[1]();
+                } else {
+                  handleClick(btn[1]);
+                }
+              }
             }}
           >
             {btn[0]}

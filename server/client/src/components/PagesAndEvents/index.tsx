@@ -1,10 +1,11 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import NewPage from '../NewPage';
 import PagesListPrev from './PagesListPrev';
 import PagesAndEventsPanel from './Panel';
 
 interface Props {}
 const PagesAndEvents: React.FC<Props> = () => {
+  const nav = useNavigate();
   return (
     <div
       className="sticky translate-y-6 mx-8 right-10 top-12 
@@ -15,7 +16,12 @@ const PagesAndEvents: React.FC<Props> = () => {
       <PagesAndEventsPanel
         type="pages"
         buttons={[
-          ['Join', <Navigate to="/app/pages" />],
+          [
+            'Join',
+            () => {
+              nav('/app/pages');
+            },
+          ],
           ['Create', <NewPage />],
         ]}
         children={<PagesListPrev />}

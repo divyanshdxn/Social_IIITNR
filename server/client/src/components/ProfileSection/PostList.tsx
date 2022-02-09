@@ -36,7 +36,7 @@ const PostList: React.FC<Props> = ({ userID, owner }) => {
       <h2 className="text-lg ml-1">Your Posts</h2>
       <div
         className="flex flex-col justify-start gap-3 w-full h-full 
-	  overflow-y-auto py-1 px-1 scrollbar-thin scrollbar-thumb-primary dark:scrollbar-thumb-d-primary scrollbar-track-transparent "
+	  overflow-y-auto py-1 px-1 "
       >
         {state.myPosts.map((item, index) => {
           return <SinglePostPrev data={item} key={index} />;

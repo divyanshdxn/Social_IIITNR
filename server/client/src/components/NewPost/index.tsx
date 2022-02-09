@@ -104,7 +104,7 @@ const NewPost: React.FC<Props> = () => {
       <button
         className="rounded-full object-cover w-16 overflow-hidden
        bg-background_variant dark:bg-d-background_variant border-2
-        border-transparent group relative"
+        group relative"
         onClick={() => {
           if (!selectedImage) {
             toast.info('Please upload an image to view...');

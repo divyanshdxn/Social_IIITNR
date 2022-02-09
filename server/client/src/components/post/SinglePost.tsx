@@ -54,7 +54,7 @@ const SinglePost: React.FC<Props> = ({ post }) => {
             onClick={handleLike}
           >
             <BsHeart
-              className={`absolute h-[20px] w-[20px] text-red-600 
+              className={`absolute h-[20px] w-[20px] text-gray-600 
             inset-0 group-hover:bg-background dark:group-hover:bg-d-background_variant
                 transition-opacity group-hover:opacity-0`}
             />

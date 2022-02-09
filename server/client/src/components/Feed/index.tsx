@@ -26,9 +26,24 @@ const Feed: React.FC<Props> = () => {
           return <SinglePost post={item} key={index} />;
         })
       )}
-      <div className="flex justify-center my-2 w-full text-text-secondary">
-        You have reached the end of the feed.
-      </div>
+      {!isLoading && (
+        <div className="flex flex-col justify-center  items-center mt-3 mb-5 w-full text-text-secondary">
+          You have reached the end of the feed.
+          <div className="flex gap-3 text-xs">
+            {/* <button>
+            <span className="text-text-primary">Load More</span>
+          </button> */}
+            <button
+              className="cursor-pointer"
+              onClick={() => {
+                window.scrollTo(0, 0);
+              }}
+            >
+              <span className="text-text-primary">Go to the top</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
