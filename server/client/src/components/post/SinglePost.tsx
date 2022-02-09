@@ -3,18 +3,22 @@ import getMedia from '../../helpers/getMedia';
 import useApi from '../../hooks/useApi';
 import SinglePostResponse from '../../types/response/SinglePostResponse';
 import SingleProfileResponse from '../../types/response/SingleProfileResponse';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   post: SinglePostResponse;
 }
 
 const SinglePost: React.FC<Props> = ({ post }) => {
+  const [isLiked, setIsLiked] = useState(false);
   const { data } = useApi<any, SingleProfileResponse>(
     `/api/profile/${post.profileUserId}`,
     'get',
   );
   const [isReadMore, setIsReadMore] = useState(true);
-  useEffect(() => {});
+  const handleLike = async () => {
+    setIsLiked(!isLiked);
+  };
 
   return (
     <div
@@ -45,11 +49,29 @@ const SinglePost: React.FC<Props> = ({ post }) => {
       )}
       <div className="flex justify-between dark:invert h-5 px-1">
         <div className="flex gap-5 ">
-          <img src="/assets/like.svg" alt="" />
-          <img src="/assets/comment.svg" alt="" />
-          <img src="/assets/share.svg" alt="" />
+          <div
+            className="relative h-[20.5px] w-[20.5px] group cursor-pointer"
+            onClick={handleLike}
+          >
+            <BsHeart
+              className={`absolute h-[20px] w-[20px] text-red-600 
+            inset-0 group-hover:bg-background dark:group-hover:bg-d-background_variant
+                transition-opacity group-hover:opacity-0`}
+            />
+            <BsHeartFill
+              className={`absolute h-[20px] w-[20px] 
+                transition-opacity opacity-${isLiked ? '100' : '0'} 
+                text-red-600 dark:hover:text-d-background_variant
+                ${
+                  isLiked || 'group-hover:opacity-50'
+                } dark:group-hover:opacity-70 z-20
+                `}
+            />
+          </div>
+          <img src="/assets/comment.svg" />
+          <img src="/assets/share.svg" />
         </div>
-        <img src="/assets/ellipsis.svg" alt="" />
+        <img src="/assets/ellipsis.svg" />
       </div>
       <div className="text-sm flex flex-col items-start">
         <span>

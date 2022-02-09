@@ -26,9 +26,9 @@ export const protectedRoutes: RoutePath[] = [
 const ProtectedRoutes: React.FC = () => {
   return (
     <main className="overflow-auto ">
+      <Navigation />
       <div className="flex min-h-full h-max w-full justify-between items-stretch px-8 sm:pl-0 lg:pr-0 ">
         <ProfileSection hide={true} />
-        <Navigation />
         <RequireAuth>
           <Outlet />
         </RequireAuth>
