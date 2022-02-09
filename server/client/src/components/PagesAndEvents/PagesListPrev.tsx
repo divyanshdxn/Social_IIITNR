@@ -59,7 +59,8 @@ const PagesListPrev: React.FC<Props> = () => {
                   className="text-xs flex  text-text-secondary dark:text-d-text-secondary
 				justify-center items-center gap-3"
                 >
-                  <div className="flex">
+                  <div className="flex text-text-secondary dark:text-d-text-secondary
+				   justify-center items-center">
                     Followers{' '}
                     <BsDot className="text-primary dark:text-d-primary" /> 1{' '}
                   </div>

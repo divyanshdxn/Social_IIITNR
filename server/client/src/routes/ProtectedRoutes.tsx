@@ -24,13 +24,19 @@ export const protectedRoutes: RoutePath[] = [
 ];
 
 const ProtectedRoutes: React.FC = () => {
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const scrollToTop = () => {
+    scrollRef.current?.scrollTo(0, 0);
+  };
   return (
-    <main className="overflow-auto ">
+    <main className="overflow-auto " ref={scrollRef}>
       <Navigation />
       <div className="flex min-h-full h-max w-full justify-between items-stretch px-8 sm:pl-0 lg:pr-0 ">
-        <ProfileSection hide={true} />
         <RequireAuth>
-          <Outlet />
+          <>
+            <ProfileSection hide={true} />
+            <Outlet />
+          </>
         </RequireAuth>
       </div>
     </main>

@@ -5,8 +5,31 @@
 *,
 *::after,
 *::before {
-  @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-primary dark:scrollbar-thumb-d-primary;
   box-sizing: border-box;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.overflow-x-auto::-webkit-scrollbar,
+.overflow-y-auto::-webkit-scrollbar {
+  width: 5px !important;
+  height: 5px !important;
+}
+
+.overflow-x-auto::-webkit-scrollbar,
+.overflow-y-auto::-webkit-scrollbar {
+  display: block;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track,
+.overflow-y-auto::-webkit-scrollbar-track {
+  background-color: #f7f7f7 !important;
+  border-radius: 2px !important;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb,
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  border-radius: 10px !important;
+  background-color: theme('colors.primary') !important;
 }
 
 body,
