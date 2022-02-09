@@ -2,6 +2,7 @@ import PagesResponse from '../../types/response/PagesResponse';
 import { BsDot } from 'react-icons/bs';
 import useApi from '../../hooks/useApi';
 import { useEffect, useState } from 'react';
+import getMedia from '../../helpers/getMedia';
 interface Props {}
 
 const PagesListPrev: React.FC<Props> = () => {
@@ -47,7 +48,7 @@ const PagesListPrev: React.FC<Props> = () => {
 	   			rounded-full overflow-hidden"
               >
                 <img
-                  src={`/api/media/${page.media}`}
+                  src={getMedia(page.media)[0].url}
                   alt={page.title}
                   className="w-full object-cover aspect-square"
                 />

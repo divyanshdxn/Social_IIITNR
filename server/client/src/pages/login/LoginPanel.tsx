@@ -2,7 +2,7 @@ import React, { HTMLAttributes, useState } from 'react';
 import {
   GoogleLogin,
   GoogleLoginResponse,
-  GoogleLoginResponseOffline,
+  GoogleLoginResponseOffline
 } from 'react-google-login';
 import Logo from '../../components/Icons/Logo';
 import features from '../../data/features';

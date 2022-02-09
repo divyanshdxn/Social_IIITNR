@@ -42,4 +42,12 @@ export class Profile extends BaseEntity {
     inverseJoinColumn: { name: 'profile' },
   })
   adminOfPages: Page[];
+
+  // Create a many to many relation for storing liked posts
+  @ManyToMany(() => Post, (post) => post.likes, { onDelete: 'SET NULL' })
+  @JoinTable({
+    joinColumn: { name: 'profile' },
+    inverseJoinColumn: { name: 'post' },
+  })
+  likes: Post[];
 }

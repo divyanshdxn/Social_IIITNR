@@ -1,7 +1,7 @@
 import React from 'react';
-import { Route, Routes, Outlet } from 'react-router';
-import { Error } from '../components/Error';
+import { Outlet } from 'react-router';
 import Navigation from '../components/Navigation';
+import ProfileSection from '../components/ProfileSection';
 import { RequireAuth } from '../components/RequireAuth';
 import Events from '../pages/events';
 import Home from '../pages/home';
@@ -25,11 +25,14 @@ export const protectedRoutes: RoutePath[] = [
 
 const ProtectedRoutes: React.FC = () => {
   return (
-    <main className="">
+    <main className="overflow-auto ">
       <Navigation />
-      <RequireAuth>
-        <Outlet />
-      </RequireAuth>
+      <div className="flex min-h-full h-max w-full justify-between items-stretch px-8 sm:pl-0 lg:pr-0 ">
+        <ProfileSection hide={true} />
+        <RequireAuth>
+          <Outlet />
+        </RequireAuth>
+      </div>
     </main>
   );
 };

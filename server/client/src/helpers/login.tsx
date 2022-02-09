@@ -1,8 +1,6 @@
-import GoogleLogin, {
-  GoogleLoginResponse,
-  GoogleLoginResponseOffline,
+import {
+  GoogleLoginResponse
 } from 'react-google-login';
-import { useAuth } from '../hooks/useAuth';
 import SingleProfileResponse from '../types/response/SingleProfileResponse';
 import { apiGetOrDelete } from './apiRequest';
 

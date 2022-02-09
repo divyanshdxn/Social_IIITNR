@@ -13,4 +13,4 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 // Get a reference to the storage service, which is used to create references in your storage bucket
-const storage = getStorage(firebaseApp);
+export const storage = getStorage(firebaseApp);

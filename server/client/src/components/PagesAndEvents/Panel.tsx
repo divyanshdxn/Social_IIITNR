@@ -1,4 +1,3 @@
-import useApi from '../../hooks/useApi';
 import useAppContext from '../../hooks/useAppContext';
 
 interface Props {

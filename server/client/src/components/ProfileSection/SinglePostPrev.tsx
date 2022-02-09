@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import getMedia from '../../helpers/getMedia';
 import useAppContext from '../../hooks/useAppContext';
 import PostByUserResponse from '../../types/response/PostsByUserResponse';
 import ModifyDeletePost from '../ModifyDeletePost';
@@ -18,13 +19,17 @@ const SinglePostPrev: React.FC<Props> = ({ data, isLoading }) => {
   return (
     <div
       className="flex w-full h-16 rounded-md overflow-hidden 
-	shadow-gray-400 dark:shadow-gray-700 shadow-sm group cursor-pointer items-center"
+	shadow-gray-400 dark:shadow-gray-700 shadow-sm group 
+  cursor-pointer items-center"
       style={{ minHeight: '4rem' }}
       onClick={handleViewMore}
     >
-      <div className="h-full aspect-square bg-background_variant dark:bg-d-background_variant z-0">
+      <div
+        className="h-full aspect-square bg-background_variant 
+      dark:bg-d-background_variant z-0"
+      >
         <img
-          src={`/api/media/${data.media[0]}`}
+          src={getMedia(data.media)[0].url}
           alt=""
           className="object-cover h-full w-full"
         />

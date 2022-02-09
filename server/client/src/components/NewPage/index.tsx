@@ -1,10 +1,5 @@
 import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  FormEvent,
-  ReactText,
-  useRef,
-  useState,
+  ChangeEvent, FormEvent, useState
 } from 'react';
 import { BsCameraFill } from 'react-icons/bs';
 import { toast } from 'react-toastify';

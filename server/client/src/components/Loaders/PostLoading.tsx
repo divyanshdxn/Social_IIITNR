@@ -1,7 +1,6 @@
 import React from 'react';
-import ContentLoader, { Instagram } from 'react-content-loader';
+import ContentLoader from 'react-content-loader';
 import useAppContext from '../../hooks/useAppContext';
-import useDarkMode from '../../hooks/useDarkMode';
 
 const PostLoading: React.FC = (props) => {
   const { darkMode } = useAppContext();

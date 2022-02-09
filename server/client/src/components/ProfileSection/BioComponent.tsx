@@ -1,8 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { MyProfileContextValue } from '../../contexts/MyProfileReducerContext';
-import useDarkMode from '../../hooks/useDarkMode';
+import React, { useEffect, useState } from 'react';
 import { useMyProfileContext } from '../../hooks/useMyProfileContext';
-import SingleProfileResponse from '../../types/response/SingleProfileResponse';
 import EditIcon from '../Icons/EditIcon';
 
 interface Props {
@@ -10,7 +7,7 @@ interface Props {
 }
 
 const Bio: React.FC<Props> = ({ edit }) => {
-  const { state, dispatch } = useMyProfileContext();
+  const { state } = useMyProfileContext();
   const [bio, setBio] = useState('');
   useEffect(() => {
     console.log(`bio: ${state?.profile?.bio}`);
@@ -24,9 +21,6 @@ const Bio: React.FC<Props> = ({ edit }) => {
     }
     console.log(state);
   }, [state]);
-  const noBio = edit
-    ? "You don't have a bio"
-    : `${state?.profile?.firstName} doen't have a bio`;
   return (
     <form
       className={`flex relative w-full justify-between border-b-2

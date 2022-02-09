@@ -1,7 +1,5 @@
 // Create a component AllPages that renders the PagesList component.
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import PagesListPrev from '../PagesAndEvents/PagesListPrev';
+import React from 'react';
 import ListAllPages from './ListAllPages';
 
 interface Props {}

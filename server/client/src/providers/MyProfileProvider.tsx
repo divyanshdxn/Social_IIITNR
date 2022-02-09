@@ -1,7 +1,4 @@
-import MyProfileReducerContext, {
-  MyProfileContextValue,
-} from '../contexts/MyProfileReducerContext';
-import { MyProfileReducerState } from '../reducers/MyPostsReducer';
+import MyProfileReducerContext from '../contexts/MyProfileReducerContext';
 
 interface Props {
   children?: React.ReactNode;

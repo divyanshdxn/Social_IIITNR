@@ -38,7 +38,7 @@ export class ProfileService {
           email: createProfileDto.email,
         })
         .catch((e) => {
-          console.log('error in createProfil:', e);
+          console.log('error in createProfile:', e);
         });
       console.log('Existing Profile:', profile);
       if (!profile) {

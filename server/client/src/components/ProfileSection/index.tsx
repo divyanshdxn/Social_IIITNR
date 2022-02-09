@@ -21,8 +21,10 @@ const ProfileSection: React.FC<Props> = ({ userId, hide }) => {
   const [profile, setProfile] = useState<Partial<SingleProfileResponse>>({});
   const loc = useLocation();
   useEffect(() => {
-    if (isSuccess && data && dispatch && !userId)
+    if (isSuccess && data && dispatch && !userId) {
       dispatch({ type: 'set-profile', payload: data });
+      console.log(state);
+    }
   }, [isSuccess, data, dispatch, userId]);
   useEffect(() => {
     setProfile(state.profile);
@@ -32,7 +34,7 @@ const ProfileSection: React.FC<Props> = ({ userId, hide }) => {
       className={`sticky translate-y-6 px-8 mx-8 left-10 top-12 
 	  flex-col basis-1/5 border-2  border-hints dark:border-d-hints 
 	  rounded-xl z-20 bg-background dark:bg-d-background overflow-hidden
-     ${hide && 'hidden sm:flex'}`}
+     ${hide && 'hidden sm:flex'} max-h-[1000px] min-h-[650px]`}
       style={{ height: 'calc(90% - 3rem)', minWidth: '18rem' }}
     >
       <div
