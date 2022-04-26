@@ -3,6 +3,7 @@
 Social-IIITNR (InsCon) is a social media platform geared towards solving these problems by connecting the members of the IIIT-NR family. It relies heavily on databases to store, filter search, and retrieve categorized information and provides well-structured interfaces in the form of a WebApp and Android App. Our Android App and Website include features like they would be aware of all the clubs and their events, they can share their work and be recognized by others. Students will have complete information about Training and Placement cell and E-cell updates.
  This project could be extended in the future with many more features such as making virtual rooms and an Alumni referral system. Our database has been set up using  PostGres and client access using ElephantSql and used NestJS server which uses Express at backend and is only accessible for iiitnr domains which are handled in backend only.
 
+Live Access : http://social-iiitnr.herokuapp.com/login
 
 ## Flow of project
 
