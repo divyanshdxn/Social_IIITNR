@@ -14,4 +14,4 @@ fun getFormattedTime(time: String): String {
     return "$hh:$mm, $dd ${DateFormatSymbols().months[MM - 1]}"
 }
 
-fun getMediaUrl(mediaId: String) = "${Constants.BASE_URL}api/media/${mediaId}"
+fun getMediaUrl(mediaId: String) = mediaId

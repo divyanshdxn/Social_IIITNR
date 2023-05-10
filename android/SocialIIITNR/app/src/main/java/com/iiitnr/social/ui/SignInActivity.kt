@@ -54,6 +54,9 @@ class SignInActivity : AppCompatActivity() {
                     } catch (e: Exception) {
                         shortToast("Authentication failed")
                     }
+                } else {
+                    hideLoading()
+                    shortToast("Login failed, CODE: ${it.resultCode}")
                 }
             }
 
